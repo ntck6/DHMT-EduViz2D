@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EduViz2D</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>EduViz2D</h1>
+    <p>Phòng thí nghiệm ảo 2D trên WebGL</p>
+    <output id="fps" class="fps">– FPS</output>
+  </header>
+
+  <div class="layout">
+    <nav id="menu" class="menu" aria-label="Danh sách bài học"></nav>
+
+    <main class="stage-wrap">
+      <h2 id="lesson-title"></h2>
+      <div id="stage" class="stage"></div>
+    </main>
+
+    <aside id="controls" class="controls" aria-label="Bảng điều khiển"></aside>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

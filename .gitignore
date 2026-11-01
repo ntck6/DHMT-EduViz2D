@@ -1,0 +1,11 @@
+# Cấu hình riêng của từng máy
+.claude/
+.vscode/
+
+# Thư viện cài bằng npm (PixiJS đã có sẵn trong Source code/lib)
+node_modules/
+
+# File rác của hệ điều hành
+Thumbs.db
+Desktop.ini
+.DS_Store
