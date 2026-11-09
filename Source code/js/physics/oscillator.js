@@ -21,6 +21,7 @@ export function mount(context) {
     todo: [
       'Viết Euler, Verlet, RK4 + test với nghiệm giải tích',
       'Vẽ lò xo hoặc con lắc chuyển động',
+      'Kéo quả nặng ra vị trí ban đầu rồi thả (core/drag.js)',
       'Chạy 3 integrator cạnh nhau, hiện năng lượng',
       'Xuất số liệu sai số cho Ch.4',
     ],

@@ -18,9 +18,11 @@ export function mount(context) {
     owner: 'A',
     todo: [
       'Viết BFS, DFS, Dijkstra bằng generator',
-      'Vẽ đồ thị mẫu, kéo-thả node',
-      'Tô màu node đã thăm, node đang xét, đường ngắn nhất',
-      'Nhãn bằng BitmapText',
+      'Kéo-thả node; trọng số cạnh = độ dài, tự đổi khi kéo',
+      'Bấm đúp thêm node; bấm 2 node để thêm/xóa cạnh',
+      'Chọn node đầu/cuối; đường ngắn nhất tính lại ngay khi kéo',
+      'Chọn node bằng GPU picking (webgl/picking.js)',
+      'Tô màu node đã thăm, đang xét, đường ngắn nhất; nhãn BitmapText',
     ],
   });
 }

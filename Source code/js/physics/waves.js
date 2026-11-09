@@ -54,7 +54,8 @@ export function mount({ root, app, controls, width, height }) {
   controls.heading('Việc cần làm (C)');
   controls.note('• Thay công thức trong fragment shader');
   controls.note('• Thêm uniform: vị trí 2 nguồn, bước sóng, tần số');
-  controls.note('• Kéo nguồn bằng core/drag.js');
+  controls.note('• Kéo 2 nguồn sóng bằng core/drag.js');
+  controls.note('• Bấm một điểm để hiện biên độ tại đó');
   controls.note(`• Độ phân giải hiện tại: ${app.renderer.resolution}×`);
 
   return {

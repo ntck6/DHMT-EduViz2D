@@ -23,6 +23,22 @@ Mỗi demo được làm để minh họa **một tác vụ 2D** trong báo cáo
 | Xuất PNG, toàn màn hình, phím tắt | Các API HTML5 | A | **Xong** |
 | **Benchmark** | So sánh Canvas2D / PixiJS / WebGL thuần → **số liệu Ch.4** | A | **Trang đã xong**; còn đo trên máy thật và xuất CSV |
 
+**Tương tác trực tiếp với phần tử** (chốt 09/11): mọi bài cho người học thao tác lên chính phần tử, không chỉ kéo thanh trượt.
+
+| Bài | Tương tác | Mức | Trạng thái |
+|---|---|---|---|
+| Sắp xếp (B) | Kéo-thả cột để đổi chỗ (≤ 128 cột), đếm số lần đổi, báo đã sắp xong; rê chuột vẽ chiều cao cột; rê chuột xem giá trị; mẫu dữ liệu ngẫu nhiên / đã sắp / đảo ngược / gần sắp. Khóa thao tác khi thuật toán đang chạy | Bắt buộc | **Đã có**; B nối với thuật toán |
+| Sắp xếp (B) | "Đoán bước tiếp": dừng ở mỗi lần so sánh, người học chọn đổi / không đổi | Nếu kịp | Chưa làm |
+| BFS/DFS/Dijkstra (A) | Kéo node (trọng số = độ dài), bấm đúp thêm node, bấm 2 node thêm/xóa cạnh, chọn node đầu/cuối, đường ngắn nhất tính lại ngay | Bắt buộc | Chưa làm |
+| BFS/DFS/Dijkstra (A) | Chọn node bằng GPU picking | Nếu kịp | Module `webgl/picking.js` đã có |
+| A* (B) | Rê chuột vẽ/xóa tường, kéo điểm đầu/đích | Bắt buộc | Chưa làm |
+| Ném xiên (C) | Kéo đầu mũi tên v₀; bia mục tiêu kéo được, thử bắn trúng | Bắt buộc | Chưa làm |
+| Con lắc/lò xo (C) | Kéo quả nặng rồi thả | Nếu kịp | Chưa làm |
+| Giao thoa sóng (C) | Kéo 2 nguồn; bấm một điểm xem biên độ | Bắt buộc | Chưa làm |
+| Pipeline (A) | Kéo đỉnh; rê chuột chọn bản sao bằng GPU picking | – | **Đã có** |
+
+Phần dùng chung: `js/core/hit-test.js` (chọn bằng tính toán: cột, ô lưới) và `js/webgl/picking.js` (chọn bằng GPU: framebuffer + `readPixels`).
+
 **Lưu ý kỹ thuật**
 - **Sắp xếp:** không ghi lại từng bước khi số phần tử lớn (Bubble Sort 100k phần tử cần cỡ 10¹⁰ bước). Đến khoảng 2.000 phần tử thì ghi lại để tua được; lớn hơn thì chỉ Quick/Merge/Heap chạy trực tiếp. Ngưỡng này cần B đo để chốt.
 - **Chữ:** nhãn node dùng BitmapText. Horak 2018 cho thấy chữ vẽ trong WebGL làm tụt hiệu năng.

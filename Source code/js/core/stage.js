@@ -16,6 +16,11 @@ export async function createStage(host) {
   });
   host.append(app.canvas);
 
+  // resizeTo chỉ theo dõi sự kiện resize của cửa sổ. Khung vẽ còn đổi kích thước khi
+  // bố cục trang thay đổi (bảng điều khiển dài ra, vào toàn màn hình…), nên theo dõi
+  // trực tiếp phần tử host bằng ResizeObserver của HTML5.
+  new ResizeObserver(() => app.resize()).observe(host);
+
   // Cho phép bắt sự kiện chuột ở mọi chỗ trên canvas (cần cho kéo-thả).
   app.stage.eventMode = 'static';
   app.stage.hitArea = app.screen;

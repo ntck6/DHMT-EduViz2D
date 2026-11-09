@@ -38,6 +38,7 @@ js/
     theme.js              Màu và kiểu chữ dùng chung
     placeholder.js        Màn hình tạm cho bài chưa làm
     gl-layer.js           Lớp WebGL thuần nằm dưới canvas PixiJS
+    hit-test.js           Chọn cột / ô lưới từ vị trí chuột (tính toán)
     export.js             Xuất PNG / tải file
     stage.js, fps.js      Khởi tạo PixiJS, đếm FPS
   webgl/                WebGL 2 thuần do nhóm tự viết (không qua thư viện)
@@ -45,6 +46,7 @@ js/
     matrix.js             Ma trận 3×3: chiếu, dời, xoay, co giãn, nghịch đảo
     triangulate.js        Chia đa giác thành tam giác (ear clipping)
     instanced-rects.js    Vẽ N hình chữ nhật bằng 1 lệnh drawArraysInstanced
+    picking.js            Chọn đối tượng bằng GPU (framebuffer + readPixels)
   cs/                   Bài Tin học: sorting.js, astar.js (B), graph.js (A)
   physics/              Bài Vật lý: projectile.js, oscillator.js, waves.js (C)
   tech/                 Bài kỹ thuật: pipeline.js (Pipeline WebGL từng bước)
@@ -102,8 +104,10 @@ Shader GLSL qua PixiJS Filter: xem `js/physics/waves.js`, đã nối sẵn và t
 ## WebGL thuần
 Bài muốn vẽ bằng WebGL tự viết thì gọi `createGLLayer()` trong `mount`, rồi dùng các hàm ở `js/webgl/`. PixiJS vẫn vẽ chữ và tay nắm kéo-thả đè lên trên.
 
-- Mẫu đơn giản: `js/cs/sorting.js` (vẽ cột bằng `instanced-rects.js`).
-- Mẫu đầy đủ: `js/tech/pipeline.js` (VBO, index buffer, VAO, uniform, ma trận, ear clipping, instancing).
+- Mẫu đơn giản: `js/cs/sorting.js` (vẽ cột bằng `instanced-rects.js`; kéo-thả cột bằng `core/hit-test.js`).
+- Mẫu đầy đủ: `js/tech/pipeline.js` (VBO, index buffer, VAO, uniform, ma trận, ear clipping, instancing, GPU picking).
+
+**Tương tác với phần tử vẽ bằng WebGL thuần:** đặt `root.eventMode = 'static'` và `root.hitArea = app.screen`, rồi nghe `pointerdown` / `globalpointermove` / `pointerup` trên `root` (xem `sorting.js`). Phần tử xếp đều thì tính chỉ số bằng `core/hit-test.js`; hình bất kỳ thì dùng `webgl/picking.js`.
 
 Phím tắt trong mọi bài có Play/Pause: **Space** = Play/Pause, **→** = Step, **R** = Reset. Thanh tiêu đề có nút **Xuất PNG** và **Toàn màn hình**.
 

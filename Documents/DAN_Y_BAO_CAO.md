@@ -123,7 +123,11 @@ Trình bày theo thứ tự:
 1. **Sơ đồ chung:** mô hình (thuật toán / mô phỏng) → HTML5 (canvas, `requestAnimationFrame`, sự kiện chuột) → WebGL (buffer → vertex shader → rasterization → fragment shader) → khung hình.
 2. **Nguyên lý:** vì sao GPU nhanh hơn cho 2D: xử lý song song, giảm số lần gọi vẽ.
 3. **Phương pháp và giải thuật:**
-   - Đồ họa: chia đa giác thành tam giác; ma trận chiếu 2D; gộp lệnh vẽ và instancing; khử răng cưa, SDF cho chữ; hit-test cho kéo-thả.
+   - Đồ họa: chia đa giác thành tam giác; ma trận chiếu 2D; gộp lệnh vẽ và instancing; khử răng cưa, SDF cho chữ.
+   - Tương tác (công đoạn 6, ẩn số "đối tượng nào bị chọn"): so sánh hai cách chọn đối tượng trên hình vẽ bằng WebGL:
+     - **Tính toán** (hit-test): suy chỉ số cột/ô từ tọa độ chuột. Nhanh, O(1), nhưng chỉ dùng được khi phần tử xếp đều (bài sắp xếp, A*).
+     - **GPU picking**: vẽ lại cảnh bằng "màu mã" vào framebuffer ẩn rồi `readPixels` tại vị trí chuột. Đúng với mọi hình dạng, kể cả hàng chục nghìn bản sao instancing, đổi lại phải vẽ thêm một lượt và chờ GPU trả dữ liệu (bài pipeline, đồ thị).
+   - Vòng lặp tương tác: sự kiện chuột (HTML5) → cập nhật dữ liệu → nạp lại buffer (`bufferSubData`) → vẽ lại.
    - Mô hình: thuật toán viết dưới dạng chuỗi bước để phát lại (sắp xếp, BFS/DFS/Dijkstra, A*); tích phân số Euler / Verlet / RK4; công thức giao thoa sóng trong fragment shader.
 4. **Minh họa:** đoạn code ngắn + hình chụp từ app.
 5. **Tiến trình hoạt động** (MANUAL_FAULT mục 5): đi qua một khung hình cụ thể bằng bài **Pipeline WebGL từng bước**, chụp hình 5 bước: đỉnh → chia tam giác → ma trận → fragment shader → instancing. Sau đó lấy ví dụ bài ném xiên: tham số → vị trí tại t → tọa độ điểm ảnh → tam giác → điểm ảnh.
@@ -150,6 +154,9 @@ Trình bày theo thứ tự:
 | Chia đa giác thành tam giác (ear clipping) | `js/webgl/triangulate.js` | Nhóm |
 | `drawArrays`, `drawElements`, `drawArraysInstanced`, `drawElementsInstanced` | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js` | Nhóm |
 | Đếm lệnh vẽ; độ phân giải theo `devicePixelRatio` | `js/webgl/gl-utils.js` | Nhóm |
+| Framebuffer, texture, `readPixels` (GPU picking) | `js/webgl/picking.js`, dùng ở `js/tech/pipeline.js` | Nhóm |
+| Chọn đối tượng bằng tính toán (hit-test) | `js/core/hit-test.js`, dùng ở `js/cs/sorting.js` | Nhóm |
+| ResizeObserver (khung vẽ tự đổi kích thước) | `js/core/stage.js` | Nhóm |
 | Gộp lệnh vẽ (batching), ParticleContainer, Text/BitmapText, Filter | Các bài dùng PixiJS | PixiJS (nhóm giải thích cơ chế) |
 
 ## Chương 4. Cài đặt và thử nghiệm *(cả nhóm; A tổng hợp)*
@@ -161,7 +168,7 @@ Trình bày theo thứ tự:
 | Ném xiên | Vật lý | Vẽ vector (trục, đường cong, chữ) + animation theo thời gian | Cả hai | C (bản đầu đã có) |
 | Con lắc/lò xo | Vật lý | Cập nhật trạng thái theo thời gian | Động | C |
 | Giao thoa sóng | Vật lý | Tính màu từng điểm ảnh bằng fragment shader | Động | C |
-| Sắp xếp | Tin học | Vẽ rất nhiều đối tượng bằng **WebGL thuần** (instancing) | Động | B (phần vẽ đã có) |
+| Sắp xếp | Tin học | Vẽ rất nhiều đối tượng bằng **WebGL thuần** (instancing); kéo-thả đổi chỗ, vẽ dữ liệu bằng chuột (hit-test) | Động | B (phần vẽ + tương tác đã có) |
 | BFS/DFS/Dijkstra | Tin học | Tương tác chọn, kéo-thả; vẽ chữ hiệu quả | Cả hai | A |
 | A* | Tin học | Lưới nhiều ô, cập nhật từng ô | Động | B |
 | Pipeline WebGL từng bước | Kỹ thuật | Toàn bộ pipeline WebGL thuần: đỉnh, chia tam giác, ma trận, shader, instancing | Cả hai | A (đã xong) |

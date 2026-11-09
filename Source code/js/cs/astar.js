@@ -19,7 +19,8 @@ export function mount(context) {
     owner: 'B',
     todo: [
       'Viết A* và Dijkstra trên lưới bằng generator',
-      'Vẽ lưới; kéo chuột để vẽ / xóa tường',
+      'Vẽ lưới (có thể dùng instanced-rects.js); rê chuột vẽ / xóa tường (core/hit-test.js: cellAt)',
+      'Kéo điểm đầu và điểm đích; đường đi cập nhật ngay',
       'Tô màu ô đã duyệt, ô chờ, đường đi',
       'Đếm số ô đã duyệt của từng thuật toán',
     ],

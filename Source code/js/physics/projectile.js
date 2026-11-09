@@ -1,4 +1,6 @@
 // Ném xiên – người phụ trách: C. Bài mẫu đầy đủ cho cả nhóm tham khảo.
+// VIỆC CỦA C (tương tác trực tiếp): kéo đầu mũi tên v₀ để đổi góc và vận tốc
+// (core/drag.js); thêm bia mục tiêu kéo được và thử bắn trúng.
 import { Container, Graphics } from '../pixi.js';
 import { COLOR } from '../core/theme.js';
 import { fitView } from '../core/view.js';

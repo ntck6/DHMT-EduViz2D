@@ -7,13 +7,15 @@
 //                   chỉ số nằm trong index buffer, vẽ khung dây bằng gl.LINES
 //   3. Biến đổi   – ma trận model (phóng to, xoay) gửi lên GPU qua uniform
 //   4. Tô màu     – fragment shader tô màu từng điểm ảnh theo khoảng cách tới tâm
-//   5. Instancing – N bản sao: 1 lệnh drawElementsInstanced so với N lệnh drawElements
+//   5. Instancing – N bản sao: 1 lệnh drawElementsInstanced so với N lệnh drawElements;
+//                   rê chuột lên một bản sao để chọn nó bằng GPU picking (webgl/picking.js)
 // PixiJS chỉ vẽ tay nắm kéo-thả và chữ chú thích đè lên trên.
 import { Container, Graphics, Text } from '../pixi.js';
 import { COLOR, LABEL_STYLE } from '../core/theme.js';
 import { addLabel } from '../core/draw.js';
 import { makeDraggable } from '../core/drag.js';
 import { countDrawCalls, createBuffer, createProgram } from '../webgl/gl-utils.js';
+import { createPicker } from '../webgl/picking.js';
 import { invert, multiply, ortho2D, rotate, scale, transformPoint, translate } from '../webgl/matrix.js';
 import { triangulate } from '../webgl/triangulate.js';
 
@@ -22,7 +24,7 @@ const STEPS = [
   { value: 'triangles', label: '2. Chia tam giác', hint: 'Bước 2: GPU chỉ vẽ được tam giác. Ear clipping chia đa giác lõm thành n − 2 tam giác.' },
   { value: 'transform', label: '3. Biến đổi (ma trận)', hint: 'Bước 3: ma trận model (phóng to, xoay) được gửi lên GPU qua uniform; vertex shader nhân từng đỉnh.' },
   { value: 'fill', label: '4. Tô màu (fragment shader)', hint: 'Bước 4: fragment shader tính màu cho từng điểm ảnh bên trong các tam giác.' },
-  { value: 'instancing', label: '5. Instancing', hint: 'Bước 5: vẽ nhiều bản sao. Bật instancing: 1 lệnh vẽ; tắt: mỗi bản sao 1 lệnh vẽ.' },
+  { value: 'instancing', label: '5. Instancing', hint: 'Bước 5: vẽ nhiều bản sao. Bật instancing: 1 lệnh vẽ; tắt: mỗi bản sao 1 lệnh vẽ. Rê chuột lên một bản sao để chọn nó bằng GPU picking.' },
 ];
 
 const VERTEX = /* glsl */ `#version 300 es
@@ -33,13 +35,15 @@ uniform mat3 uProjection; // điểm ảnh → clip space
 uniform mat3 uModel;      // phóng to, xoay quanh tâm đa giác
 uniform float uPointSize;
 
-out vec2 vLocal; // tọa độ gốc, chuyển sang fragment shader để tô màu
+out vec2 vLocal;          // tọa độ gốc, chuyển sang fragment shader để tô màu
+flat out int vInstance;   // số thứ tự bản sao (gl_InstanceID), dùng cho GPU picking
 
 void main() {
   vec2 world = (uModel * vec3(aPosition, 1.0)).xy + aOffset;
   gl_Position = vec4((uProjection * vec3(world, 1.0)).xy, 0.0, 1.0);
   gl_PointSize = uPointSize;
   vLocal = aPosition;
+  vInstance = gl_InstanceID;
 }
 `;
 
@@ -47,14 +51,22 @@ const FRAGMENT = /* glsl */ `#version 300 es
 precision mediump float;
 
 in vec2 vLocal;
-uniform int uMode;      // 0: một màu; 1: chuyển màu theo khoảng cách tới tâm
+flat in int vInstance;
+uniform int uMode;      // 0: một màu; 1: chuyển màu theo khoảng cách tới tâm; 2: màu mã cho GPU picking
 uniform vec4 uColor;
 uniform vec2 uCenter;
 uniform float uRadius;
+uniform int uHighlight; // bản sao đang được trỏ chuột (-1: không có)
 out vec4 outColor;
 
 void main() {
-  if (uMode == 1) {
+  if (uMode == 2) {
+    // Mã hóa (số thứ tự + 1) vào 3 kênh màu, khớp với webgl/picking.js.
+    int code = vInstance + 1;
+    outColor = vec4(float(code & 255), float((code >> 8) & 255), float((code >> 16) & 255), 255.0) / 255.0;
+  } else if (uMode == 1 && vInstance == uHighlight) {
+    outColor = vec4(0.86, 0.15, 0.15, 1.0);
+  } else if (uMode == 1) {
     float t = clamp(length(vLocal - uCenter) / uRadius, 0.0, 1.0);
     outColor = vec4(mix(vec3(0.15, 0.39, 0.92), vec3(0.92, 0.35, 0.05), t), 1.0);
   } else {
@@ -77,10 +89,12 @@ function rgba(color, alpha = 1) {
   return [((color >> 16) & 255) / 255, ((color >> 8) & 255) / 255, (color & 255) / 255, alpha];
 }
 
-export function mount({ root, controls, width, height, createGLLayer }) {
+export function mount({ root, app, controls, width, height, createGLLayer }) {
   const layer = createGLLayer();
   const gl = layer.gl;
   const drawCalls = countDrawCalls(gl);
+  const picker = createPicker(gl);
+  picker.resize(width, height);
 
   const state = {
     step: 'points',
@@ -88,6 +102,7 @@ export function mount({ root, controls, width, height, createGLLayer }) {
     angleDeg: 0,
     instances: 100,
     useInstancing: true,
+    hovered: -1, // bản sao đang được trỏ chuột (GPU picking)
     vertices: starPolygon(width / 2, height / 2, Math.min(width, height) * 0.35),
   };
   let size = { width, height };
@@ -100,7 +115,7 @@ export function mount({ root, controls, width, height, createGLLayer }) {
   // ---- Dữ liệu trên GPU --------------------------------------------------
   const program = createProgram(gl, VERTEX, FRAGMENT);
   const u = Object.fromEntries(
-    ['uProjection', 'uModel', 'uPointSize', 'uMode', 'uColor', 'uCenter', 'uRadius']
+    ['uProjection', 'uModel', 'uPointSize', 'uMode', 'uColor', 'uCenter', 'uRadius', 'uHighlight']
       .map((name) => [name, gl.getUniformLocation(program, name)]),
   );
 
@@ -190,6 +205,7 @@ export function mount({ root, controls, width, height, createGLLayer }) {
     gl.uniform2f(u.uCenter, center.x, center.y);
     gl.uniform1f(u.uRadius, r);
     gl.uniform1f(u.uPointSize, 10 * (window.devicePixelRatio || 1));
+    gl.uniform1i(u.uHighlight, instancing && state.useInstancing ? state.hovered : -1);
     gl.bindVertexArray(vao);
     gl.disableVertexAttribArray(1);
     gl.vertexAttrib2f(1, 0, 0); // khi tắt mảng, attribute dùng giá trị hằng này
@@ -240,6 +256,28 @@ export function mount({ root, controls, width, height, createGLLayer }) {
     }
     updateReadouts();
   }
+
+  // ---- GPU picking: bản sao nào đang nằm dưới chuột -----------------------
+  // Vẽ lại các bản sao bằng màu mã (uMode = 2) vào framebuffer ẩn rồi đọc màu tại chuột.
+  function pickInstance(x, y) {
+    return picker.pick(x, y, () => {
+      gl.useProgram(program);
+      gl.uniform1i(u.uMode, 2);
+      gl.bindVertexArray(vao);
+      gl.enableVertexAttribArray(1);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, triangleIndexBuffer);
+      gl.drawElementsInstanced(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0, state.instances);
+      gl.bindVertexArray(null);
+    });
+  }
+
+  root.eventMode = 'static';
+  root.hitArea = app.screen;
+  root.on('globalpointermove', (event) => {
+    if (state.step !== 'instancing' || !state.useInstancing) return;
+    state.hovered = pickInstance(event.global.x, event.global.y);
+    showPicked(state.hovered >= 0 ? `#${state.hovered}` : '–');
+  });
 
   // ---- Lớp PixiJS: tay nắm kéo đỉnh + chú thích --------------------------
   const handles = new Container();
@@ -305,6 +343,8 @@ export function mount({ root, controls, width, height, createGLLayer }) {
   const showCalls = controls.readout('Lệnh vẽ');
   const showCpu = controls.readout('CPU gửi lệnh vẽ');
   const showMatrix = controls.readout('uModel');
+  const showPicked = controls.readout('Bản sao dưới chuột (GPU picking)');
+  showPicked('–');
   controls.note('Kéo các vòng tròn P0, P1… để đổi hình; tam giác được chia lại ngay.');
 
   function updateReadouts() {
@@ -336,6 +376,7 @@ export function mount({ root, controls, width, height, createGLLayer }) {
       const sy = nextHeight / size.height;
       state.vertices = state.vertices.map((p) => ({ x: p.x * sx, y: p.y * sy }));
       size = { width: nextWidth, height: nextHeight };
+      picker.resize(nextWidth, nextHeight);
       hint.style.wordWrapWidth = nextWidth - 24;
       uploadGeometry();
       refresh();

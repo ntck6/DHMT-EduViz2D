@@ -119,6 +119,15 @@ body {
 .ctl-readout { display: flex; justify-content: space-between; margin-bottom: 2px; }
 .ctl-readout output { font-variant-numeric: tabular-nums; font-weight: 600; }
 
+/* Màn hình rộng: cả trang vừa khít cửa sổ, khung vẽ không bị đẩy xuống dưới mép màn hình
+   (cần cho kéo-thả). Menu và bảng điều khiển tự cuộn khi dài. */
+@media (min-width: 901px) {
+  body.app { height: 100vh; }
+  body.app .layout { min-height: 0; grid-template-rows: minmax(0, 1fr); }
+  body.app .menu, body.app .controls { overflow: auto; }
+  body.app .stage { min-height: 300px; }
+}
+
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }
   .topbar { flex-wrap: wrap; }
