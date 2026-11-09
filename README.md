@@ -1,6 +1,6 @@
 # DHMT – EduViz2D
 
-Đồ án 1.2 môn Đồ họa máy tính: HTML5 + WebGL cho các tác vụ 2D (tĩnh và động).
+Đồ án môn Đồ họa máy tính: xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục.
 
 | Thư mục | Nội dung |
 |---|---|

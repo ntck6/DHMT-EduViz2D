@@ -1,10 +1,10 @@
-# Kế hoạch đồ án 1.2 – HTML5 + WebGL cho các tác vụ 2D (tĩnh và động)
+# Kế hoạch đồ án – Ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục
 
 Bản gộp ngày 09/11, thay cho các bản kế hoạch trước. Bản cũ vẫn xem được trong lịch sử Git.
 
 ## 1. Đề tài và thầy cần gì
-- **Tên đề chính thức:** *Đồ án 1.2. Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ thiết kế logo.* Yêu cầu: *trình bày cách sử dụng HTML5 + WebGL trong các tác vụ 2D (tĩnh và động).*
-- **Lĩnh vực minh họa:** nhóm xin đổi từ thiết kế logo sang hỗ trợ giáo dục (Tin học, Vật lý), **đang chờ thầy xác nhận** (xem `PROJECT_NAME.md`).
+- **Tên đề:** *Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục.* Yêu cầu: *trình bày cách sử dụng HTML5 + WebGL trong các tác vụ 2D (tĩnh và động).*
+- **Lĩnh vực:** hỗ trợ giáo dục (Tin học, Vật lý), đã chốt thay cho hướng thiết kế logo của đề gốc (xem `PROJECT_NAME.md`).
 - **Sản phẩm chính là báo cáo nghiên cứu** theo dàn ý `DAN_Y_BAO_CAO.md`. Web app EduViz2D chỉ là chương trình minh họa cho Ch.3–4.
 - **Nộp bài:** 8 thư mục theo `REGULATION.md`, gửi link Drive đúng ngày thi lý thuyết (không trước, không sau).
 
@@ -18,7 +18,7 @@ Mỗi demo được làm để minh họa **một tác vụ 2D** trong báo cáo
 | BFS/DFS/Dijkstra | Tương tác chọn, kéo-thả; vẽ chữ | A | Chưa làm |
 | A* | Lưới nhiều ô cập nhật theo bước | B | Chưa làm |
 | Con lắc/lò xo | Cập nhật trạng thái theo thời gian | C | Chưa làm |
-| Giao thoa sóng | Tính màu từng điểm ảnh bằng fragment shader | C | Chưa làm |
+| Giao thoa sóng | Tính màu từng điểm ảnh bằng fragment shader; kèm bản tính trên CPU để đo GPU nhanh hơn bao nhiêu | C | Shader đã nối sẵn, chưa có công thức |
 | Xuất PNG | Xuất ảnh tĩnh | A | Chưa làm |
 | **Benchmark** | So sánh Canvas2D / PixiJS / WebGL thuần → **số liệu Ch.4** | A | Chưa làm, **ưu tiên cao** |
 
@@ -32,9 +32,9 @@ Mỗi demo được làm để minh họa **một tác vụ 2D** trong báo cáo
 ## 3. Phân công
 | Thành viên | Code | Báo cáo (theo `DAN_Y_BAO_CAO.md`) | Khác |
 |---|---|---|---|
-| **A – Leader** | Khung app (đã có), BFS/DFS/Dijkstra, kéo-thả, xuất PNG, **benchmark** | Ch.1; khung Ch.2 + gộp bảng; Ch.3 phần pipeline HTML5/WebGL; Ch.4 phần hiệu năng; Ch.5; tổng hợp Doc | Personal Information, quản lý Drive, **xin thầy xác nhận đổi lĩnh vực** |
+| **A – Leader** | Khung app (đã có), BFS/DFS/Dijkstra, kéo-thả, xuất PNG, **benchmark** | Ch.1; khung Ch.2 + gộp bảng; Ch.3 phần pipeline HTML5/WebGL; Ch.4 phần hiệu năng; Ch.5; tổng hợp Doc | Personal Information, quản lý Drive |
 | **B** | Sắp xếp, A*, ghi lại từng bước để tua | Ch.2 phần của mình; Ch.3 phần batching/instancing; Ch.4 phần sắp xếp/A* | **Slide** |
-| **C** | Ném xiên, con lắc/lò xo, giao thoa sóng | Ch.2 phần của mình; Ch.3 phần shader + mô phỏng theo thời gian; Ch.4 phần độ chính xác | **Video demo** |
+| **C** | Ném xiên, con lắc/lò xo, giao thoa sóng (kèm bản tính trên CPU để so với GPU) | Ch.2 phần của mình; Ch.3 phần shader + mô phỏng theo thời gian; Ch.4 phần độ chính xác + CPU so với GPU | **Video demo** |
 | Cả nhóm | Review chéo code | Góp ý báo cáo | BTLopNha, Reference |
 
 Nếu A quá tải: B nhận Dijkstra, hoặc C nhận phần WebGL thuần của benchmark.
@@ -54,7 +54,7 @@ Nếu A quá tải: B nhận Dijkstra, hoặc C nhận phần WebGL thuần củ
 | Tuần | Thời gian | Việc |
 |---|---|---|
 | 4–6 | 21/10–10/11 | **Đã xong:** chốt đề tài, khung app + demo ném xiên, đưa lên GitHub, dàn ý báo cáo |
-| 7 | 11–17/11 | A xin thầy xác nhận; mỗi người đọc ≥ 2 bài kỹ thuật và điền bảng Ch.2; A: BFS/DFS/Dijkstra; B: đo hiệu năng + chốt ngưỡng, sắp xếp; C: con lắc/lò xo, hoàn thiện ném xiên |
+| 7 | 11–17/11 | Mỗi người đọc ≥ 2 bài kỹ thuật và điền bảng Ch.2; A: BFS/DFS/Dijkstra; B: đo hiệu năng + chốt ngưỡng, sắp xếp; C: con lắc/lò xo, hoàn thiện ném xiên |
 | 8 | 18–24/11 | **Benchmark + bộ cảnh thử nghiệm**; A*, giao thoa sóng; nháp Ch.1–2 |
 | 9 | 25/11–1/12 | **Dừng thêm tính năng**; chạy đủ thử nghiệm; viết Ch.3–4 |
 | 10 | 2–8/12 | Hoàn thiện Doc (.doc + .pdf), Slide (.ppt + .pdf), video, BTLopNha; chạy thử source code trên máy khác, không có mạng |
@@ -63,6 +63,5 @@ Nếu A quá tải: B nhận Dijkstra, hoặc C nhận phần WebGL thuần củ
 Họp nhóm mỗi tuần 15–30 phút. Mỗi người làm trên nhánh Git riêng, A review trước khi gộp vào `main`.
 
 ## 6. Rủi ro
-- **Thầy không đồng ý đổi lĩnh vực:** giữ Ch.1–3, thay demo Ch.4 bằng tác vụ logo (đường cong, gradient, chữ, xuất PNG, hiệu ứng động); khung app dùng lại được.
 - **Trễ tiến độ:** cắt theo thứ tự con lắc/lò xo → A* → phần thêm của ném xiên. Không cắt benchmark, vì đó là số liệu chính của Ch.4.
 - **Báo cáo dồn cuối:** mỗi tuần viết luôn phần báo cáo ứng với code vừa làm.
