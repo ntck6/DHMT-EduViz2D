@@ -37,12 +37,19 @@ js/
     drag.js               Kéo-thả đối tượng
     theme.js              Màu và kiểu chữ dùng chung
     placeholder.js        Màn hình tạm cho bài chưa làm
+    gl-layer.js           Lớp WebGL thuần nằm dưới canvas PixiJS
+    export.js             Xuất PNG / tải file
     stage.js, fps.js      Khởi tạo PixiJS, đếm FPS
+  webgl/                WebGL 2 thuần do nhóm tự viết (không qua thư viện)
+    gl-utils.js           Context, biên dịch shader, program, buffer, đếm lệnh vẽ
+    matrix.js             Ma trận 3×3: chiếu, dời, xoay, co giãn, nghịch đảo
+    triangulate.js        Chia đa giác thành tam giác (ear clipping)
+    instanced-rects.js    Vẽ N hình chữ nhật bằng 1 lệnh drawArraysInstanced
   cs/                   Bài Tin học: sorting.js, astar.js (B), graph.js (A)
   physics/              Bài Vật lý: projectile.js, oscillator.js, waves.js (C)
+  tech/                 Bài kỹ thuật: pipeline.js (Pipeline WebGL từng bước)
   _template/            Bài mẫu để sao chép
-  webgl/                WebGL thuần cho trang benchmark (A)
-benchmark/              Trang đo hiệu năng cho Ch.4 (A)
+benchmark/              Trang đo hiệu năng Canvas 2D / PixiJS / WebGL thuần cho Ch.4
 tests/                  Kiểm tra bằng node --test
 ```
 
@@ -50,10 +57,12 @@ tests/                  Kiểm tra bằng node --test
 Mỗi bài là một file xuất hàm `mount`. File khung của từng bài **đã có sẵn** trong `js/cs/` và `js/physics/`, phần đầu file ghi việc cần làm và gợi ý cách chia file.
 
 ```js
-export function mount({ root, app, controls, width, height }) {
+export function mount({ root, app, controls, width, height, createGLLayer }) {
   // root:     Container của bài; vẽ gì thì root.addChild(...). Khung tự xóa khi chuyển bài.
   // controls: bảng điều khiển bên phải.
   // width, height: kích thước khung vẽ (điểm ảnh).
+  // createGLLayer(): tạo lớp WebGL thuần { gl, clear, width, height } nằm dưới PixiJS.
+  //                  Khung tự đổi kích thước và tự xóa lớp khi chuyển bài.
   return {
     update(dt) {},            // mỗi khung hình, dt tính bằng giây
     resize(width, height) {}, // khi khung vẽ đổi kích thước
@@ -89,6 +98,17 @@ export function mount({ root, app, controls, width, height }) {
 | `makeDraggable(target, { onDrag })` | Kéo-thả | Node đồ thị, nguồn sóng |
 
 Shader GLSL qua PixiJS Filter: xem `js/physics/waves.js`, đã nối sẵn và truyền thời gian `uTime` mỗi khung hình.
+
+## WebGL thuần
+Bài muốn vẽ bằng WebGL tự viết thì gọi `createGLLayer()` trong `mount`, rồi dùng các hàm ở `js/webgl/`. PixiJS vẫn vẽ chữ và tay nắm kéo-thả đè lên trên.
+
+- Mẫu đơn giản: `js/cs/sorting.js` (vẽ cột bằng `instanced-rects.js`).
+- Mẫu đầy đủ: `js/tech/pipeline.js` (VBO, index buffer, VAO, uniform, ma trận, ear clipping, instancing).
+
+Phím tắt trong mọi bài có Play/Pause: **Space** = Play/Pause, **→** = Step, **R** = Reset. Thanh tiêu đề có nút **Xuất PNG** và **Toàn màn hình**.
+
+## Đo hiệu năng (Ch.4)
+Mở `benchmark/index.html` (hoặc bấm **Benchmark** trên thanh tiêu đề), chọn cách vẽ và số đối tượng, bấm **Bắt đầu đo**, xong bấm **Tải CSV**. Khi đo phải để cửa sổ hiện trên màn hình và đóng các tab khác.
 
 ## Trước khi nộp
 Bài mẫu chỉ hiện khi có `?dev` nên không cần xóa. Chép thư mục này sang máy khác, tắt mạng, chạy bằng Live Server và kiểm tra mọi bài.

@@ -1,6 +1,7 @@
 // Bảng điều khiển dùng control có sẵn của HTML5, mọi bài học dùng chung.
 export function createControls(root) {
   let buttonRow = null;
+  let lessonScope = new AbortController();
 
   function add(el) {
     root.append(el);
@@ -11,6 +12,15 @@ export function createControls(root) {
     clear() {
       root.replaceChildren();
       buttonRow = null;
+      lessonScope.abort(); // gỡ mọi listener đã đăng ký với signal của bài cũ
+      lessonScope = new AbortController();
+    },
+
+    // Dùng khi bài học tự gắn listener lên window/document (ví dụ phím tắt):
+    //   addEventListener('keydown', handler, { signal: controls.signal });
+    // Listener tự bị gỡ khi chuyển bài.
+    get signal() {
+      return lessonScope.signal;
     },
 
     heading(text) {

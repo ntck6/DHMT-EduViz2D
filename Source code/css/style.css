@@ -29,7 +29,20 @@ body {
 }
 .topbar h1 { margin: 0; font-size: 20px; }
 .topbar p { margin: 0; color: var(--muted); }
-.fps { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.fps { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 56px; text-align: right; }
+.topbar-actions button, .topbar-actions a {
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.topbar-actions button:hover, .topbar-actions a:hover { background: var(--bg); }
 
 .layout {
   flex: 1;
@@ -72,6 +85,7 @@ body {
   border-radius: 8px;
 }
 .stage canvas { position: absolute; inset: 0; display: block; }
+.stage:fullscreen { border-radius: 0; border: 0; }
 
 .controls h3 { margin: 16px 0 8px; font-size: 13px; color: var(--muted); }
 .controls h3:first-child { margin-top: 0; }
@@ -107,5 +121,6 @@ body {
 
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }
+  .topbar { flex-wrap: wrap; }
   .stage { min-height: 320px; }
 }

@@ -6,7 +6,7 @@
 export const lessons = [
   {
     id: 'sorting', group: 'Tin học', title: 'Sắp xếp', owner: 'B', status: 'todo',
-    task: 'Vẽ rất nhiều đối tượng cùng lúc (batching/instancing)',
+    task: 'Vẽ rất nhiều đối tượng cùng lúc bằng WebGL thuần (instancing)',
     load: () => import('./cs/sorting.js'),
   },
   {
@@ -33,6 +33,11 @@ export const lessons = [
     id: 'waves', group: 'Vật lý', title: 'Giao thoa sóng', owner: 'C', status: 'todo',
     task: 'Tính màu từng điểm ảnh bằng fragment shader',
     load: () => import('./physics/waves.js'),
+  },
+  {
+    id: 'pipeline', group: 'Kỹ thuật WebGL', title: 'Pipeline WebGL từng bước', owner: 'A', status: 'done',
+    task: 'Toàn bộ pipeline vẽ 2D bằng WebGL thuần: đỉnh, chia tam giác, ma trận, shader, instancing',
+    load: () => import('./tech/pipeline.js'),
   },
   {
     id: 'template', group: 'Mẫu cho nhóm', title: 'Bài mẫu', owner: 'A', status: 'done', devOnly: true,

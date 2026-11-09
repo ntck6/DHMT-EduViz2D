@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EduViz2D Benchmark</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .bench { padding: 16px; display: grid; gap: 12px; }
+    .bench section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+    .bench h2 { margin: 0 0 8px; font-size: 16px; }
+    .bench-form { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; }
+    .bench-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+    .bench-form input[type="text"], .bench-form input[type="number"] { padding: 5px 6px; border: 1px solid var(--border); border-radius: 6px; font: inherit; }
+    #renderer-list { display: flex; gap: 12px; }
+    #renderer-list label { flex-direction: row; align-items: center; }
+    .bench button { padding: 7px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); font: inherit; cursor: pointer; }
+    .bench button:disabled { opacity: .5; cursor: default; }
+    #bench-stage { overflow: auto; }
+    #bench-stage canvas { display: block; border: 1px solid var(--border); }
+    .bench-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
+    .bench-table th, .bench-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: left; }
+    #env, #status { color: var(--muted); font-size: 13px; margin: 6px 0 0; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <h1>EduViz2D</h1>
+    <p>Benchmark: Canvas 2D / PixiJS / WebGL thuần</p>
+    <nav class="topbar-actions"><a href="../index.html">← Về ứng dụng</a></nav>
+  </header>
+
+  <main class="bench">
+    <section>
+      <h2>Thiết lập</h2>
+      <div class="bench-form">
+        <div><span>Cách vẽ</span><div id="renderer-list"></div></div>
+        <label>Số đối tượng (phân cách bằng dấu phẩy)<input id="counts" type="text" size="32"></label>
+        <label>Khởi động (ms)<input id="warm" type="number" min="0" step="100"></label>
+        <label>Đo (ms)<input id="measure" type="number" min="100" step="100"></label>
+        <label style="flex-direction: row; align-items: center; gap: 6px"><input id="labels" type="checkbox"> Đo thêm khi có nhãn chữ (tối đa 1.000)</label>
+        <button id="start" type="button">Bắt đầu đo</button>
+        <button id="download" type="button" disabled>Tải CSV</button>
+      </div>
+      <p id="env"></p>
+      <p id="status">Đóng các tab khác và để cửa sổ hiện trên màn hình khi đo; tab ẩn sẽ bị trình duyệt giảm tốc.</p>
+    </section>
+
+    <section>
+      <h2>Khung vẽ</h2>
+      <div id="bench-stage"></div>
+    </section>
+
+    <section>
+      <h2>Kết quả</h2>
+      <table class="bench-table">
+        <thead>
+          <tr><th>Cách vẽ</th><th>Số đối tượng</th><th>Nhãn chữ</th><th>FPS</th><th>Khung hình TB (ms)</th><th>Khung hình p95 (ms)</th><th>CPU vẽ TB (ms)</th><th>Lệnh vẽ GPU</th><th>Ghi chú</th></tr>
+        </thead>
+        <tbody id="results"></tbody>
+      </table>
+      <p id="note" style="color: var(--muted); font-size: 13px">FPS bị giới hạn bởi tần số màn hình (thường 60 Hz). Khi FPS bằng nhau, so cột "CPU vẽ TB": đó là thời gian CPU chuẩn bị và gửi lệnh vẽ mỗi khung hình.</p>
+    </section>
+  </main>
+
+  <script type="module" src="benchmark.js"></script>
+</body>
+</html>
