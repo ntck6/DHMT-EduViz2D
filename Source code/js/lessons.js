@@ -21,7 +21,7 @@ export const lessons = [
   },
   {
     id: 'projectile', group: 'Vật lý', title: 'Ném xiên', owner: 'C', status: 'done',
-    task: 'Vẽ vector tĩnh (trục, đường cong, chữ) và animation theo thời gian',
+    task: 'Vẽ đường cong bằng GPU theo Loop & Blinn 2005 (phương pháp chính) và animation theo thời gian',
     load: () => import('./physics/projectile.js'),
   },
   {

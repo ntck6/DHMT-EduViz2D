@@ -6,6 +6,7 @@
 import { RENDERERS } from './renderers.js';
 import { createScene, stepScene, summarize } from './scene.js';
 import { downloadBlob } from '../js/core/export.js';
+import { environment } from './env.js';
 
 const WIDTH = 960;
 const HEIGHT = 540;
@@ -30,19 +31,7 @@ for (const [key, renderer] of Object.entries(RENDERERS)) {
 }
 
 // ---- Thông tin máy (ghi kèm số liệu, bắt buộc cho mục môi trường Ch.4) -----
-function environment() {
-  const probe = document.createElement('canvas').getContext('webgl2');
-  const info = probe?.getExtension('WEBGL_debug_renderer_info');
-  const gpu = info ? probe.getParameter(info.UNMASKED_RENDERER_WEBGL) : probe?.getParameter(probe.RENDERER) ?? 'không rõ';
-  probe?.getExtension('WEBGL_lose_context')?.loseContext();
-  return {
-    browser: navigator.userAgent,
-    gpu,
-    dpr: window.devicePixelRatio || 1,
-    canvas: `${WIDTH}x${HEIGHT}`,
-  };
-}
-const env = environment();
+const env = environment(`${WIDTH}x${HEIGHT}`);
 $('env').textContent = `GPU: ${env.gpu} · devicePixelRatio: ${env.dpr} · khung vẽ: ${env.canvas} px · ${env.browser}`;
 
 // ---- Một lần đo ---------------------------------------------------------

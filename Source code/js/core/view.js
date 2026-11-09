@@ -25,3 +25,27 @@ export function fitView({ width, height, needX, needY, margin = DEFAULT_MARGIN, 
     toWorld: ({ x, y }) => ({ x: (x - margin.left) / scale, y: (bottom - y) / scale }),
   };
 }
+
+// Phóng to một khung nhìn zoom lần quanh điểm focus (tọa độ thế giới); focus giữ
+// nguyên vị trí trên màn hình. Trả về khung nhìn có cùng các hàm như fitView().
+export function zoomView(view, zoom, focus) {
+  const anchor = view.toScreen(focus);
+  const scale = view.scale * zoom;
+  return {
+    ...view,
+    zoom,
+    scale,
+    viewWidth: view.viewWidth / zoom,
+    viewHeight: view.viewHeight / zoom,
+    toScreen: ({ x, y }) => ({ x: anchor.x + (x - focus.x) * scale, y: anchor.y - (y - focus.y) * scale }),
+    toWorld: ({ x, y }) => ({ x: focus.x + (x - anchor.x) / scale, y: focus.y - (y - anchor.y) / scale }),
+  };
+}
+
+// Bước chia "đẹp" (1, 2, 5 × 10ⁿ) gần nhất mà không nhỏ hơn raw. Dùng cho vạch chia trục.
+export function niceStep(raw) {
+  const power = 10 ** Math.floor(Math.log10(raw));
+  const fraction = raw / power;
+  const nice = fraction <= 1 ? 1 : fraction <= 2 ? 2 : fraction <= 5 ? 5 : 10;
+  return nice * power;
+}

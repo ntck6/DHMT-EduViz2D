@@ -20,8 +20,8 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | 2.4 | Phát biểu bài toán: Input, Output, tác vụ | ✅ | Dàn ý mục 1.3 |
 | 2.4 | Tập dữ liệu thử nghiệm (standard dataset) | 🟡 | Bài toán này không có dataset chuẩn; dàn ý 4.3 đã giải thích và mô tả bộ kịch bản tự xây. Chưa có file dữ liệu trong thư mục Data |
 | 2.5 | Khảo sát trả lời "người ta đã làm gì / mình làm gì" | 🟡 | Khung và câu kết mẫu có ở dàn ý 2.5; Bảng 2.2 đã điền đủ 16 dòng, còn vài ô [cần kiểm chứng] |
-| 2.6 | Chọn phương pháp tiên tiến **đã công bố** để trình bày lại | 🟡 | Pipeline instancing + shader; mỗi bước đã có nguồn công bố (Meisters 1975, Eder 2018, Carucci 2005, Green 2007). Riêng nguồn Carucci chưa đối chiếu được |
-| 2.6 | Trình tự Nguyên lý → Phương pháp → Giải thuật → Chương trình minh họa | ✅ | Dàn ý Ch.3; code minh họa ở bài Pipeline WebGL |
+| 2.6 | Chọn phương pháp tiên tiến **đã công bố** để trình bày lại | ✅ | **Loop & Blinn 2005** (ACM TOG, SIGGRAPH 2005), cài lại phần Bézier bậc 2 trên WebGL (`js/webgl/loop-blinn.js`). Còn phải đọc toàn văn để đối chiếu cách cài |
+| 2.6 | Trình tự Nguyên lý → Phương pháp → Giải thuật → Chương trình minh họa | ✅ | Dàn ý mục 3.3; chương trình minh họa: bài Ném xiên + `benchmark/curve.html` |
 | 2.7 | Môi trường phần cứng, phần mềm | ✅ | Trang benchmark tự ghi GPU, trình duyệt, devicePixelRatio, kích thước khung vẽ |
 | 2.7 | Bảng kết quả và đánh giá | ❌ | Trang benchmark đã chạy được nhưng **chưa đo trên máy thật**. Thử nghiệm (b), (c), (d) còn chờ bài của B, C |
 | 2.8 | Viết báo cáo (Doc, Slide) | ❌ | Mới có dàn ý |

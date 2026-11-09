@@ -42,6 +42,9 @@ js/
     export.js             Xuất PNG / tải file
     stage.js, fps.js      Khởi tạo PixiJS, đếm FPS
   webgl/                WebGL 2 thuần do nhóm tự viết (không qua thư viện)
+    loop-blinn.js         PHƯƠNG PHÁP CHÍNH: vẽ đường cong Bézier bậc 2 theo Loop & Blinn 2005
+    curve-math.js         Toán cho Loop & Blinn: (u, v), parabol → Bézier, khoảng cách tới đường cong
+    polyline.js           Mốc so sánh: vẽ đường cong bằng N đoạn thẳng
     gl-utils.js           Context, biên dịch shader, program, buffer, đếm lệnh vẽ
     matrix.js             Ma trận 3×3: chiếu, dời, xoay, co giãn, nghịch đảo
     triangulate.js        Chia đa giác thành tam giác (ear clipping)
@@ -111,8 +114,11 @@ Bài muốn vẽ bằng WebGL tự viết thì gọi `createGLLayer()` trong `mo
 
 Phím tắt trong mọi bài có Play/Pause: **Space** = Play/Pause, **→** = Step, **R** = Reset. Thanh tiêu đề có nút **Xuất PNG** và **Toàn màn hình**.
 
-## Đo hiệu năng (Ch.4)
-Mở `benchmark/index.html` (hoặc bấm **Benchmark** trên thanh tiêu đề), chọn cách vẽ và số đối tượng, bấm **Bắt đầu đo**, xong bấm **Tải CSV**. Khi đo phải để cửa sổ hiện trên màn hình và đóng các tab khác.
+## Thử nghiệm cho Ch.4
+- **Thử nghiệm chính (f) – Loop & Blinn:** mở `benchmark/curve.html`, bấm **Chạy thử nghiệm**, xong bấm **Tải CSV**. Trang đo sai số hình học, độ phủ, số đỉnh và thời gian vẽ của Loop & Blinn so với 120 và 30 đoạn thẳng, ở 4 mức phóng to.
+- **Thử nghiệm nền (a):** mở `benchmark/index.html` (hoặc bấm **Benchmark** trên thanh tiêu đề), chọn cách vẽ và số đối tượng, bấm **Bắt đầu đo**, xong bấm **Tải CSV**.
+
+Khi đo phải để cửa sổ hiện trên màn hình và đóng các tab khác. Mỗi CSV có ghi tên GPU; máy có 2 GPU thì kiểm tra cột này.
 
 ## Trước khi nộp
 Bài mẫu chỉ hiện khi có `?dev` nên không cần xóa. Chép thư mục này sang máy khác, tắt mạng, chạy bằng Live Server và kiểm tra mọi bài.

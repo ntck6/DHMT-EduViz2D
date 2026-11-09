@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thử nghiệm Loop & Blinn</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .bench { padding: 16px; display: grid; gap: 12px; }
+    .bench section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; overflow-x: auto; }
+    .bench h2 { margin: 0 0 8px; font-size: 16px; }
+    .bench p { margin: 4px 0; font-size: 14px; }
+    .bench button { padding: 7px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); font: inherit; cursor: pointer; }
+    .bench button:disabled { opacity: .5; cursor: default; }
+    #curve-canvas { display: block; border: 1px solid var(--border); background: #fff; }
+    .previews { display: flex; gap: 16px; flex-wrap: wrap; }
+    .previews figure { margin: 0; }
+    .previews canvas { display: block; border: 1px solid var(--border); image-rendering: pixelated; }
+    .previews figcaption { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .bench-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
+    .bench-table th, .bench-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: left; }
+    #env, #status { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <h1>EduViz2D</h1>
+    <p>Thử nghiệm (f): Loop & Blinn 2005 so với chia đoạn thẳng</p>
+    <nav class="topbar-actions"><a href="index.html">Benchmark</a><a href="../index.html">← Về ứng dụng</a></nav>
+  </header>
+
+  <main class="bench">
+    <section>
+      <h2>Thiết lập</h2>
+      <p>Quỹ đạo ném xiên v₀ = 20 m/s, θ = 45°, g = 9,8 m/s² (một parabol = một đường cong Bézier bậc 2), nét rộng 2 px, phóng to 1×, 4×, 16×, 64× quanh đỉnh. Đáp án đúng: phương trình parabol.</p>
+      <p>Sai số = khoảng cách từ tâm điểm ảnh được tô tới parabol thật trừ nửa bề rộng nét (px). Độ phủ = % điểm trên parabol thật có điểm ảnh được tô. Thời gian = tạo hình học + vẽ + chờ GPU xong (<code>gl.finish</code>).</p>
+      <button id="start" type="button">Chạy thử nghiệm</button>
+      <button id="download" type="button" disabled>Tải CSV</button>
+      <p id="env"></p>
+      <p id="status">Để cửa sổ hiện trên màn hình khi đo.</p>
+    </section>
+
+    <section>
+      <h2>Khung vẽ (960 × 540)</h2>
+      <canvas id="curve-canvas"></canvas>
+    </section>
+
+    <section>
+      <h2>Phóng to 16× quanh đỉnh (vùng 120 × 120 px, hiển thị gấp đôi)</h2>
+      <div class="previews">
+        <figure><canvas id="preview-loop-blinn" width="240" height="240"></canvas><figcaption>Loop & Blinn</figcaption></figure>
+        <figure><canvas id="preview-polyline-120" width="240" height="240"></canvas><figcaption>120 đoạn thẳng</figcaption></figure>
+        <figure><canvas id="preview-polyline-30" width="240" height="240"></canvas><figcaption>30 đoạn thẳng</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Kết quả</h2>
+      <table class="bench-table">
+        <thead><tr><th>Cách vẽ</th><th>Phóng to</th><th>Số đỉnh</th><th>Sai số lớn nhất (px)</th><th>Sai số TB (px)</th><th>Độ phủ (%)</th><th>Thời gian vẽ (ms)</th></tr></thead>
+        <tbody id="results"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script type="module" src="curve.js"></script>
+</body>
+</html>

@@ -1,86 +1,108 @@
 # Kế hoạch đồ án – Ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục
 
-Bản gộp ngày 09/11, thay cho các bản kế hoạch trước. Bản cũ vẫn xem được trong lịch sử Git.
+Cập nhật: phương pháp chính đổi sang **Loop & Blinn 2005**, kèm phân công theo tuần. Các bản cũ xem trong lịch sử Git.
 
 ## 1. Đề tài và thầy cần gì
 - **Tên đề:** *Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục.* Yêu cầu: *trình bày cách sử dụng HTML5 + WebGL trong các tác vụ 2D (tĩnh và động).*
 - **Lĩnh vực:** hỗ trợ giáo dục (Tin học, Vật lý), đã chốt thay cho hướng thiết kế logo của đề gốc (xem `PROJECT_NAME.md`).
-- **Sản phẩm chính là báo cáo nghiên cứu** theo dàn ý `DAN_Y_BAO_CAO.md`. Web app EduViz2D chỉ là chương trình minh họa cho Ch.3–4.
+- **Sản phẩm chính là báo cáo nghiên cứu** theo dàn ý `DAN_Y_BAO_CAO.md`. Web app EduViz2D là chương trình minh họa cho Ch.3–4.
+- **Phương pháp chính (Ch.3):** Loop & Blinn 2005 – vẽ đường cong Bézier bậc 2 bằng GPU, áp dụng vẽ quỹ đạo ném xiên. Kiểm chứng bằng **thử nghiệm (f)**. Pipeline WebGL, instancing, picking là **kiến thức nền**.
 - **Nộp bài:** 8 thư mục theo `REGULATION.md`, gửi link Drive đúng ngày thi lý thuyết (không trước, không sau).
 
 ## 2. Web app minh họa (EduViz2D)
-Mỗi demo được làm để minh họa **một tác vụ 2D** trong báo cáo, không nhằm làm sản phẩm hoàn chỉnh.
-
-| Demo | Tác vụ 2D minh họa | Người làm | Trạng thái |
+| Bài / trang | Tác vụ 2D minh họa | Người làm | Trạng thái |
 |---|---|---|---|
-| Ném xiên | Vẽ vector tĩnh (trục, đường cong, chữ) + animation | C | Bản đầu đã có, C hoàn thiện |
-| Sắp xếp | Vẽ rất nhiều đối tượng bằng **WebGL thuần** (instancing) | B | Phần vẽ cột bằng WebGL thuần đã có; còn thuật toán + tô màu |
+| **Ném xiên** | **Quỹ đạo vẽ bằng Loop & Blinn** (phương pháp chính), so với 120 đoạn thẳng, phóng to tới 64×; animation | A (quỹ đạo), C (mô hình, tương tác) | Quỹ đạo Loop & Blinn **xong**; C còn kéo mũi tên v₀, bia |
+| **Thử nghiệm (f)** `benchmark/curve.html` | Đo sai số, độ phủ, số đỉnh, thời gian của Loop & Blinn so với đoạn thẳng | A | **Xong**, còn đo trên máy thật |
+| Sắp xếp | Nhiều đối tượng bằng WebGL thuần (instancing) | B | Vẽ + tương tác đã có; còn thuật toán |
 | BFS/DFS/Dijkstra | Tương tác chọn, kéo-thả; vẽ chữ | A | Chưa làm |
 | A* | Lưới nhiều ô cập nhật theo bước | B | Chưa làm |
 | Con lắc/lò xo | Cập nhật trạng thái theo thời gian | C | Chưa làm |
-| Giao thoa sóng | Tính màu từng điểm ảnh bằng fragment shader; kèm bản tính trên CPU để đo GPU nhanh hơn bao nhiêu | C | Shader đã nối sẵn, chưa có công thức |
-| Pipeline WebGL từng bước | Toàn bộ pipeline WebGL thuần (đỉnh, chia tam giác, ma trận, shader, instancing) | A | **Xong** |
+| Giao thoa sóng | Tính màu từng điểm ảnh bằng fragment shader; kèm bản CPU để so | C | Shader đã nối sẵn, chưa có công thức |
+| Pipeline WebGL từng bước | Kiến thức nền: toàn bộ pipeline WebGL thuần | A | **Xong** |
+| Benchmark `benchmark/index.html` | Kiến thức nền: Canvas 2D / PixiJS / WebGL thuần | A | **Xong**, còn đo trên máy thật |
 | Xuất PNG, toàn màn hình, phím tắt | Các API HTML5 | A | **Xong** |
-| **Benchmark** | So sánh Canvas2D / PixiJS / WebGL thuần → **số liệu Ch.4** | A | **Trang đã xong**; còn đo trên máy thật và xuất CSV |
 
-**Tương tác trực tiếp với phần tử** (chốt 09/11): mọi bài cho người học thao tác lên chính phần tử, không chỉ kéo thanh trượt.
-
+**Tương tác trực tiếp với phần tử:**
 | Bài | Tương tác | Mức | Trạng thái |
 |---|---|---|---|
-| Sắp xếp (B) | Kéo-thả cột để đổi chỗ (≤ 128 cột), đếm số lần đổi, báo đã sắp xong; rê chuột vẽ chiều cao cột; rê chuột xem giá trị; mẫu dữ liệu ngẫu nhiên / đã sắp / đảo ngược / gần sắp. Khóa thao tác khi thuật toán đang chạy | Bắt buộc | **Đã có**; B nối với thuật toán |
-| Sắp xếp (B) | "Đoán bước tiếp": dừng ở mỗi lần so sánh, người học chọn đổi / không đổi | Nếu kịp | Chưa làm |
-| BFS/DFS/Dijkstra (A) | Kéo node (trọng số = độ dài), bấm đúp thêm node, bấm 2 node thêm/xóa cạnh, chọn node đầu/cuối, đường ngắn nhất tính lại ngay | Bắt buộc | Chưa làm |
-| BFS/DFS/Dijkstra (A) | Chọn node bằng GPU picking | Nếu kịp | Module `webgl/picking.js` đã có |
-| A* (B) | Rê chuột vẽ/xóa tường, kéo điểm đầu/đích | Bắt buộc | Chưa làm |
-| Ném xiên (C) | Kéo đầu mũi tên v₀; bia mục tiêu kéo được, thử bắn trúng | Bắt buộc | Chưa làm |
+| Sắp xếp (B) | Kéo-thả đổi chỗ, vẽ chiều cao cột, xem giá trị, mẫu dữ liệu; khóa khi thuật toán chạy | Bắt buộc | **Đã có**; B nối với thuật toán |
+| Sắp xếp (B) | "Đoán bước tiếp" | Nếu kịp | Chưa làm |
+| BFS/DFS/Dijkstra (A) | Kéo node, thêm node/cạnh, đường ngắn nhất tính lại ngay; chọn node bằng GPU picking | Bắt buộc | Chưa làm |
+| A* (B) | Vẽ/xóa tường, kéo điểm đầu/đích | Bắt buộc | Chưa làm |
+| Ném xiên (C) | Kéo đầu mũi tên v₀; bia kéo được, thử bắn trúng | Bắt buộc | Chưa làm |
 | Con lắc/lò xo (C) | Kéo quả nặng rồi thả | Nếu kịp | Chưa làm |
 | Giao thoa sóng (C) | Kéo 2 nguồn; bấm một điểm xem biên độ | Bắt buộc | Chưa làm |
-| Pipeline (A) | Kéo đỉnh; rê chuột chọn bản sao bằng GPU picking | – | **Đã có** |
-
-Phần dùng chung: `js/core/hit-test.js` (chọn bằng tính toán: cột, ô lưới) và `js/webgl/picking.js` (chọn bằng GPU: framebuffer + `readPixels`).
 
 **Lưu ý kỹ thuật**
-- **Sắp xếp:** không ghi lại từng bước khi số phần tử lớn (Bubble Sort 100k phần tử cần cỡ 10¹⁰ bước). Đến khoảng 2.000 phần tử thì ghi lại để tua được; lớn hơn thì chỉ Quick/Merge/Heap chạy trực tiếp. Ngưỡng này cần B đo để chốt.
-- **Chữ:** nhãn node dùng BitmapText. Horak 2018 cho thấy chữ vẽ trong WebGL làm tụt hiệu năng.
-- **Thêm nếu còn thời gian:** ném xiên có độ cao ném h₀ và lực cản; một bài có câu hỏi "dự đoán rồi kiểm chứng".
+- **Sắp xếp:** đến khoảng 2.000 phần tử thì ghi lại từng bước để tua; lớn hơn chỉ chạy Quick/Merge/Heap trực tiếp. B đo để chốt ngưỡng.
+- **Ném xiên:** phần vẽ quỹ đạo (`drawCurve` trong `js/physics/projectile.js`) do A giữ. C sửa phần tương tác, không đổi cách vẽ quỹ đạo.
+- **Chữ:** nhãn node dùng BitmapText (Horak 2018: chữ vẽ trong WebGL làm tụt hiệu năng).
 
-**Công nghệ:** HTML5 + CSS; JavaScript thuần (ES modules, không build); PixiJS 8.22.0 tải sẵn ở `Source code/lib/pixi.min.js`; shader GLSL qua PixiJS Filter (giao thoa sóng); **WebGL 2 thuần nhóm tự viết** ở `Source code/js/webgl/` (context, shader, buffer, VAO, ma trận, ear clipping, instancing), dùng cho bài sắp xếp, bài pipeline và benchmark; Canvas 2D làm đối chứng. Bảng kiến thức ↔ file code: `DAN_Y_BAO_CAO.md`, Ch.3. Chạy bằng Live Server hoặc `python -m http.server` (xem `Source code/README.md`).
+**Công nghệ:** HTML5 + CSS; JavaScript thuần (ES modules, không build); PixiJS 8.22.0 ở `Source code/lib/pixi.min.js`; WebGL 2 thuần nhóm tự viết ở `Source code/js/webgl/` (Loop & Blinn, đoạn thẳng, ma trận, ear clipping, instancing, picking). Chạy bằng Live Server hoặc `python -m http.server` (xem `Source code/README.md`).
 
-## 3. Phân công
+## 3. Phân công tổng
 | Thành viên | Code | Báo cáo (theo `DAN_Y_BAO_CAO.md`) | Khác |
 |---|---|---|---|
-| **A – Leader** | Đã xong: khung app, lớp WebGL thuần, bài pipeline, xuất PNG, trang benchmark. Còn: BFS/DFS/Dijkstra, **đo benchmark trên máy thật** | Ch.1; khung Ch.2 + gộp bảng; Ch.3 phần pipeline HTML5/WebGL; Ch.4 phần hiệu năng; Ch.5; tổng hợp Doc | Personal Information, quản lý Drive |
-| **B** | Sắp xếp (**vẽ bằng WebGL thuần**, phần vẽ đã có trong `js/cs/sorting.js`), A*, ghi lại từng bước để tua | Ch.2 phần của mình; Ch.3 phần batching/instancing; Ch.4 phần sắp xếp/A* | **Slide** |
-| **C** | Ném xiên, con lắc/lò xo, giao thoa sóng (kèm bản tính trên CPU để so với GPU) | Ch.2 phần của mình; Ch.3 phần shader + mô phỏng theo thời gian; Ch.4 phần độ chính xác + CPU so với GPU | **Video demo** |
-| Cả nhóm | Review chéo code | Góp ý báo cáo | BTLopNha, Reference |
+| **A – Leader** | Đã xong: khung app, lớp WebGL thuần, **Loop & Blinn + thử nghiệm (f)**, bài Pipeline, benchmark, xuất PNG. Còn: BFS/DFS/Dijkstra, **đo (f), (a), (e) trên máy thật** | Ch.1; 2.2, 2.3, 2.5 + gộp Bảng 2.2; **3.1–3.3, 3.6**; 4.1, 4.3, Ch.4 phần (f), (a), (e); Ch.5; ghép Doc | Personal Information, Drive, nộp bài, chốt tên nhóm |
+| **B** | Sắp xếp (thuật toán + phát lại), A*; thử nghiệm (d) nếu kịp | 2.1 phần Tin học; Bảng 2.2a dòng VisuAlgo, algorithm-visualizer; 3.4; Ch.4 phần sắp xếp, (d) | **Slide**; tìm 1–2 luận văn |
+| **C** | Ném xiên (kéo v₀, bia), con lắc/lò xo + integrator, giao thoa sóng + bản CPU | 2.1 phần Vật lý; Bảng 2.2a dòng PhET, Falstad; 3.5; Ch.4 phần (b), (c) | **Video demo**; tải PDF vào Reference |
+| Cả nhóm | Review chéo code | Góp ý báo cáo | BTLopNha |
 
-Nếu A quá tải: B nhận Dijkstra.
+## 4. Phân công theo tuần
+Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng và mở Pull Request. Họp nhóm tối Chủ nhật 15–30 phút: đã làm / sẽ làm / vướng mắc.
 
-B cần đọc `js/webgl/instanced-rects.js` và webgl2fundamentals.org (Fundamentals, Instanced drawing) trước khi làm bài sắp xếp.
-
-## 4. Tài liệu
-**Trọng tâm (Ch.2–3): kỹ thuật vẽ 2D trên web và GPU.** Danh sách đã đối chiếu DOI nằm trong `DAN_Y_BAO_CAO.md`, gồm Loop & Blinn 2005, Green 2007, Kilgard & Bolz 2012, Ganacim et al. 2014, Li et al. 2016, Horak et al. 2018.
-- Từ khóa tìm thêm: `GPU vector graphics rendering survey`, `2D rendering web WebGL performance`, `path rendering GPU`, `signed distance field text rendering`.
-- Tài liệu học: MDN (Canvas, WebGL), webgl2fundamentals.org, The Book of Shaders, tài liệu PixiJS, LearnOpenGL phần pipeline.
-
-**Phụ (chỉ dùng ở Ch.1 phần động lực):** tài liệu giáo dục trong `Research Papers.pdf` và `Preparation and first demo.pdf`, gồm Wieman 2008, Banda & Nzabahimana 2021, Wang 2025, Hundhausen 2002, Shaffer 2010. OpenStax mục 4.3 dùng làm nghiệm tham chiếu cho ném xiên.
-
-**Bỏ:** Chen & Nishita (đồ họa 3D bằng Java, lệch đề).
-
-**Cách ghi tài liệu:** mỗi tài liệu một phiếu tóm tắt gồm tên, tác giả, năm, DOI/link, nội dung chính, dùng cho mục nào, điền được cột nào của bảng Ch.2. Bản PDF lưu vào thư mục `Reference`.
-
-## 5. Lịch còn lại
-| Tuần | Thời gian | Việc |
+### Tuần 7 (11–17/11) – Nắm phương pháp, chạy được các phần cốt lõi
+| Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
-| 4–6 | 21/10–10/11 | **Đã xong:** chốt đề tài, khung app + demo ném xiên, đưa lên GitHub, dàn ý báo cáo |
-| 7 | 11–17/11 | Mỗi người đọc ≥ 2 bài kỹ thuật và điền bảng Ch.2; A: BFS/DFS/Dijkstra; B: đo hiệu năng + chốt ngưỡng, sắp xếp; C: con lắc/lò xo, hoàn thiện ném xiên |
-| 8 | 18–24/11 | **Benchmark + bộ cảnh thử nghiệm**; A*, giao thoa sóng; nháp Ch.1–2 |
-| 9 | 25/11–1/12 | **Dừng thêm tính năng**; chạy đủ thử nghiệm; viết Ch.3–4 |
-| 10 | 2–8/12 | Hoàn thiện Doc (.doc + .pdf), Slide (.ppt + .pdf), video, BTLopNha; chạy thử source code trên máy khác, không có mạng |
-| 11 | 9–13/12 | Rà soát, đóng gói 8 thư mục, tập thuyết trình; gửi mail `[K2024-CLC-DHMT-TEN NHOM]` đúng ngày thi |
+| **A** | Đọc **toàn văn Loop & Blinn 2005**, đối chiếu với `js/webgl/loop-blinn.js`, ghi chỗ khác bài báo. Đo (f), (a), (e) trên máy thật, lưu CSV. Viết `cs/graph-algorithms.js` (BFS, DFS, Dijkstra bằng generator) + test. Chốt tên nhóm; hỏi đề bài BTLopNha | Ghi chú đọc bài; 3 file CSV; test đồ thị chạy |
+| **B** | `cs/sorting-algorithms.js`: Bubble, Quick, Merge, Heap bằng generator + test. Nối vào `sorting.js`: Play/Pause/Step, tô màu, đặt `locked` khi chạy. Đọc Hundhausen 2002, Shaffer 2010 | Bài Sắp xếp chạy thuật toán; 2 phiếu tóm tắt |
+| **C** | Ném xiên: kéo đầu mũi tên v₀, bia mục tiêu (không đổi phần vẽ quỹ đạo). `physics/integrators.js`: Euler, Verlet, RK4 + test với nghiệm lò xo. Đọc Wieman 2008, Banda 2021, Wang 2025 | Kéo v₀ chạy được; test integrator; 3 phiếu tóm tắt |
+| Cả nhóm | Điền các ô [cần kiểm chứng] của Bảng 2.2 thuộc phần mình | Bảng 2.2 bớt ô trống |
 
-Họp nhóm mỗi tuần 15–30 phút. Mỗi người làm trên nhánh Git riêng, A review trước khi gộp vào `main`.
+### Tuần 8 (18–24/11) – Hoàn thành các bài bắt buộc, viết nháp Ch.1–2
+| Người | Việc | Kết quả nộp cuối tuần |
+|---|---|---|
+| **A** | Bài BFS/DFS/Dijkstra: kéo node, thêm node/cạnh, Dijkstra tính lại khi kéo, nhãn BitmapText. Viết nháp Ch.1, 2.2, 2.3, 2.5 và **3.3 Loop & Blinn** | Bài đồ thị chạy; nháp Ch.1–2, 3.3 |
+| **B** | `cs/pathfinding.js` (A*, Dijkstra trên lưới) + test; bài A*: vẽ tường, kéo điểm đầu/đích. Đo ngưỡng sắp xếp. **Tìm 1–2 luận văn Thạc sĩ/Tiến sĩ** (TUTORIAL 2.3). Nháp 2.1 phần Tin học, 3.4 | Bài A* chạy; phiếu luận văn; nháp 2.1, 3.4 |
+| **C** | Bài Con lắc/lò xo: 3 integrator chạy cạnh nhau, kéo quả nặng. Giao thoa sóng: công thức trong shader, kéo 2 nguồn. Nháp 2.1 phần Vật lý, 3.5 | 2 bài chạy; nháp 2.1, 3.5 |
+| Cả nhóm | **Demo nội bộ Chủ nhật 24/11**: chạy thử mọi bài bắt buộc | Danh sách lỗi cần sửa |
+
+### Tuần 9 (25/11–1/12) – Dừng thêm tính năng, chạy đủ thử nghiệm, viết Ch.3–4
+| Người | Việc | Kết quả nộp cuối tuần |
+|---|---|---|
+| **A** | Đo lại (f), (a), (e) trên **2 máy**; vẽ Hình 4.1, 4.2; viết 3.1, 3.2, 3.6, 4.1, 4.3, Ch.4 phần (f), (a), (e); chụp hình Ch.3 | CSV cuối; Ch.3 + phần Ch.4 của A |
+| **B** | Thử nghiệm (d) nếu kịp, không thì bỏ. Ch.4 phần sắp xếp. Dựng khung Slide theo 5 chương | Bảng 4.8 (nếu làm); khung Slide |
+| **C** | Thử nghiệm (b): bảng sai số integrator. Thử nghiệm (c): bản CPU của sóng, đo 4 độ phân giải. Ch.4 phần (b), (c). Quay video demo bản nháp | Bảng 4.6, 4.7; video nháp |
+| Cả nhóm | Sửa lỗi từ demo nội bộ; **không thêm tính năng mới** | Bản nháp đủ 5 chương |
+
+### Tuần 10 (2–8/12) – Hoàn thiện sản phẩm nộp
+| Người | Việc | Kết quả nộp cuối tuần |
+|---|---|---|
+| **A** | Ch.5; ghép toàn bộ Doc, đánh số bảng/hình, danh mục tài liệu; lưu `.doc` + `.pdf`; Personal Information (họ tên, MSSV, bảng phân công này) | Doc bản gần cuối |
+| **B** | Slide hoàn chỉnh (`.ppt` + `.pdf`, chép kèm font); review Ch.3–4 | Slide |
+| **C** | Video demo hoàn chỉnh; tải PDF các tài liệu vào thư mục Reference; review Ch.1–2 | Video; thư mục Reference |
+| Cả nhóm | BTLopNha; chép source sang máy khác, tắt mạng, chạy thử mọi bài; điền thư mục Data (CSV, ảnh kết quả) | BTLopNha; Data |
+
+### Tuần 11 (9–13/12) – Rà soát và nộp
+| Người | Việc |
+|---|---|
+| **A** | Rà theo `KIEM_TRA_YEU_CAU.md`; đóng gói 8 thư mục; upload Drive; **gửi mail `[K2024-CLC-DHMT-TEN NHOM]` đúng ngày thi**, không trước, không sau |
+| **B** | Tập thuyết trình phần Ch.2 (Tin học), 3.4 và điều khiển slide |
+| **C** | Tập thuyết trình phần Vật lý, chạy demo trực tiếp |
+| Cả nhóm | Tổng duyệt thuyết trình ít nhất 1 lần |
+
+## 5. Tài liệu
+**Trọng tâm (Ch.2–3):** danh sách đã đối chiếu DOI trong `DAN_Y_BAO_CAO.md`. **Loop & Blinn 2005 là bài phải đọc toàn văn đầu tiên** (A). Các bài khác: Green 2007, Kilgard & Bolz 2012, Ganacim 2014, Li 2016, Horak 2018, Meisters 1975, Eder 2018.
+- Từ khóa tìm luận văn: `master thesis WebGL rendering performance`, `thesis GPU curve rendering`, `thesis interactive physics simulation web`.
+- Tài liệu học: MDN (Canvas, WebGL), webgl2fundamentals.org, The Book of Shaders, tài liệu PixiJS.
+
+**Phụ (Ch.1 phần động lực):** Wieman 2008, Banda & Nzabahimana 2021, Wang 2025, Hundhausen 2002, Shaffer 2010. OpenStax mục 4.3 là nghiệm tham chiếu ném xiên.
+
+**Cách ghi tài liệu:** mỗi tài liệu một phiếu tóm tắt gồm tên, tác giả, năm, DOI/link, nội dung chính, dùng cho mục nào, điền được cột nào của Bảng 2.2. Bản PDF lưu vào thư mục `Reference`.
 
 ## 6. Rủi ro
-- **Trễ tiến độ:** cắt theo thứ tự con lắc/lò xo → A* → phần thêm của ném xiên. Không cắt benchmark, vì đó là số liệu chính của Ch.4.
-- **Báo cáo dồn cuối:** mỗi tuần viết luôn phần báo cáo ứng với code vừa làm.
+- **Trễ tiến độ:** cắt theo thứ tự (d) Dijkstra/A* → con lắc kéo thả → "đoán bước tiếp" → điện trường. **Không cắt** Loop & Blinn, thử nghiệm (f), ném xiên.
+- **Bài báo Loop & Blinn khác với cách cài:** ghi rõ trong 3.3 phần nào làm giống, phần nào đơn giản hóa (chỉ bậc 2).
+- **Báo cáo dồn cuối:** mỗi tuần viết luôn phần báo cáo ứng với code vừa làm (đã ghi trong bảng tuần).
+- **Máy có 2 GPU:** trình duyệt có thể đổi GPU giữa các lần chạy; mọi CSV đã ghi tên GPU, khi đo phải kiểm tra cột này.
