@@ -19,7 +19,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | 2.3 | Ưu tiên tài liệu dạng Survey / Overview | 🟡 | Có survey phía giáo dục (Hundhausen, Shaffer, Banda, Wang). Phía kỹ thuật vẽ 2D trên GPU chưa có survey |
 | 2.4 | Phát biểu bài toán: Input, Output, tác vụ | ✅ | Dàn ý mục 1.3 |
 | 2.4 | Tập dữ liệu thử nghiệm (standard dataset) | 🟡 | Bài toán này không có dataset chuẩn; dàn ý 4.3 đã giải thích và mô tả bộ kịch bản tự xây. Chưa có file dữ liệu trong thư mục Data |
-| 2.5 | Khảo sát trả lời "người ta đã làm gì / mình làm gì" | 🟡 | Khung và câu kết mẫu có ở dàn ý 2.5; **bảng so sánh 2.4 còn trống** |
+| 2.5 | Khảo sát trả lời "người ta đã làm gì / mình làm gì" | 🟡 | Khung và câu kết mẫu có ở dàn ý 2.5; Bảng 2.2 đã điền đủ 16 dòng, còn vài ô [cần kiểm chứng] |
 | 2.6 | Chọn phương pháp tiên tiến **đã công bố** để trình bày lại | 🟡 | Pipeline instancing + shader; mỗi bước đã có nguồn công bố (Meisters 1975, Eder 2018, Carucci 2005, Green 2007). Riêng nguồn Carucci chưa đối chiếu được |
 | 2.6 | Trình tự Nguyên lý → Phương pháp → Giải thuật → Chương trình minh họa | ✅ | Dàn ý Ch.3; code minh họa ở bài Pipeline WebGL |
 | 2.7 | Môi trường phần cứng, phần mềm | ✅ | Trang benchmark tự ghi GPU, trình duyệt, devicePixelRatio, kích thước khung vẽ |
@@ -35,8 +35,8 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | 1.3 | Input/Output; framework chưa gắn phương pháp | ✅ dàn ý | Bảng 6 công đoạn |
 | 1.4 | Đóng góp | ✅ dàn ý | 4 đóng góp, không tự nhận "tốt hơn" |
 | Ch.2 | Chọn lọc công trình liên quan | ✅ | 2.1, 2.2 |
-| Ch.2 | **Quá trình phát triển** của các giải pháp | ✅ dàn ý | Mới thêm mục 2.3; mốc năm WebGL cần đối chiếu |
-| Ch.2 | Bảng so sánh theo tiêu chí | 🟡 | Đã chốt cột, chưa điền |
+| Ch.2 | **Quá trình phát triển** của các giải pháp | ✅ dàn ý | Mục 2.3; mốc năm WebGL đã đối chiếu (1.0: 2011, 2.0: 2017) |
+| Ch.2 | Bảng so sánh theo tiêu chí | 🟡 | Đã điền 16 dòng (Bảng 2.2a–c), có ghi nguồn từng ô; còn GeoGebra và vài ô [cần kiểm chứng] |
 | Ch.2 | Trả lời 2 câu hỏi cốt lõi | ✅ dàn ý | 2.5 |
 | Ch.3 | Chọn một giải pháp tiên tiến | ✅ | Xem TUTORIAL 2.6 |
 | Ch.3 | Sơ đồ chung, nguyên lý, phương pháp, giải thuật, minh họa | ✅ dàn ý | Hình chụp lấy từ bài Pipeline WebGL; có bảng kiến thức ↔ file code |
@@ -49,12 +49,12 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 |---|---|---|---|
 | 1 | Framework chỉ nêu công đoạn, không gắn phương pháp | ✅ | 1.3 |
 | 2 | Ẩn số của từng công đoạn | ✅ | 1.3, cột "Ẩn số cần tìm" |
-| 3 | SOTA so sánh trên cùng cột tiêu chí, theo công đoạn | 🟡 | Bảng 2.4 có cột theo công đoạn; chưa điền |
+| 3 | SOTA so sánh trên cùng cột tiêu chí, theo công đoạn | ✅ | Bảng 2.2a–c dùng chung một bộ cột theo công đoạn, đã điền |
 | 4 | Giai đoạn huấn luyện, groundtruth, loss | ✅ (không áp dụng) | Ghi rõ ở Ch.4; groundtruth = nghiệm giải tích, ảnh tham chiếu |
 | 5 | Tiến trình hoạt động của hệ thống | ✅ | Ch.3 mục 5 + bài Pipeline WebGL từng bước |
 | 6 | Độ đo độ chính xác **và** độ phức tạp tính toán | ✅ dàn ý | 4.4; benchmark đo thời gian khung hình, thời gian CPU, số lệnh vẽ |
 | 7 | Mô tả tập dữ liệu: số mẫu, độ đa dạng, tiêu chí, thách thức | ✅ dàn ý | 4.3 ghi số mẫu, tiêu chí, thách thức cho từng thử nghiệm |
-| 8 | Khuyết điểm của related works; cải tiến độ chính xác hay độ phức tạp | 🟡 | Cột "Khuyết điểm" chưa điền; mục tiêu ghi rõ ở 4.4 (độ phức tạp + kiểm chứng độ chính xác) |
+| 8 | Khuyết điểm của related works; cải tiến độ chính xác hay độ phức tạp | ✅ | Cột "Khuyết điểm" đã điền (Bảng 2.2); Bảng 2.3 ghi loại vấn đề (độ chính xác / độ phức tạp) và cách đồ án xử lý |
 
 ## 4. REGULATION.md – cách nộp
 | Thư mục / việc | Yêu cầu | Trạng thái | Còn thiếu |
@@ -77,5 +77,5 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 4. **Xác định bài tập lớp-nhà (BTLopNha)** và người làm.
 5. **Chốt tên nhóm** cho tiêu đề email.
 6. Bắt đầu viết Ch.1–2 ngay trong tuần 8, không để dồn sang tuần 10.
-7. Đối chiếu nguồn Carucci 2005 và các mốc năm WebGL.
+7. Đối chiếu nguồn Carucci 2005; kiểm chứng cách vẽ của GeoGebra và các ô ghi [cần kiểm chứng] trong Bảng 2.2.
 8. Tải PDF tài liệu vào thư mục Reference ngay khi đọc.

@@ -72,7 +72,7 @@ Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một lu�
 **Bảng 1.2 – Đóng góp và bằng chứng:**
 | # | Đóng góp | Bằng chứng trong báo cáo | Trạng thái |
 |---|---|---|---|
-| 1 | Khảo sát và so sánh 16 giải pháp (5 ứng dụng giáo dục, 5 công nghệ vẽ trên web, 6 bài báo) theo **cùng 6 công đoạn** | Bảng 2.2 | Cột đã chốt, chưa điền |
+| 1 | Khảo sát và so sánh 16 giải pháp (5 ứng dụng giáo dục, 5 công nghệ vẽ trên web, 6 bài báo) theo **cùng 6 công đoạn** | Bảng 2.2 | Đã điền, còn vài ô cần kiểm chứng |
 | 2 | Trình bày lại pipeline vẽ 2D trên WebGL bằng **mã nguồn tự cài đặt**: chia đa giác thành tam giác, ma trận biến đổi, shader, instancing, chọn đối tượng bằng GPU | Ch.3, Hình 3.2–3.6, Bảng 3.3 | Code và hình đã có |
 | 3 | Đo hiệu năng Canvas 2D, PixiJS, WebGL thuần trên phần cứng hiện nay, có xét ảnh hưởng của chữ; mở rộng phép đo của Horak et al. 2018 | Bảng 4.3, Hình 4.1 | Công cụ xong, **[cần số đo]** |
 | 4 | Đo tác dụng của instancing và so sánh 2 cách chọn đối tượng (tính toán / GPU picking) | Bảng 4.4, 3.2 | Công cụ xong, **[cần số đo]** |
@@ -96,12 +96,12 @@ Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một lu�
 **Viết gì, mỗi ứng dụng một đoạn theo cùng dàn 5 ý** (MANUAL_FAULT mục 3: không viết mỗi cái một kiểu):
 1. Là gì, của ai, năm.
 2. Minh họa kiến thức gì.
-3. Vẽ bằng gì: mở trang, bấm F12, đếm thẻ `canvas`/`svg` **[cần kiểm chứng từng trang]**.
+3. Vẽ bằng gì: lấy từ cột "Nền tảng, cách vẽ" của Bảng 2.2a. PhET, Falstad, VisuAlgo đã quan sát; algorithm-visualizer đã đọc mã nguồn; GeoGebra còn phải kiểm chứng.
 4. Người học thao tác được gì: chỉ xem / đổi tham số / kéo-thả / tự làm.
 5. Khuyết điểm theo công đoạn ở 1.3.
 
 **Đoạn mẫu (khung để điền):**
-> PhET (Wieman và cộng sự, 2008) là bộ mô phỏng của Đại học Colorado Boulder cho các môn Vật lý, Hóa học, Toán. Phiên bản hiện nay chạy bằng HTML5 và vẽ bằng [Canvas/SVG/WebGL – cần kiểm chứng]. Người học thay đổi tham số bằng thanh trượt và kéo trực tiếp đối tượng. Hạn chế ở công đoạn 1 (tính toán mô hình): [ví dụ: mô phỏng không cho xem sai số tính toán – cần kiểm chứng].
+> PhET (Wieman và cộng sự, 2008) là bộ mô phỏng của Đại học Colorado Boulder cho các môn Vật lý, Hóa học, Toán. Phiên bản hiện nay chạy bằng HTML5 trên thư viện Scenery. Bài Projectile Motion vẽ chủ yếu bằng SVG: màn hình Intro có khoảng 236 hình SVG và không có canvas (nhóm quan sát ngày 09/11/2026). Người học thay đổi tham số bằng thanh trượt và kéo trực tiếp đối tượng. Hạn chế ở công đoạn 1 (tính toán mô hình): [ví dụ: mô phỏng không cho xem sai số tính toán – cần kiểm chứng].
 
 **Hình 2.1:** ảnh chụp 4 ứng dụng ghép thành một hình 2×2.
 
@@ -128,21 +128,65 @@ Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một lu�
 | Trước HTML5 | Java applet, Flash (bản PhET, Falstad đời đầu) | Phải cài plugin |
 | HTML5 | Canvas 2D, SVG | Vẽ 2D không cần plugin |
 | 2005–2016 | Loop & Blinn → Green → Kilgard → Ganacim → Li | 3, 5: vẽ vector chất lượng cao trên GPU |
-| WebGL 1.0 **[cần kiểm chứng năm, khoảng 2011]** | Lập trình GPU trên trình duyệt | 3, 4, 5 |
-| WebGL 2.0 **[cần kiểm chứng năm, khoảng 2017]** | Instancing, VAO có sẵn | 6: giảm số lần gọi vẽ |
+| WebGL 1.0 (đặc tả hoàn chỉnh 03/2011, Khronos) | Lập trình GPU trên trình duyệt | 3, 4, 5 |
+| WebGL 2.0 (2017, dựa trên OpenGL ES 3.0; các nguồn ghi tháng 1 hoặc tháng 2) | Instancing, VAO có sẵn | 6: giảm số lần gọi vẽ |
 | WebGPU | Có compute shader | Hướng phát triển (Ch.5) |
 
 ### 2.4. Bảng so sánh chung *(~1,5 trang; cả nhóm điền)*
 **Viết gì:** một bảng duy nhất, cột theo công đoạn ở 1.3 (MANUAL_FAULT mục 3), có cột **khuyết điểm** (mục 8). Dưới bảng là 1 đoạn nhận xét: nhóm giải pháp nào mạnh ở công đoạn nào.
 
-**Bảng 2.2** (3 dòng đầu điền **làm ví dụ**, viết theo hiểu biết chung, cần đối chiếu tài liệu khi viết thật):
-| Giải pháp | Năm | Nền tảng | (1) Tính toán mô hình | (3) Xử lý hình học | (5) Tô màu / khử răng cưa | (6) Tĩnh / động / tương tác | Hiệu năng | Khuyết điểm |
+Bảng dài nên chia làm 3 phần 2.2a, 2.2b, 2.2c, nhưng **cả 3 phần dùng chung một bộ cột** (MANUAL_FAULT mục 3). Cột "Nguồn" ghi rõ thông tin lấy từ đâu:
+- **[QS]:** nhóm tự mở trang ngày 09/11/2026 và đếm số thẻ `canvas`, `svg`.
+- **[MN]:** đọc mã nguồn.
+- **[TL]:** tài liệu hoặc bài báo.
+- **[TN]:** số chạy thử của nhóm (Edge không giao diện, GPU Intel Iris Xe). **Chưa dùng được cho báo cáo**, phải đo lại trên máy thật.
+- **[cần kiểm chứng]:** viết theo hiểu biết chung; phải đọc nguồn gốc trước khi đưa vào báo cáo.
+
+Các cột ứng với công đoạn ở Bảng 1.1: **(1)** tính toán mô hình, **(3)** xử lý hình học, **(5)** tô màu điểm ảnh và khử răng cưa, **(6)** cập nhật và tương tác. Công đoạn (2) và (4) giống nhau ở mọi giải pháp nên không đưa vào bảng.
+
+**Bảng 2.2a – Ứng dụng trực quan hóa giáo dục**
+| Giải pháp | Nền tảng, cách vẽ | (1) Tính toán mô hình | (3) Xử lý hình học | (5) Tô màu, khử răng cưa | (6) Cập nhật, tương tác | Hiệu năng | Khuyết điểm | Nguồn |
 |---|---|---|---|---|---|---|---|---|
-| Canvas 2D | – | Trình duyệt | Người lập trình tự viết | Trình duyệt tự xử lý path | Có khử răng cưa sẵn | Động: tự xóa và vẽ lại mỗi khung hình | **[cần số đo, Bảng 4.3]** | Mỗi hình một lệnh gọi từ JavaScript; không lập trình được GPU |
-| SVG | – | Trình duyệt | Người lập trình tự viết | Mỗi hình là một phần tử trang | Có sẵn | Tương tác dễ: gắn sự kiện cho từng phần tử | Giảm khi số phần tử lớn (Horak 2018) | Trang nặng khi có hàng nghìn phần tử |
-| WebGL thuần | – | Trình duyệt, GPU | Tự viết | **Tự chia tam giác** | Tự viết shader | Tự viết toàn bộ | **[cần số đo]** | Nhiều code; không có sẵn cách vẽ chữ |
-| PixiJS | | | | | | | | |
-| … (12 dòng còn lại như danh sách 2.1, 2.2) | | | | | | | | |
+| **PhET** – bài Projectile Motion (ĐH Colorado Boulder) | HTML5, thư viện Scenery: vẽ được bằng SVG, Canvas, DOM, một phần WebGL. Màn hình Intro: **0 canvas, khoảng 236 hình SVG** | Mô hình vật lý viết sẵn bằng JavaScript, người học không xem được | Hình dạng mô tả bằng thư viện kite, xuất ra phần tử SVG | Trình duyệt tự khử răng cưa cho SVG | Thanh trượt, nút bắn, kéo đối tượng; thay đổi gom lại và cập nhật trang một lần | Chưa đo | Không thấy được cách tính bên trong mô hình [cần kiểm chứng]; SVG chậm dần khi có nhiều phần tử | [QS], [TL] tài liệu Scenery |
+| **Falstad** – Ripple Tank và Circuit Simulator (Paul Falstad) | Bản JavaScript chuyển từ Java applet cũ. Ripple Tank: **1 canvas WebGL** cho mặt sóng + các canvas 2D phụ. Circuit: **canvas 2D** + SVG cho giao diện | Ripple: giải phương trình sóng trên lưới; mã nguồn tên `ripplegl` cho thấy tính trên GPU [cần kiểm chứng]. Circuit: giải mạch điện mỗi bước thời gian | Ripple: mặt sóng là lưới điểm ảnh. Circuit: đường, ký hiệu linh kiện | Ripple: shader tô màu theo biên độ. Circuit: Canvas 2D | Vẽ vật cản, đặt nguồn sóng; kéo-thả linh kiện | Chưa đo | Giao diện cũ; mỗi bài một chương trình riêng, không có khung chung | [QS], [MN] github.com/pfalstad/ripplegl-ts |
+| **VisuAlgo** – bài Sorting (ĐH Quốc gia Singapore) | HTML5, **SVG qua thư viện D3** (trang có `d3`; 3 thẻ svg, khoảng 30 hình) | Thuật toán chạy sẵn, ghi lại từng bước để phát lại | Mỗi phần tử mảng là một hình SVG | Trình duyệt tự khử răng cưa | Play / từng bước / tua; người học nhập mảng riêng | Chưa đo | Mảng nhỏ (giới hạn số phần tử [cần kiểm chứng]); SVG không hợp với dữ liệu lớn | [QS] |
+| **algorithm-visualizer.org** | Ứng dụng React. Mảng 2 chiều vẽ bằng **bảng HTML** (`<table>`); đồ thị vẽ bằng **SVG** (`<circle>`, `<path>`) | Người học tự viết code; "tracer" ghi lại lệnh minh họa để phát lại | Phần tử trang web (ô bảng, hình SVG) | Trình duyệt tự xử lý | Sửa code rồi chạy lại; xem từng bước | Chưa đo | Mỗi phần tử là một nút trên trang, nặng khi dữ liệu lớn [cần kiểm chứng]; ngày 09/11 trang báo lỗi chứng chỉ bảo mật, không mở được | [MN] mã nguồn GitHub |
+| **GeoGebra** | HTML5, viết bằng Java rồi biên dịch sang JavaScript bằng GWT. Cách vẽ cụ thể **[cần kiểm chứng]**: ngày 09/11 trình duyệt kiểm tra không mở được trang | Hệ đại số máy tính, hình học động | [cần kiểm chứng] | [cần kiểm chứng] | Kéo đỉnh, cả hình cập nhật theo; thanh trượt tham số | Chưa đo | Tập trung môn Toán; không có mô phỏng theo thời gian kiểu vật lý [cần kiểm chứng] | [TL] bài eJMT về GeoGebraWeb |
+
+**Bảng 2.2b – Công nghệ vẽ 2D trên trình duyệt**
+| Giải pháp | Nền tảng, cách vẽ | (1) Tính toán mô hình | (3) Xử lý hình học | (5) Tô màu, khử răng cưa | (6) Cập nhật, tương tác | Hiệu năng | Khuyết điểm | Nguồn |
+|---|---|---|---|---|---|---|---|---|
+| **Canvas 2D** (HTML5) | API vẽ tức thời: gọi lệnh là vẽ ngay, không giữ lại đối tượng; trình duyệt tự quyết có dùng GPU bên trong hay không | Người lập trình tự viết | Trình duyệt tự xử lý path (`fill`, `stroke`) | Khử răng cưa sẵn | Mỗi khung hình tự xóa và vẽ lại; sự kiện chuột chỉ có ở mức cả canvas, phải tự tính đối tượng nào bị chọn | 20.000 hình: **11,4 ms CPU/khung, 27 FPS** | Mỗi hình một lệnh gọi từ JavaScript; không viết được shader | [TN] |
+| **SVG** (HTML5) | Mỗi hình là một phần tử trên trang, trình duyệt giữ và tự vẽ lại | Người lập trình tự viết | Trình duyệt xử lý | Khử răng cưa sẵn | Gắn sự kiện trực tiếp vào từng hình, tương tác dễ nhất | Horak 2018: FPS giảm từ khoảng 400 node (cả SVG, Canvas, WebGL trong thử nghiệm của họ); SVG gần bằng Canvas | Trang nặng khi có hàng nghìn phần tử | [TL] Horak 2018 |
+| **WebGL thuần** (1.0 năm 2011; 2.0 năm 2017, dựa trên OpenGL ES 3.0) | Lập trình GPU trực tiếp: buffer, shader GLSL, lệnh vẽ | Người lập trình tự viết | **Tự chia hình thành tam giác** (nhóm dùng ear clipping) | Tự viết fragment shader; khử răng cưa MSAA bật khi tạo context | Tự tính đối tượng bị chọn hoặc dùng GPU picking; instancing (WebGL 2) gộp nhiều bản sao vào 1 lệnh vẽ | 20.000 hình: **0,39 ms CPU, 1 lệnh vẽ** | Phải viết nhiều code; không có sẵn cách vẽ chữ, đường cong | [TN], [TL] Khronos |
+| **PixiJS v8** | Thư viện 2D trên WebGL (và WebGPU) | Người lập trình tự viết | Graphics được chia tam giác bằng thư viện earcut | Shader viết sẵn; chữ bằng Text, BitmapText | Tự gộp lệnh vẽ (batching); có hệ sự kiện kèm hit-test; ParticleContainer cho số lượng lớn | 20.000 hình (ParticleContainer): **1,24 ms CPU, 1 lệnh vẽ** | Che bớt chi tiết pipeline; Graphics phức tạp tốn công chia tam giác | [TN], [TL] tài liệu PixiJS |
+| **CanvasKit** (Skia biên dịch sang WebAssembly) | Bộ vẽ của Chrome/Android chạy trong trang, vẽ qua WebGL 2 | Người lập trình tự viết | Skia xử lý path trong WebAssembly | Chất lượng như Skia: path, chữ đầy đủ | Gom lệnh WebGL lại, gửi khi kết thúc khung hình | Chưa đo | Phải tải file WebAssembly lớn [cần kiểm chứng kích thước]; không dùng shader tự viết theo cách WebGL | [TL] tài liệu Skia |
+
+**Bảng 2.2c – Kỹ thuật vẽ 2D trên GPU (bài báo)**
+| Giải pháp | Nền tảng, cách vẽ | (1) Tính toán mô hình | (3) Xử lý hình học | (5) Tô màu, khử răng cưa | (6) Cập nhật, tương tác | Hiệu năng | Khuyết điểm | Nguồn |
+|---|---|---|---|---|---|---|---|---|
+| **Loop & Blinn 2005** | GPU có pixel shader | – | Phủ đường cong Bézier bằng vài tam giác, không chia nhỏ đường cong | Pixel shader tính phương trình ẩn của đường cong → sắc nét ở mọi độ phóng; khử răng cưa trong shader | Hình tĩnh | Theo bài báo | Tiền xử lý đường cong bậc 3 phức tạp [cần kiểm chứng]. Làm được trên WebGL vì chỉ cần fragment shader → hướng phát triển | [TL] |
+| **Green 2007** (Valve) | GPU, texture + alpha test; dùng trong game Team Fortress 2 | – | Tiền xử lý: ảnh nhị phân phân giải cao (ví dụ 4096²) → "trường khoảng cách" phân giải thấp (ví dụ 64²) lưu vào texture | Ngưỡng 0,5 xác định mép; khử răng cưa bằng đạo hàm trong shader | Hình tĩnh, phóng to được | Rất nhẹ: 1 lần đọc texture mỗi điểm ảnh | Góc nhọn bị bo tròn khi phóng lớn [cần kiểm chứng]. Làm được trên WebGL | [TL] bài SIGGRAPH 2007 |
+| **Kilgard & Bolz 2012** | Phần mở rộng OpenGL riêng của NVIDIA (NV_path_rendering) | – | Không chia tam giác trên CPU: bước "stencil" đánh dấu vùng trong path | Bước "cover" tô màu vùng đã đánh dấu; hỗ trợ đủ chuẩn path của SVG, PostScript | Hình tĩnh; vẽ lại nhanh khi biến đổi | Theo bài báo | **Không có trong WebGL** | [TL] |
+| **Ganacim et al. 2014** | GPU, tính toán song song (CUDA [cần kiểm chứng]) | – | Xây cấu trúc tăng tốc "shortcut tree" song song | Lấy được màu của từng điểm mẫu bất kỳ → khử răng cưa chất lượng cao, biến dạng hình được | Đồ họa vector động | Theo bài báo | Cần tính toán đa dụng trên GPU, **WebGL không có compute shader** | [TL] |
+| **Li, Hou, Zhou 2016** | GPU, tính toán song song | – | Đưa phương pháp quét theo dòng (scanline) lên GPU; phần bên trong hình xử lý theo đoạn ngang | Giảm số lần tính "winding number" cho từng điểm ảnh; có khử răng cưa | Dữ liệu động, độ phân giải Ultra HD | Tác giả báo nhanh khoảng 10 lần với dữ liệu động | Như trên: **cần compute shader** | [TL] |
+| **Horak et al. 2018** (poster) | Trình duyệt: SVG, Canvas, WebGL (bản WebGL dùng PixiJS) | – | – | Chữ vẽ bằng WebGL (dạng bitmap) làm tụt hiệu năng | Đo FPS khi người dùng thao tác | Đồ thị 100 → 3.200 node; FPS giảm từ khoảng 400 node; WebGL nhanh nhất | Poster 1 trang; phần cứng 2018; chỉ đo đồ thị node–cạnh | [TL] |
+
+**Nhận xét dưới bảng (đoạn mẫu):**
+> Bảng 2.2 cho thấy ba nhóm giải pháp mạnh ở ba công đoạn khác nhau. Các ứng dụng giáo dục (2.2a) đầu tư vào công đoạn (1) và (6): mô hình đúng, tương tác phong phú. Nhưng phần lớn vẽ bằng SVG hoặc phần tử trang web (PhET, VisuAlgo, algorithm-visualizer), nên phù hợp với số phần tử nhỏ. Chỉ Falstad Ripple Tank dùng WebGL. Các công nghệ trên trình duyệt (2.2b) đánh đổi giữa sự tiện lợi và hiệu năng: SVG tương tác dễ nhất nhưng nặng khi nhiều phần tử, còn WebGL thuần nhanh nhất nhưng phải tự làm mọi công đoạn. Các kỹ thuật GPU tiên tiến (2.2c) cải thiện công đoạn (3) và (5), nhưng ba trong số đó (Kilgard 2012, Ganacim 2014, Li 2016) cần tính năng không có trong WebGL. Hai kỹ thuật làm được trên WebGL là Loop & Blinn 2005 và Green 2007.
+
+**Nguồn kiểm chứng của bảng:**
+- Quan sát trực tiếp 09/11/2026:
+  - phet.colorado.edu/sims/html/projectile-motion;
+  - falstad.com/ripple/Ripple.html;
+  - falstad.com/circuit/circuitjs.html;
+  - visualgo.net/en/sorting.
+- Mã nguồn algorithm-visualizer: thư mục `src/core/renderers` (Array2DRenderer, GraphRenderer) trên GitHub.
+- Tài liệu Scenery của PhET (github.com/phetsims/scenery).
+- Tài liệu CanvasKit (docs.skia.org).
+- Hướng dẫn Graphics của PixiJS v8 (pixijs.com).
+- Mốc thời gian WebGL: đặc tả của Khronos (registry.khronos.org/webgl).
+- Bài báo: DOI ở bảng tài liệu bên dưới.
 
 ### 2.5. Người ta đã làm gì, đồ án làm gì *(~1 trang; A)*
 **Viết gì:** trả lời đúng 2 câu hỏi cốt lõi của TUTORIAL 2.5, bằng 3 đoạn:
