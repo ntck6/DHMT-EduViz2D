@@ -1,5 +1,7 @@
 # Kế hoạch đồ án: HTML5 + WebGL – Ứng dụng 2D hỗ trợ giáo dục (Tin học & Vật lý)
 
+> **Cập nhật 09/11:** tên đề chính thức là *Đồ án 1.2 – … hỗ trợ thiết kế logo*; nhóm đang xin đổi lĩnh vực minh họa sang giáo dục (xem `PROJECT_NAME.md`). Báo cáo là sản phẩm chính, app chỉ minh họa; dàn ý ở `DAN_Y_BAO_CAO.md`.
+
 ## Context
 - Đề tài (Documents/PROJECT_NAME.md): xây dựng ứng dụng web 2D **tĩnh và động** bằng HTML5 + WebGL, trực quan hóa kiến thức giáo dục, khai thác GPU.
 - Thầy yêu cầu (TUTORIAL.md, FORMAT_PRESENTATION.md, MANUAL_FAULT.md): đọc hiểu – cài đặt lại; báo cáo 5 chương; phải có framework chung (không gắn phương pháp cụ thể), bảng so sánh related works theo **cùng tiêu chí**, **độ đo đánh giá** (độ chính xác + độ phức tạp tính toán), bộ dữ liệu/kịch bản thử nghiệm có thách thức, bảng phân công có deadline.
@@ -127,7 +129,7 @@ DOI các bài báo đã đối chiếu với Crossref; poster của Horak đã �
 | 4 | 21–27/10 | Chốt đề tài & phân công; tìm tài liệu; cả nhóm cài VS Code + Live Server + Git |
 | 5 | 28/10–3/11 | A: khung dự án (`index.html`, PixiJS trong `lib/`, menu, đo FPS) đẩy lên GitHub + GitHub Pages *(code đã xong 01/11, còn đẩy lên GitHub)*; B: sorting + step-recording chạy; C: ném xiên chạy *(bản đầu đã có, C nhận lại để hoàn thiện)*; nháp Ch.1–2 |
 | 6 | 4–10/11 | A: đồ thị BFS/DFS/Dijkstra + camera pan/zoom; B: bắt đầu A*; C: con lắc/lò xo + Euler/Verlet/RK4 |
-| 7 | 11–17/11 | **Demo giữa kỳ nội bộ**: tích hợp 2 module, chế độ tĩnh/động; Ch.2 xong bảng so sánh |
+| 7 | 11–17/11 | **A: xin thầy xác nhận đổi lĩnh vực minh họa (logo → giáo dục), càng sớm càng tốt.** **Demo giữa kỳ nội bộ**: tích hợp 2 module, chế độ tĩnh/động; Ch.2 xong bảng so sánh theo `DAN_Y_BAO_CAO.md` |
 | 8 | 18–24/11 | A: trang benchmark (Canvas2D / PixiJS / WebGL instancing); B: hoàn thiện A*; C: shader giao thoa sóng (+ điện trường nếu kịp); chạy thử nghiệm Ch.4 lần 1 |
 | 9 | 25/11–1/12 | **Feature freeze**; sửa lỗi, polish UI; chạy đủ thử nghiệm, khảo sát; viết Ch.3–4 |
 | 10 | 2–8/12 | Hoàn thiện Doc (.doc+.pdf), Slide (.ppt+.pdf), video demo, BTLopNha; kiểm tra source chạy offline trên máy khác |
