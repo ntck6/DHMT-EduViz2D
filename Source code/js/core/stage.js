@@ -1,4 +1,4 @@
-import { Application } from '../../lib/pixi.min.js';
+import { Application } from '../pixi.js';
 
 // Tạo canvas PixiJS nằm trong host và tự co giãn theo host.
 export async function createStage(host) {
@@ -12,5 +12,9 @@ export async function createStage(host) {
     resolution: window.devicePixelRatio || 1,
   });
   host.append(app.canvas);
+
+  // Cho phép bắt sự kiện chuột ở mọi chỗ trên canvas (cần cho kéo-thả).
+  app.stage.eventMode = 'static';
+  app.stage.hitArea = app.screen;
   return app;
 }

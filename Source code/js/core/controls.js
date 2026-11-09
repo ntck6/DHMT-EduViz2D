@@ -65,6 +65,26 @@ export function createControls(root) {
       add(el);
     },
 
+    // options: [{ value: 'bfs', label: 'BFS' }, ...]
+    select(label, options, value, onChange) {
+      const el = document.createElement('label');
+      el.className = 'ctl-select';
+      const input = document.createElement('select');
+      for (const option of options) {
+        input.append(new Option(option.label, option.value, false, option.value === value));
+      }
+      input.addEventListener('change', () => onChange(input.value));
+      el.append(label, input);
+      add(el);
+    },
+
+    note(text) {
+      const el = document.createElement('p');
+      el.className = 'ctl-note';
+      el.textContent = text;
+      add(el);
+    },
+
     // Trả về hàm để cập nhật giá trị hiển thị.
     readout(label) {
       const el = document.createElement('div');

@@ -48,7 +48,7 @@ body {
 
 .menu h3 { margin: 12px 0 4px; font-size: 13px; color: var(--muted); }
 .menu h3:first-child { margin-top: 0; }
-.menu a, .menu span {
+.menu a {
   display: block;
   padding: 6px 8px;
   border-radius: 6px;
@@ -57,11 +57,11 @@ body {
 }
 .menu a:hover { background: var(--bg); }
 .menu a[aria-current="page"] { background: var(--accent); color: #fff; }
-.menu span { color: var(--muted); }
-.menu small { display: block; font-size: 12px; }
+.menu small { display: block; font-size: 12px; opacity: .75; }
 
 .stage-wrap { display: flex; flex-direction: column; min-width: 0; }
-.stage-wrap h2 { margin: 0 0 8px; font-size: 17px; }
+.stage-wrap h2 { margin: 0; font-size: 17px; }
+.lesson-task { margin: 2px 0 8px; color: var(--muted); font-size: 13px; }
 .stage {
   flex: 1;
   min-height: 420px;
@@ -95,6 +95,11 @@ body {
 .ctl-buttons button:disabled { color: var(--muted); cursor: default; opacity: .6; }
 
 .ctl-check { display: block; margin-bottom: 4px; }
+
+.ctl-select { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.ctl-select select { padding: 5px 6px; border: 1px solid var(--border); border-radius: 6px; font: inherit; background: var(--surface); color: inherit; }
+
+.ctl-note { margin: 0 0 6px; color: var(--muted); font-size: 13px; }
 .ctl-check input { accent-color: var(--accent); }
 
 .ctl-readout { display: flex; justify-content: space-between; margin-bottom: 2px; }
