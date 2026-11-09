@@ -1,5 +1,6 @@
 // Ba cách vẽ cùng một cảnh (benchmark/scene.js) để so sánh ở Ch.4:
-//   canvas2d – Canvas 2D API của HTML5: mỗi hình một lệnh fillRect, CPU vẽ
+//   canvas2d – Canvas 2D API của HTML5: JavaScript gọi fillRect cho từng hình;
+//              trình duyệt tự quyết cách vẽ (có thể dùng GPU bên trong)
 //   pixi     – PixiJS (WebGL), ParticleContainer: thư viện tự gộp lệnh vẽ
 //   webgl    – WebGL thuần nhóm tự viết: instancing, 1 lệnh vẽ cho mọi hình
 //
@@ -36,7 +37,7 @@ export const RENDERERS = {
       ctx.scale(ratio, ratio);
       let labelCount = 0;
       return {
-        drawCalls: null, // Canvas 2D không gửi lệnh vẽ GPU trực tiếp
+        drawCalls: null, // Canvas 2D không cho đếm lệnh vẽ GPU (trình duyệt tự xử lý bên trong)
         setup(_scene, labels) { labelCount = labels; },
         render(scene) {
           const { count, positions } = scene;

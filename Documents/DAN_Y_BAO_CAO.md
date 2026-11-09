@@ -1,217 +1,369 @@
-# Dàn ý báo cáo – Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục
+# Dàn ý chi tiết báo cáo – Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục
 
-Theo `FORMAT_PRESENTATION.md` (5 chương) và các lỗi cần tránh trong `MANUAL_FAULT.md`.
+Theo `FORMAT_PRESENTATION.md` (5 chương) và các lỗi cần tránh trong `MANUAL_FAULT.md`. Bảng đối chiếu từng yêu cầu: `KIEM_TRA_YEU_CAU.md`.
 
-**Nguyên tắc chung:** báo cáo là sản phẩm chính; web app EduViz2D là chương trình minh họa cho Ch.3–4. Trọng tâm là **cách dùng HTML5 + WebGL cho các tác vụ 2D tĩnh và động**, áp dụng vào **trực quan hóa kiến thức Tin học và Vật lý**.
+**Cách đọc dàn ý:** mỗi mục ghi 5 thứ:
+- **Viết gì:** các ý phải có, theo thứ tự.
+- **Bảng/Hình:** bảng, hình cần chèn, đánh số sẵn.
+- **Đoạn mẫu:** viết sẵn để sửa lại, không chép nguyên.
+- **Độ dài:** gợi ý số trang (khổ A4, cỡ chữ 13). Đây là con số nhóm tự đặt, thầy không quy định.
+- **Người viết.**
+
+Chỗ nào ghi **[cần số đo]** hay **[cần kiểm chứng]** thì phải thay bằng số liệu hoặc nguồn thật trước khi nộp.
 
 ## Báo cáo này thuộc kiểu gì?
-Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một luận văn thu nhỏ, nhưng không cần phát minh gì mới (TUTORIAL: "đọc, hiểu, cài đặt lại; chưa đòi hỏi đề xuất giải pháp mới"). Mạch của cả báo cáo đi theo đúng các bước TUTORIAL 2.1–2.7:
+Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một luận văn thu nhỏ, nhưng không cần phát minh gì mới (TUTORIAL: "đọc, hiểu, cài đặt lại; chưa đòi hỏi đề xuất giải pháp mới"). Mạch của cả báo cáo:
 
 > Bài toán là gì → người ta đã giải thế nào (khảo sát) → chọn một cách tiên tiến, giải thích nó hoạt động ra sao → cài lại, đo đạc, nhận xét.
-
-Đây **không phải** báo cáo mô tả phần mềm (phân tích yêu cầu, use case, giới thiệu từng màn hình, hướng dẫn sử dụng).
 
 | | Báo cáo khảo sát và cài đặt lại (**thầy cần**) | Báo cáo mô tả phần mềm (**không phải**) |
 |---|---|---|
 | Câu hỏi chính | Vẽ 2D tĩnh và động bằng HTML5 + WebGL thế nào để trực quan hóa kiến thức? Cách nào tốt hơn, vì sao? | App của nhóm có những chức năng gì? |
 | Nội dung chính | Bài toán, các giải pháp đã có, nguyên lý, giải thuật, số liệu đo | Yêu cầu, sơ đồ use case, giao diện, hướng dẫn dùng |
-| Tài liệu trích dẫn | Bài báo hội nghị/tạp chí, luận văn, tài liệu kỹ thuật | Hầu như không cần |
 | Vai trò của app | Bằng chứng cho Ch.3 và nguồn số liệu cho Ch.4 | Là toàn bộ nội dung báo cáo |
 | Ví dụ câu viết | "Fragment shader tính màu mỗi điểm ảnh theo biên độ tổng hợp của hai nguồn sóng, nên mọi điểm ảnh được xử lý song song trên GPU." | "Người dùng bấm nút Play để bắt đầu mô phỏng." |
-| Kết quả | Bảng và biểu đồ FPS, sai số, kèm giải thích nguyên nhân | Ảnh chụp các màn hình |
 
-Ảnh chụp app vẫn được dùng, nhưng chỉ để minh họa một kỹ thuật hay một kết quả đo, không để giới thiệu tính năng.
+Ảnh chụp app chỉ dùng để minh họa một kỹ thuật hay một kết quả đo, không để giới thiệu tính năng.
 
-## Chương 1. Giới thiệu *(A)*
-**1.1. Bối cảnh chung**
-- Học sinh, sinh viên học nhiều khái niệm "động": thuật toán chạy từng bước, vật chuyển động, sóng lan truyền. Hình tĩnh trong sách khó diễn tả.
-- Trình duyệt web có sẵn trên mọi máy và có 3 cách vẽ 2D: Canvas 2D, SVG, WebGL. Chỉ WebGL dùng được GPU.
+---
 
-**1.2. Động lực nghiên cứu**
-- Ý nghĩa khoa học: vẽ 2D hiệu quả trên GPU (chia tam giác, gộp lệnh vẽ, khử răng cưa, tính theo điểm ảnh) là bài toán đồ họa có nhiều lời giải. Trên trình duyệt còn bị giới hạn bởi những gì WebGL cung cấp.
-- Ý nghĩa thực tiễn: mô phỏng tương tác giúp người học hiểu khái niệm (Wieman 2008; Banda & Nzabahimana 2021; Wang et al. 2025). Hiệu quả phụ thuộc vào việc người học được thao tác chứ không chỉ xem (Hundhausen 2002). Muốn thao tác mượt với nhiều đối tượng thì cần cách vẽ hiệu quả.
+## Chương 1. Giới thiệu *(A, khoảng 4–5 trang)*
 
-**1.3. Phát biểu bài toán**
-- **Input:** nội dung cần trực quan hóa: tham số mô hình (v₀, góc ném, độ cứng lò xo…) hoặc dữ liệu cho thuật toán (mảng, đồ thị, lưới); thời gian và thao tác của người học.
-- **Output:** khung hình 2D trên trình duyệt: hình tĩnh (quỹ đạo, sơ đồ, đồ thị) và chuyển động mượt (animation, mô phỏng, phát lại từng bước); ảnh xuất ra khi cần.
-- **Framework chung** (chỉ nêu công đoạn, chưa gắn phương pháp – MANUAL_FAULT mục 1):
+### 1.1. Bối cảnh chung *(~1 trang)*
+**Viết gì:**
+1. Nhiều kiến thức Tin học và Vật lý là quá trình **diễn ra theo thời gian**: thuật toán sắp xếp đổi chỗ từng cặp, vật ném xiên bay theo quỹ đạo, sóng lan truyền. Hình tĩnh trong sách chỉ cho thấy kết quả cuối, không cho thấy quá trình.
+2. Trình duyệt web có sẵn trên mọi máy tính và điện thoại, không cần cài đặt. HTML5 cung cấp 3 cách vẽ 2D: Canvas 2D, SVG và WebGL. Trong đó WebGL cho phép lập trình trực tiếp trên GPU bằng shader.
+3. Câu chuyển sang 1.2: cần trực quan hóa động, tương tác được, chạy mượt với nhiều đối tượng.
 
-| # | Công đoạn | Ẩn số cần tìm (MANUAL_FAULT mục 2) |
-|---|---|---|
-| 1 | Tính toán mô hình | Trạng thái tại thời điểm t (vị trí, vận tốc) hoặc bước tiếp theo của thuật toán |
-| 2 | Ánh xạ sang cảnh 2D | Đối tượng hình học nào biểu diễn đại lượng nào; thứ tự vẽ |
-| 3 | Xử lý hình học | Cách chia hình, đường cong thành tam giác (hoặc cách khác) |
-| 4 | Biến đổi tọa độ | Ma trận đưa tọa độ thế giới (mét, ô lưới) về điểm ảnh |
-| 5 | Tô màu điểm ảnh | Màu từng điểm ảnh; cách khử răng cưa |
-| 6 | Cập nhật và tương tác | Bước thời gian mỗi khung hình; đối tượng nào bị chọn/kéo; số lần gọi vẽ mỗi khung hình |
+**Đoạn mẫu:**
+> Trong dạy và học Tin học, Vật lý, nhiều khái niệm là một quá trình chứ không phải một trạng thái: thuật toán Bubble Sort so sánh và đổi chỗ từng cặp phần tử; một vật ném xiên thay đổi vị trí và vận tốc theo từng thời điểm. Hình minh họa tĩnh chỉ thể hiện được một khoảnh khắc của quá trình đó. Trong khi đó, trình duyệt web có mặt trên hầu hết thiết bị của người học, và chuẩn HTML5 cho phép vẽ đồ họa 2D trực tiếp trên trang web qua thẻ `<canvas>`, kể cả lập trình GPU thông qua WebGL.
 
-**1.4. Đóng góp**
-1. Khảo sát có hệ thống các ứng dụng trực quan hóa giáo dục và các kỹ thuật vẽ 2D trên web/GPU trong **một bảng so sánh chung** theo các công đoạn ở 1.3.
-2. Trình bày lại pipeline vẽ 2D trên WebGL mà các thư viện web đang dùng, và cài đặt lại nó trong 6 bài minh họa Tin học, Vật lý.
-3. Đo lại hiệu năng Canvas 2D / PixiJS / WebGL thuần trên máy hiện nay, có tách riêng ảnh hưởng của chữ, mở rộng phạm vi đo của Horak et al. 2018.
-4. Kiểm chứng độ chính xác của mô phỏng so với nghiệm giải tích, và đo tốc độ tính theo điểm ảnh trên CPU so với GPU.
+### 1.2. Động lực nghiên cứu *(~1 trang)*
+**Viết gì:** chia hai ý, đúng như FORMAT_PRESENTATION yêu cầu.
+- **Ý nghĩa khoa học:** vẽ 2D hiệu quả trên GPU là bài toán có nhiều lời giải (chia tam giác, gộp lệnh vẽ, vẽ đường cong bằng shader, tô theo dòng quét…). Trên trình duyệt, lời giải bị giới hạn bởi những gì WebGL cung cấp, nên cần khảo sát lại xem cách nào dùng được và hiệu quả đến đâu.
+- **Ý nghĩa thực tiễn:** mô phỏng tương tác giúp người học hiểu khái niệm (Wieman 2008; Banda & Nzabahimana 2021 tổng hợp 31 nghiên cứu; Wang et al. 2025). Hundhausen 2002 cho thấy hiệu quả phụ thuộc vào việc người học **được thao tác**, không chỉ xem. Muốn thao tác mượt với hàng nghìn đối tượng thì cách vẽ phải nhanh.
 
-## Chương 2. Các công trình liên quan *(A viết khung + gộp; B, C điền phần mình)*
-**2.1. Ứng dụng trực quan hóa giáo dục** – PhET, Falstad, VisuAlgo, algorithm-visualizer.org, GeoGebra. Mở từng trang, kiểm tra vẽ bằng Canvas, SVG hay WebGL (đếm thẻ `canvas`/`svg`), ghi ảnh chụp.
+**Đoạn mẫu (ý thực tiễn):**
+> Tổng quan của Banda và Nzabahimana (2021) trên 31 nghiên cứu cho thấy việc tích hợp mô phỏng PhET hỗ trợ người học hiểu khái niệm Vật lý. Với công cụ minh họa thuật toán, Hundhausen và cộng sự (2002) chỉ ra rằng mức độ người học tham gia thao tác quan trọng hơn hình thức hiển thị. Điều này đặt ra yêu cầu kỹ thuật: ứng dụng phải phản hồi ngay khi người học kéo, thả, thay đổi tham số, kể cả khi cảnh có hàng nghìn đối tượng.
 
-**2.2. Kỹ thuật vẽ 2D trên web và trên GPU** – Canvas 2D, SVG, WebGL thuần, PixiJS, CanvasKit/Skia; các bài báo ở bảng tài liệu bên dưới.
+### 1.3. Phát biểu bài toán *(~1,5 trang)*
+**Viết gì:**
+1. **Input:** tham số mô hình (v₀, góc ném, độ cứng lò xo…) hoặc dữ liệu thuật toán (mảng, đồ thị, lưới); thời gian; thao tác chuột/bàn phím của người học.
+2. **Output:** khung hình 2D trên trình duyệt:
+   - tĩnh: quỹ đạo, sơ đồ, đồ thị, ảnh xuất ra;
+   - động: animation, mô phỏng, phát lại từng bước, phản hồi khi kéo-thả.
+3. **Framework 6 công đoạn** (chỉ nêu công đoạn, **không** nêu phương pháp – MANUAL_FAULT mục 1) và **ẩn số** của từng công đoạn (mục 2).
 
-**2.3. Quá trình phát triển** (FORMAT_PRESENTATION yêu cầu "trình bày quá trình phát triển của các giải pháp"). Trình bày theo trục thời gian, mỗi mốc nói rõ nó giải quyết công đoạn nào ở 1.3:
-- Công nghệ trên web: Flash/Java applet → HTML5 Canvas 2D và SVG → WebGL 1.0 (2011) → WebGL 2.0 (2017) → WebGPU. Mốc năm cần đối chiếu với trang của Khronos và W3C trước khi đưa vào báo cáo.
-- Kỹ thuật vẽ 2D trên GPU: Loop & Blinn 2005 → Green 2007 → Kilgard & Bolz 2012 → Ganacim 2014 → Li 2016.
-- Ứng dụng giáo dục: các applet Java (Falstad, bản PhET cũ) → chuyển sang HTML5 (PhET, VisuAlgo…).
-
-**2.4. Bảng so sánh chung** – mọi giải pháp ở 2.1 và 2.2 điền vào **cùng một bảng**, cột theo các công đoạn ở 1.3 (MANUAL_FAULT mục 3), thêm cột **khuyết điểm** (mục 8):
-
-| Giải pháp | Năm | Nền tảng | Tính toán mô hình | Xử lý hình học | Tô màu / khử răng cưa | Tĩnh / động / tương tác | Hiệu năng (số đối tượng) | Khuyết điểm |
-|---|---|---|---|---|---|---|---|---|
-| PhET | | | | | | | | |
-| Falstad | | | | | | | | |
-| VisuAlgo | | | | | | | | |
-| algorithm-visualizer.org | | | | | | | | |
-| GeoGebra | | | | | | | | |
-| Canvas 2D | | | | | | | | |
-| SVG | | | | | | | | |
-| WebGL thuần | | | | | | | | |
-| PixiJS (trên WebGL) | | | | | | | | |
-| CanvasKit / Skia (WASM) | | | | | | | | |
-| Loop & Blinn 2005 | | | | | | | | |
-| Green 2007 | | | | | | | | |
-| Kilgard & Bolz 2012 | | | | | | | | |
-| Ganacim et al. 2014 | | | | | | | | |
-| Li et al. 2016 | | | | | | | | |
-| Horak et al. 2018 (so sánh) | | | | | | | | |
-
-**2.5. So sánh báo cáo của nhóm với các công trình trên**
-| Tiêu chí | Các bài báo kỹ thuật | Các nghiên cứu giáo dục | Báo cáo của nhóm |
+**Bảng 1.1 – Framework chung:**
+| # | Công đoạn | Ẩn số cần tìm | Ví dụ với bài ném xiên |
 |---|---|---|---|
-| Loại đóng góp | Thuật toán vẽ mới (Loop & Blinn, Kilgard, Ganacim, Li) hoặc phép đo hẹp (Horak) | Đánh giá hiệu quả học tập, có người học tham gia | Khảo sát + cài lại + đo |
-| Nền tảng | GPU máy tính, CUDA, phần mở rộng OpenGL riêng | Ứng dụng có sẵn (PhET…) | Trình duyệt: HTML5 + WebGL |
-| Phạm vi | Thường chỉ vẽ tĩnh một loại đối tượng | Một ứng dụng cụ thể | Tĩnh và động: vector, chữ, nhiều đối tượng, shader, animation, tương tác |
-| Đánh giá | Tốc độ, chất lượng ảnh trên phần cứng của họ | Điểm kiểm tra của người học | FPS, thời gian khung hình, số lần gọi vẽ, sai số so với nghiệm giải tích |
+| 1 | Tính toán mô hình | Trạng thái tại thời điểm t, hoặc bước tiếp theo của thuật toán | (x, y, vₓ, vᵧ) tại t = 1,2 s |
+| 2 | Ánh xạ sang cảnh 2D | Đại lượng nào vẽ bằng hình gì, thứ tự vẽ | Vật = hình tròn, vận tốc = mũi tên, quỹ đạo = đường cong |
+| 3 | Xử lý hình học | Cách đưa hình về dạng GPU vẽ được | Đường cong → các đoạn thẳng → tam giác |
+| 4 | Biến đổi tọa độ | Phép biến đổi từ đơn vị thật sang điểm ảnh | 1 m = ? điểm ảnh; gốc tọa độ ở đâu |
+| 5 | Tô màu điểm ảnh | Màu từng điểm ảnh; cách khử răng cưa | Mép hình tròn không bị răng cưa |
+| 6 | Cập nhật và tương tác | Bước thời gian mỗi khung hình; đối tượng nào bị chọn | Kéo mũi tên v₀ → tính lại quỹ đạo |
 
-**Không được tự nhận:** nhanh hơn hay đẹp hơn các bài kỹ thuật (nhóm không cài lại thuật toán của họ), hay giúp học tốt hơn PhET (nhóm không đo hiệu quả học tập).
+**Hình 1.1:** sơ đồ khối 6 công đoạn, vẽ bằng draw.io: các hộp nối mũi tên, mũi tên quay lại từ công đoạn 6 về công đoạn 1.
 
-**Câu kết chương mẫu** (trả lời "người ta đã làm gì, nhóm làm gì"):
-> "Các ứng dụng giáo dục như PhET, VisuAlgo cho thấy giá trị của mô phỏng tương tác. Về kỹ thuật, các giải pháp vẽ 2D tiên tiến như [Kilgard 2012], [Ganacim 2014], [Li 2016] đòi hỏi tính năng GPU chưa có trong WebGL (phần mở rộng riêng của NVIDIA, compute shader). Vì vậy đồ án trình bày và cài đặt lại pipeline chia tam giác kết hợp gộp lệnh vẽ mà các thư viện web đang dùng, áp dụng vào các bài trực quan hóa Tin học và Vật lý, rồi đo hiệu năng và độ chính xác trên trình duyệt hiện nay, mở rộng phạm vi đo của [Horak 2018]."
+### 1.4. Đóng góp *(~0,5–1 trang)*
+**Viết gì:** liệt kê đúng những gì báo cáo làm được, mỗi đóng góp chỉ rõ **bằng chứng nằm ở đâu**. Không dùng các từ "đề xuất phương pháp mới", "tốt hơn", "vượt trội".
 
-**Tài liệu** (DOI đã đối chiếu với Crossref; tóm tắt cần kiểm tra lại khi đọc bài gốc):
+**Bảng 1.2 – Đóng góp và bằng chứng:**
+| # | Đóng góp | Bằng chứng trong báo cáo | Trạng thái |
+|---|---|---|---|
+| 1 | Khảo sát và so sánh 16 giải pháp (5 ứng dụng giáo dục, 5 công nghệ vẽ trên web, 6 bài báo) theo **cùng 6 công đoạn** | Bảng 2.2 | Cột đã chốt, chưa điền |
+| 2 | Trình bày lại pipeline vẽ 2D trên WebGL bằng **mã nguồn tự cài đặt**: chia đa giác thành tam giác, ma trận biến đổi, shader, instancing, chọn đối tượng bằng GPU | Ch.3, Hình 3.2–3.6, Bảng 3.3 | Code và hình đã có |
+| 3 | Đo hiệu năng Canvas 2D, PixiJS, WebGL thuần trên phần cứng hiện nay, có xét ảnh hưởng của chữ; mở rộng phép đo của Horak et al. 2018 | Bảng 4.3, Hình 4.1 | Công cụ xong, **[cần số đo]** |
+| 4 | Đo tác dụng của instancing và so sánh 2 cách chọn đối tượng (tính toán / GPU picking) | Bảng 4.4, 3.2 | Công cụ xong, **[cần số đo]** |
+| 5 | Kiểm chứng độ chính xác mô phỏng so với nghiệm giải tích; đo mức tăng tốc GPU so với CPU khi tính theo điểm ảnh | Bảng 4.5, 4.6 | Ném xiên xong; lò xo, sóng chờ C |
+| 6 | Ứng dụng minh họa mã nguồn mở EduViz2D: 6 bài Tin học, Vật lý, mỗi bài một tác vụ 2D, có tương tác trực tiếp | Bảng 4.2, thư mục Source code | Một phần |
+
+**Đoạn mẫu:**
+> Báo cáo có các đóng góp sau:
+> (1) Khảo sát và so sánh 16 giải pháp liên quan, gồm ứng dụng trực quan hóa giáo dục, công nghệ vẽ 2D trên web và các kỹ thuật vẽ 2D trên GPU, theo cùng một khung 6 công đoạn (Bảng 2.2).
+> (2) Trình bày lại pipeline vẽ 2D trên WebGL bằng mã nguồn tự cài đặt, gồm chia đa giác thành tam giác, ma trận biến đổi, shader, instancing và chọn đối tượng bằng GPU (Chương 3).
+> (3) Đo hiệu năng của Canvas 2D, PixiJS và WebGL thuần trên phần cứng hiện nay, có xét ảnh hưởng của nhãn chữ, mở rộng phép đo của Horak và cộng sự (2018) (Mục 4.4).
+> (4) Kiểm chứng độ chính xác của các mô phỏng so với nghiệm giải tích và đo mức tăng tốc khi tính theo từng điểm ảnh trên GPU so với CPU (Mục 4.4).
+> (5) Xây dựng ứng dụng minh họa mã nguồn mở EduViz2D với 6 bài Tin học, Vật lý có tương tác trực tiếp.
+> Báo cáo không đề xuất thuật toán vẽ mới và không đánh giá hiệu quả học tập với người học thật.
+
+---
+
+## Chương 2. Các công trình nghiên cứu liên quan *(A khung + gộp; B phần Tin học; C phần Vật lý; khoảng 7–9 trang)*
+
+### 2.1. Ứng dụng trực quan hóa giáo dục *(~2 trang; B: VisuAlgo, algorithm-visualizer; C: PhET, Falstad; A: GeoGebra)*
+**Viết gì, mỗi ứng dụng một đoạn theo cùng dàn 5 ý** (MANUAL_FAULT mục 3: không viết mỗi cái một kiểu):
+1. Là gì, của ai, năm.
+2. Minh họa kiến thức gì.
+3. Vẽ bằng gì: mở trang, bấm F12, đếm thẻ `canvas`/`svg` **[cần kiểm chứng từng trang]**.
+4. Người học thao tác được gì: chỉ xem / đổi tham số / kéo-thả / tự làm.
+5. Khuyết điểm theo công đoạn ở 1.3.
+
+**Đoạn mẫu (khung để điền):**
+> PhET (Wieman và cộng sự, 2008) là bộ mô phỏng của Đại học Colorado Boulder cho các môn Vật lý, Hóa học, Toán. Phiên bản hiện nay chạy bằng HTML5 và vẽ bằng [Canvas/SVG/WebGL – cần kiểm chứng]. Người học thay đổi tham số bằng thanh trượt và kéo trực tiếp đối tượng. Hạn chế ở công đoạn 1 (tính toán mô hình): [ví dụ: mô phỏng không cho xem sai số tính toán – cần kiểm chứng].
+
+**Hình 2.1:** ảnh chụp 4 ứng dụng ghép thành một hình 2×2.
+
+### 2.2. Công nghệ và kỹ thuật vẽ 2D trên web và trên GPU *(~2,5 trang; A)*
+**Viết gì:** cũng theo cùng dàn 5 ý, nhưng ý 2 đổi thành "giải quyết công đoạn nào".
+- Công nghệ trên trình duyệt: Canvas 2D, SVG, WebGL thuần, PixiJS, CanvasKit (Skia biên dịch sang WebAssembly).
+- Bài báo:
+  - Loop & Blinn 2005 – vẽ đường cong bằng shader;
+  - Green 2007 – SDF cho chữ;
+  - Kilgard & Bolz 2012 – path rendering trên GPU;
+  - Ganacim 2014 – vẽ vector song song;
+  - Li 2016 – scanline trên GPU;
+  - Horak 2018 – so sánh hiệu năng web.
+
+**Đoạn mẫu:**
+> Kilgard và Bolz (2012) đề xuất vẽ đường path vector hoàn toàn trên GPU theo hai bước "stencil, then cover": bước đầu đánh dấu vùng bên trong path vào stencil buffer, bước sau tô màu các điểm ảnh đã đánh dấu. Kỹ thuật giải quyết công đoạn 3 và 5 mà không cần chia path thành tam giác trên CPU. Tuy nhiên nó dựa trên phần mở rộng OpenGL riêng của NVIDIA (NV_path_rendering), không có trong WebGL, nên không áp dụng trực tiếp được trên trình duyệt.
+
+### 2.3. Quá trình phát triển *(~1 trang; A)*
+**Viết gì:** một trục thời gian (Hình 2.2), mỗi mốc ghi công đoạn nó cải thiện.
+
+**Hình 2.2 – Trục thời gian (điền mốc sau khi kiểm chứng):**
+| Mốc | Sự kiện | Cải thiện công đoạn |
+|---|---|---|
+| Trước HTML5 | Java applet, Flash (bản PhET, Falstad đời đầu) | Phải cài plugin |
+| HTML5 | Canvas 2D, SVG | Vẽ 2D không cần plugin |
+| 2005–2016 | Loop & Blinn → Green → Kilgard → Ganacim → Li | 3, 5: vẽ vector chất lượng cao trên GPU |
+| WebGL 1.0 **[cần kiểm chứng năm, khoảng 2011]** | Lập trình GPU trên trình duyệt | 3, 4, 5 |
+| WebGL 2.0 **[cần kiểm chứng năm, khoảng 2017]** | Instancing, VAO có sẵn | 6: giảm số lần gọi vẽ |
+| WebGPU | Có compute shader | Hướng phát triển (Ch.5) |
+
+### 2.4. Bảng so sánh chung *(~1,5 trang; cả nhóm điền)*
+**Viết gì:** một bảng duy nhất, cột theo công đoạn ở 1.3 (MANUAL_FAULT mục 3), có cột **khuyết điểm** (mục 8). Dưới bảng là 1 đoạn nhận xét: nhóm giải pháp nào mạnh ở công đoạn nào.
+
+**Bảng 2.2** (3 dòng đầu điền **làm ví dụ**, viết theo hiểu biết chung, cần đối chiếu tài liệu khi viết thật):
+| Giải pháp | Năm | Nền tảng | (1) Tính toán mô hình | (3) Xử lý hình học | (5) Tô màu / khử răng cưa | (6) Tĩnh / động / tương tác | Hiệu năng | Khuyết điểm |
+|---|---|---|---|---|---|---|---|---|
+| Canvas 2D | – | Trình duyệt | Người lập trình tự viết | Trình duyệt tự xử lý path | Có khử răng cưa sẵn | Động: tự xóa và vẽ lại mỗi khung hình | **[cần số đo, Bảng 4.3]** | Mỗi hình một lệnh gọi từ JavaScript; không lập trình được GPU |
+| SVG | – | Trình duyệt | Người lập trình tự viết | Mỗi hình là một phần tử trang | Có sẵn | Tương tác dễ: gắn sự kiện cho từng phần tử | Giảm khi số phần tử lớn (Horak 2018) | Trang nặng khi có hàng nghìn phần tử |
+| WebGL thuần | – | Trình duyệt, GPU | Tự viết | **Tự chia tam giác** | Tự viết shader | Tự viết toàn bộ | **[cần số đo]** | Nhiều code; không có sẵn cách vẽ chữ |
+| PixiJS | | | | | | | | |
+| … (12 dòng còn lại như danh sách 2.1, 2.2) | | | | | | | | |
+
+### 2.5. Người ta đã làm gì, đồ án làm gì *(~1 trang; A)*
+**Viết gì:** trả lời đúng 2 câu hỏi cốt lõi của TUTORIAL 2.5, bằng 3 đoạn:
+1. **Người ta đã làm gì:** tóm tắt Bảng 2.2 theo 3 nhóm (ứng dụng giáo dục, công nghệ web, bài báo GPU).
+2. **Khuyết điểm còn lại** (MANUAL_FAULT mục 8): chỉ ra **cụ thể** ở công đoạn nào, và là vấn đề **độ chính xác** hay **độ phức tạp tính toán**.
+3. **Đồ án làm gì:** chọn giải pháp nào cho Ch.3 và vì sao.
+
+**Bảng 2.3 – Khuyết điểm còn lại và đồ án xử lý thế nào:**
+| Khuyết điểm quan sát được | Công đoạn | Loại vấn đề | Đồ án xử lý |
+|---|---|---|---|
+| Kỹ thuật GPU tiên tiến (Kilgard 2012, Ganacim 2014, Li 2016) cần tính năng WebGL không có | 3, 5 | Không triển khai được trên web | Dùng cách chia tam giác + instancing chạy được trên WebGL 2 (Ch.3) |
+| Canvas 2D, SVG chậm khi có nhiều đối tượng **[kiểm chứng bằng Bảng 4.3]** | 6 | Độ phức tạp tính toán | Gộp nhiều hình vào 1 lệnh vẽ bằng instancing |
+| Horak 2018 đo trên phần cứng cũ, chỉ với đồ thị node–cạnh | – | Thiếu số liệu | Đo lại trên máy hiện nay, nhiều loại cảnh, có/không chữ |
+| Mô phỏng giáo dục thường không hiển thị sai số tính toán **[cần kiểm chứng]** | 1 | Độ chính xác | So với nghiệm giải tích, hiển thị sai số (Bảng 4.5) |
+
+**Bảng 2.4 – Báo cáo của nhóm khác các công trình trên ở đâu:**
+| Tiêu chí | Bài báo kỹ thuật | Nghiên cứu giáo dục | Báo cáo của nhóm |
+|---|---|---|---|
+| Loại đóng góp | Thuật toán vẽ mới, hoặc phép đo hẹp (Horak) | Đánh giá hiệu quả học tập với người học | Khảo sát + cài lại + đo |
+| Nền tảng | GPU máy tính, CUDA, phần mở rộng OpenGL riêng | Ứng dụng có sẵn | Trình duyệt: HTML5 + WebGL |
+| Phạm vi | Thường vẽ tĩnh một loại đối tượng | Một ứng dụng | Tĩnh và động: vector, chữ, nhiều đối tượng, shader, tương tác |
+| Đánh giá | Tốc độ, chất lượng ảnh trên phần cứng của họ | Điểm kiểm tra của người học | FPS, thời gian khung hình, số lệnh vẽ, sai số |
+
+**Không được tự nhận:** nhanh hơn hay đẹp hơn các bài kỹ thuật (nhóm không cài lại thuật toán của họ); giúp học tốt hơn PhET (nhóm không đo hiệu quả học tập).
+
+**Đoạn mẫu (kết chương):**
+> Các ứng dụng như PhET, VisuAlgo cho thấy giá trị của mô phỏng tương tác trong dạy học. Về kỹ thuật, các giải pháp vẽ 2D tiên tiến trên GPU (Kilgard và Bolz, 2012; Ganacim và cộng sự, 2014; Li và cộng sự, 2016) đòi hỏi những tính năng chưa có trong WebGL như phần mở rộng NV_path_rendering hay compute shader. Phép đo gần nhất trên trình duyệt (Horak và cộng sự, 2018) chỉ xét đồ thị node–cạnh trên phần cứng năm 2018. Vì vậy, đồ án chọn trình bày và cài đặt lại pipeline chia tam giác kết hợp instancing mà các thư viện web đang dùng, áp dụng vào các bài trực quan hóa Tin học và Vật lý, rồi đo hiệu năng và độ chính xác trên trình duyệt hiện nay.
+
+### Tài liệu tham khảo của Ch.2 (DOI đã đối chiếu với Crossref; tóm tắt cần kiểm tra lại khi đọc bài gốc)
 | Tài liệu | DOI | Nội dung chính | Dùng ở | Ai đọc |
 |---|---|---|---|---|
 | Loop & Blinn, *Resolution independent curve rendering using programmable graphics hardware*, ACM TOG 2005 | 10.1145/1073204.1073303 | Vẽ đường cong Bézier sắc nét ở mọi độ phóng bằng shader | 2.2, Ch.5 | A |
-| Green, *Improved alpha-tested magnification for vector textures and special effects*, SIGGRAPH 2007 Courses | 10.1145/1281500.1281665 | Signed distance field cho chữ và hình | 2.2, Ch.3 (chữ) | B |
+| Green, *Improved alpha-tested magnification for vector textures and special effects*, SIGGRAPH 2007 Courses | 10.1145/1281500.1281665 | Signed distance field cho chữ và hình | 2.2, Ch.3 | B |
 | Kilgard & Bolz, *GPU-accelerated path rendering*, ACM TOG 2012 | 10.1145/2366145.2366191 | Vẽ path vector hoàn toàn trên GPU (stencil, then cover) | 2.2 | A |
 | Ganacim et al., *Massively-parallel vector graphics*, ACM TOG 2014 | 10.1145/2661229.2661274 | Vẽ đồ họa vector song song trên GPU | 2.2 | C |
 | Li, Hou, Zhou, *Efficient GPU path rendering using scanline rasterization*, ACM TOG 2016 | 10.1145/2980179.2982434 | Tô path theo dòng quét trên GPU | 2.2 | C |
 | Horak, Kister, Dachselt, *Comparing rendering performance of common web technologies for large graphs*, IEEE VIS 2018 poster | (poster, không có DOI) | FPS của SVG/Canvas/WebGL theo số node | 2.2, Ch.4 | A |
-| Meisters, *Polygons have ears*, American Mathematical Monthly 1975 | 10.1080/00029890.1975.11993898 | Chứng minh mọi đa giác đơn đều có "tai", cơ sở của ear clipping | Ch.3 | A |
+| Meisters, *Polygons have ears*, American Mathematical Monthly 1975 | 10.1080/00029890.1975.11993898 | Mọi đa giác đơn đều có "tai", cơ sở của ear clipping | Ch.3 | A |
 | Eder, Held, Palfrader, *Parallelized ear clipping for the triangulation and constrained Delaunay triangulation of polygons*, Computational Geometry 2018 | 10.1016/j.comgeo.2018.01.004 | Ear clipping song song, bản cải tiến gần đây | Ch.3 | A |
-| Carucci, *Inside geometry instancing*, GPU Gems 2 (2005), chương 3 | (sách, không có DOI; chưa đối chiếu) | Kỹ thuật instancing để vẽ nhiều bản sao | Ch.3 | B |
+| Carucci, *Inside geometry instancing*, GPU Gems 2 (2005), chương 3 | (sách, không có DOI; **chưa đối chiếu**) | Kỹ thuật instancing | Ch.3 | B |
 | Wieman, Adams, Perkins, *PhET: Simulations that enhance learning*, Science 2008 | 10.1126/science.1161948 | Thiết kế mô phỏng PhET | 1.2, 2.1 | C |
 | Banda & Nzabahimana, *Effect of integrating PhET simulations on students' conceptual understanding in physics*, Phys. Rev. PER 2021 | 10.1103/PhysRevPhysEducRes.17.023108 | Tổng quan 31 nghiên cứu về PhET | 1.2 | C |
 | Wang, Zhang, Pang, *Virtual experiments in physics education: a systematic literature review*, Res. Sci. Technol. Educ. 2025 | 10.1080/02635143.2024.2327995 | Tổng quan thí nghiệm ảo trong dạy Vật lý | 1.2, 2.1 | C |
 | Hundhausen, Douglas, Stasko, *A meta-study of algorithm visualization effectiveness*, JVLC 2002 | 10.1006/jvlc.2002.0237 | Mức tham gia của người học quyết định hiệu quả | 1.2, 2.1 | B |
 | Shaffer et al., *Algorithm visualization: the state of the field*, ACM TOCE 2010 | 10.1145/1821996.1821997 | Khảo sát hơn 500 công cụ minh họa thuật toán | 2.1 | B |
 | OpenStax, *University Physics* vol. 1, mục 4.3 | – | Nghiệm tham chiếu ném xiên | Ch.4 | C |
+| **Luận văn Thạc sĩ / Tiến sĩ (TUTORIAL 2.3)** | – | **Chưa có, cần tìm 1–2 luận văn** | 2.2 | A |
 
-## Chương 3. Phương pháp *(A: pipeline + đồ thị; B: gộp lệnh vẽ + thuật toán; C: shader + mô phỏng)*
-Giải pháp chọn: **pipeline vẽ 2D trên WebGL theo kiểu gộp lệnh vẽ / instancing (cách PixiJS làm) + shader tính theo điểm ảnh**, kết hợp mô hình tính toán của từng bài.
+---
 
-TUTORIAL 2.6 yêu cầu "chọn phương pháp tiên tiến **đã công bố**". Pipeline này không nằm trọn trong một bài báo, nên mỗi bước phải dẫn nguồn đã công bố: ear clipping (Meisters 1975; Eder et al. 2018), instancing (Carucci 2005), SDF cho chữ (Green 2007), đặc tả WebGL 2.0 của Khronos.
+## Chương 3. Phương pháp *(A: 3.1–3.3, 3.6; B: 3.4; C: 3.5; khoảng 8–10 trang)*
+Giải pháp chọn: **pipeline vẽ 2D trên WebGL dùng chia tam giác + instancing, kết hợp shader tính theo điểm ảnh** (cách các thư viện web như PixiJS đang dùng). TUTORIAL 2.6 yêu cầu phương pháp **đã công bố**, nên mỗi bước phải dẫn nguồn: ear clipping (Meisters 1975; Eder et al. 2018), instancing (Carucci 2005), SDF (Green 2007), đặc tả WebGL 2.0 của Khronos.
 
-Trình bày theo thứ tự:
-1. **Sơ đồ chung:** mô hình (thuật toán / mô phỏng) → HTML5 (canvas, `requestAnimationFrame`, sự kiện chuột) → WebGL (buffer → vertex shader → rasterization → fragment shader) → khung hình.
-2. **Nguyên lý:** vì sao GPU nhanh hơn cho 2D: xử lý song song, giảm số lần gọi vẽ.
-3. **Phương pháp và giải thuật:**
-   - Đồ họa: chia đa giác thành tam giác; ma trận chiếu 2D; gộp lệnh vẽ và instancing; khử răng cưa, SDF cho chữ.
-   - Tương tác (công đoạn 6, ẩn số "đối tượng nào bị chọn"): so sánh hai cách chọn đối tượng trên hình vẽ bằng WebGL:
-     - **Tính toán** (hit-test): suy chỉ số cột/ô từ tọa độ chuột. Nhanh, O(1), nhưng chỉ dùng được khi phần tử xếp đều (bài sắp xếp, A*).
-     - **GPU picking**: vẽ lại cảnh bằng "màu mã" vào framebuffer ẩn rồi `readPixels` tại vị trí chuột. Đúng với mọi hình dạng, kể cả hàng chục nghìn bản sao instancing, đổi lại phải vẽ thêm một lượt và chờ GPU trả dữ liệu (bài pipeline, đồ thị).
-   - Vòng lặp tương tác: sự kiện chuột (HTML5) → cập nhật dữ liệu → nạp lại buffer (`bufferSubData`) → vẽ lại.
-   - Mô hình: thuật toán viết dưới dạng chuỗi bước để phát lại (sắp xếp, BFS/DFS/Dijkstra, A*); tích phân số Euler / Verlet / RK4; công thức giao thoa sóng trong fragment shader.
-4. **Minh họa:** đoạn code ngắn + hình chụp từ app.
-5. **Tiến trình hoạt động** (MANUAL_FAULT mục 5): đi qua một khung hình cụ thể bằng bài **Pipeline WebGL từng bước**, chụp hình 5 bước: đỉnh → chia tam giác → ma trận → fragment shader → instancing. Sau đó lấy ví dụ bài ném xiên: tham số → vị trí tại t → tọa độ điểm ảnh → tam giác → điểm ảnh.
+### 3.1. Sơ đồ chung *(~1 trang)*
+**Hình 3.1:** sơ đồ: Dữ liệu bài học → Mô hình (JavaScript) → Bộ đệm đỉnh (GPU) → Vertex shader → Rasterization → Fragment shader → Khung hình; vòng lặp `requestAnimationFrame` và sự kiện chuột quay lại "Mô hình". Ghi tên công đoạn 1–6 của Bảng 1.1 lên từng khối.
 
-**Bảng kiến thức HTML5 / WebGL ↔ code nhóm tự viết** (dùng để trích code vào báo cáo; phần nào PixiJS làm thì ghi rõ):
+### 3.2. Nguyên lý *(~1 trang)*
+**Viết gì:** GPU vẽ nhanh vì xử lý song song hàng nghìn đỉnh và điểm ảnh. Điểm nghẽn thường nằm ở **CPU gửi lệnh vẽ**, không phải ở GPU. Do đó giảm số lần gọi vẽ (gộp lệnh, instancing) là chìa khóa.
+
+**Đoạn mẫu:**
+> Mỗi lệnh vẽ mà JavaScript gửi tới GPU đều tốn chi phí cố định ở phía CPU: kiểm tra trạng thái, chuẩn bị dữ liệu, chuyển lệnh qua trình duyệt xuống trình điều khiển đồ họa. Khi vẽ 10.000 hình bằng 10.000 lệnh, chi phí này lặp lại 10.000 lần. Instancing cho phép gửi một lệnh duy nhất kèm một bộ đệm chứa vị trí của cả 10.000 bản sao; GPU tự lặp lại hình cho từng bản sao.
+
+### 3.3. Phương pháp và giải thuật đồ họa *(~3 trang; A)*
+| Mục | Viết gì | Code trích | Hình |
+|---|---|---|---|
+| 3.3.1 Chia đa giác thành tam giác | Định lý "mọi đa giác đơn có tai" (Meisters 1975); giải thuật cắt tai, độ phức tạp O(n²) | `js/webgl/triangulate.js` | 3.2: ngôi sao lõm 14 đỉnh → 12 tam giác |
+| 3.3.2 Ma trận biến đổi 2D | Tọa độ thuần nhất 3×3; ma trận chiếu từ điểm ảnh sang clip space; ghép dời–xoay–co giãn | `js/webgl/matrix.js` (`ortho2D`, `multiply`) | 3.3: đa giác trước/sau khi xoay 45° |
+| 3.3.3 Shader | Vertex shader nhân ma trận; fragment shader tô màu theo khoảng cách tới tâm | GLSL trong `js/tech/pipeline.js` | 3.4: đa giác tô chuyển màu |
+| 3.3.4 Instancing | `vertexAttribDivisor`, `drawArraysInstanced`; so với vòng lặp `drawArrays` | `js/webgl/instanced-rects.js` | 3.5: 100 bản sao, 1 lệnh vẽ |
+| 3.3.5 Chọn đối tượng | Hit-test bằng tính toán vs GPU picking (framebuffer + `readPixels`) | `js/core/hit-test.js`, `js/webgl/picking.js` | 3.6: bản sao #53 được chọn |
+
+**Bảng 3.2 – So sánh 2 cách chọn đối tượng:**
+| | Tính toán (hit-test) | GPU picking |
+|---|---|---|
+| Ý tưởng | Suy chỉ số từ tọa độ chuột (cột i = ⌊(x − lề) / độ rộng cột⌋) | Vẽ lại cảnh bằng "màu mã" vào framebuffer ẩn, đọc màu tại chuột |
+| Độ phức tạp | O(1) | Một lượt vẽ thêm + chờ GPU trả 1 điểm ảnh |
+| Dùng được khi | Phần tử xếp đều (cột, lưới) | Mọi hình dạng, kể cả hình lõm, xoay, hàng nghìn bản sao |
+| Dùng ở bài | Sắp xếp, A* | Pipeline, đồ thị |
+
+### 3.4. Mô hình thuật toán: phát lại từng bước *(~1,5 trang; B)*
+**Viết gì:** thuật toán viết bằng generator, mỗi bước "so sánh" hay "đổi chỗ" phát ra một lệnh; phần vẽ nhận lệnh và tô màu. Mảng nhỏ (khoảng ≤ 2.000 phần tử, **[cần số đo để chốt]**) thì ghi lại để tua; mảng lớn thì chạy trực tiếp. Có giả mã Bubble Sort, Quick Sort, A*.
+
+### 3.5. Mô hình vật lý và shader sóng *(~1,5 trang; C)*
+**Viết gì:**
+- Phương trình ném xiên (OpenStax 4.3).
+- Tích phân số Euler / Verlet / RK4: công thức một bước, bậc chính xác.
+- Công thức giao thoa hai nguồn và cách viết nó trong fragment shader (mỗi điểm ảnh tự tính hiệu đường đi).
+
+### 3.6. Tiến trình hoạt động *(~1 trang; A – MANUAL_FAULT mục 5)*
+**Viết gì:** đi qua **một khung hình cụ thể** của bài ném xiên, có số thật.
+
+**Đoạn mẫu:**
+> Xét v₀ = 20 m/s, θ = 45°, g = 9,8 m/s², tại t = 1,0 s.
+> (1) Mô hình tính x = 14,14 m, y = 9,24 m.
+> (2) Vật được biểu diễn bằng hình tròn bán kính 7 điểm ảnh.
+> (3) Hình tròn được chia thành các tam giác.
+> (4) Với khung nhìn rộng 50 m trên 690 điểm ảnh, tọa độ (14,14; 9,24) m được đổi thành điểm ảnh (251; 450) **[tính lại theo kích thước thật]**.
+> (5) Fragment shader tô màu đỏ cho các điểm ảnh nằm trong tam giác.
+> (6) Ở khung hình kế tiếp, t tăng thêm khoảng 16,7 ms và quy trình lặp lại.
+
+Kèm **Hình 3.2–3.6**: 5 ảnh chụp các bước của bài *Pipeline WebGL từng bước*.
+
+### Bảng 3.3 – Kiến thức HTML5 / WebGL ↔ code nhóm tự viết (để trích code; phần nào PixiJS làm thì ghi rõ)
 | Kiến thức | File (trong `Source code/`) | Ai viết |
 |---|---|---|
 | Thẻ `<canvas>`, bố cục trang | `index.html`, `css/style.css` | Nhóm |
 | Control HTML5 (`range`, `button`, `checkbox`, `select`) | `js/core/controls.js` | Nhóm |
 | Vòng lặp `requestAnimationFrame` | `benchmark/benchmark.js` (gọi trực tiếp); app chính qua ticker của PixiJS | Nhóm / PixiJS |
 | Sự kiện bàn phím (phím tắt) | `js/core/playback.js` | Nhóm |
-| Sự kiện chuột/cảm ứng (kéo-thả) | `js/core/drag.js` | Nhóm, trên hệ sự kiện của PixiJS |
-| Canvas 2D API | `benchmark/renderers.js` (canvas2d), `js/core/export.js` | Nhóm |
-| Xuất file: `toBlob`, `URL.createObjectURL`, `<a download>` | `js/core/export.js`; xuất CSV ở `benchmark/benchmark.js` | Nhóm |
-| Fullscreen API | `js/main.js` | Nhóm |
-| `performance.now()` để đo thời gian | `benchmark/benchmark.js`, `js/tech/pipeline.js` | Nhóm |
+| Sự kiện chuột/cảm ứng (kéo-thả) | `js/core/drag.js`, `js/cs/sorting.js` | Nhóm, trên hệ sự kiện của PixiJS |
+| Canvas 2D API | `benchmark/renderers.js`, `js/core/export.js` | Nhóm |
+| Xuất file: `toBlob`, `URL.createObjectURL`, `<a download>` | `js/core/export.js`; CSV ở `benchmark/benchmark.js` | Nhóm |
+| Fullscreen API, ResizeObserver | `js/main.js`, `js/core/stage.js` | Nhóm |
+| `performance.now()` | `benchmark/benchmark.js`, `js/tech/pipeline.js` | Nhóm |
 | ES modules | Toàn bộ `js/` | Nhóm |
-| Tạo context WebGL 2 | `js/webgl/gl-utils.js` (`getWebGL2`) | Nhóm |
-| Biên dịch shader, liên kết program | `js/webgl/gl-utils.js` | Nhóm |
-| Vertex buffer, index buffer, VAO | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js` | Nhóm |
-| Attribute, uniform, `vertexAttribDivisor` | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js` | Nhóm |
-| Vertex shader, fragment shader (GLSL ES 3.0) | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js`, `js/physics/waves.js` | Nhóm |
-| Ma trận chiếu và biến đổi 2D | `js/webgl/matrix.js` | Nhóm |
-| Chia đa giác thành tam giác (ear clipping) | `js/webgl/triangulate.js` | Nhóm |
+| Context WebGL 2, biên dịch shader, liên kết program | `js/webgl/gl-utils.js` | Nhóm |
+| Vertex buffer, index buffer, VAO, attribute, uniform, `vertexAttribDivisor` | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js` | Nhóm |
+| Vertex / fragment shader (GLSL ES 3.0) | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js`, `js/physics/waves.js` | Nhóm |
+| Ma trận chiếu, biến đổi 2D | `js/webgl/matrix.js` | Nhóm |
+| Chia đa giác thành tam giác | `js/webgl/triangulate.js` | Nhóm |
 | `drawArrays`, `drawElements`, `drawArraysInstanced`, `drawElementsInstanced` | `js/webgl/instanced-rects.js`, `js/tech/pipeline.js` | Nhóm |
-| Đếm lệnh vẽ; độ phân giải theo `devicePixelRatio` | `js/webgl/gl-utils.js` | Nhóm |
-| Framebuffer, texture, `readPixels` (GPU picking) | `js/webgl/picking.js`, dùng ở `js/tech/pipeline.js` | Nhóm |
-| Chọn đối tượng bằng tính toán (hit-test) | `js/core/hit-test.js`, dùng ở `js/cs/sorting.js` | Nhóm |
-| ResizeObserver (khung vẽ tự đổi kích thước) | `js/core/stage.js` | Nhóm |
-| Gộp lệnh vẽ (batching), ParticleContainer, Text/BitmapText, Filter | Các bài dùng PixiJS | PixiJS (nhóm giải thích cơ chế) |
+| Framebuffer, texture, `readPixels` (GPU picking) | `js/webgl/picking.js` | Nhóm |
+| Chọn đối tượng bằng tính toán | `js/core/hit-test.js` | Nhóm |
+| Đếm lệnh vẽ, `devicePixelRatio` | `js/webgl/gl-utils.js` | Nhóm |
+| Gộp lệnh vẽ, ParticleContainer, Text/BitmapText, Filter | Các bài dùng PixiJS | PixiJS (nhóm giải thích cơ chế) |
 
-## Chương 4. Cài đặt và thử nghiệm *(cả nhóm; A tổng hợp)*
-**4.1. Môi trường:** CPU, GPU, trình duyệt + phiên bản, độ phân giải; HTML5 + JavaScript + PixiJS 8.22.0.
+---
 
-**4.2. Các bài minh họa và tác vụ 2D tương ứng**
-| Bài | Kiến thức | Tác vụ 2D minh họa | Tĩnh / động | Người làm |
+## Chương 4. Cài đặt và thử nghiệm *(cả nhóm; A tổng hợp; khoảng 8–10 trang)*
+
+### 4.1. Môi trường *(~0,5 trang)*
+**Bảng 4.1:** CPU, RAM, GPU (trang benchmark tự ghi), hệ điều hành, trình duyệt + phiên bản, độ phân giải màn hình, devicePixelRatio; phần mềm: HTML5, JavaScript, PixiJS 8.22.0. Đo trên **ít nhất 2 máy** nếu được (laptop GPU tích hợp và máy có GPU rời).
+
+### 4.2. Các bài minh họa *(~1,5 trang)*
+**Bảng 4.2:**
+| Bài | Kiến thức | Tác vụ 2D minh họa | Tương tác trực tiếp | Người làm |
 |---|---|---|---|---|
-| Ném xiên | Vật lý | Vẽ vector (trục, đường cong, chữ) + animation theo thời gian | Cả hai | C (bản đầu đã có) |
-| Con lắc/lò xo | Vật lý | Cập nhật trạng thái theo thời gian | Động | C |
-| Giao thoa sóng | Vật lý | Tính màu từng điểm ảnh bằng fragment shader | Động | C |
-| Sắp xếp | Tin học | Vẽ rất nhiều đối tượng bằng **WebGL thuần** (instancing); kéo-thả đổi chỗ, vẽ dữ liệu bằng chuột (hit-test) | Động | B (phần vẽ + tương tác đã có) |
-| BFS/DFS/Dijkstra | Tin học | Tương tác chọn, kéo-thả; vẽ chữ hiệu quả | Cả hai | A |
-| A* | Tin học | Lưới nhiều ô, cập nhật từng ô | Động | B |
-| Pipeline WebGL từng bước | Kỹ thuật | Toàn bộ pipeline WebGL thuần: đỉnh, chia tam giác, ma trận, shader, instancing | Cả hai | A (đã xong) |
-| Xuất PNG | – | Xuất ảnh tĩnh từ canvas | Tĩnh | A (đã xong) |
-| Benchmark | – | So sánh Canvas 2D / PixiJS / WebGL thuần | – | A (đã xong, chưa đo trên máy thật) |
+| Ném xiên | Vật lý | Vẽ vector + animation theo thời gian | Kéo mũi tên v₀, bắn trúng bia | C |
+| Con lắc/lò xo | Vật lý | Cập nhật trạng thái theo thời gian | Kéo quả nặng rồi thả | C |
+| Giao thoa sóng | Vật lý | Tính màu từng điểm ảnh bằng fragment shader | Kéo 2 nguồn | C |
+| Sắp xếp | Tin học | Nhiều đối tượng bằng WebGL thuần (instancing) | Kéo-thả đổi chỗ, vẽ dữ liệu bằng chuột | B (phần vẽ + tương tác đã có) |
+| BFS/DFS/Dijkstra | Tin học | Tương tác chọn, kéo-thả, vẽ chữ | Kéo node, thêm node/cạnh | A |
+| A* | Tin học | Lưới nhiều ô | Vẽ tường, kéo điểm đầu/đích | B |
+| Pipeline WebGL | Kỹ thuật | Toàn bộ pipeline WebGL thuần | Kéo đỉnh, GPU picking | A (đã xong) |
+| Benchmark | – | So sánh 3 cách vẽ | – | A (đã xong) |
 
-**4.3. Bộ thử nghiệm** (thay cho "tập dữ liệu", MANUAL_FAULT mục 7; lưu vào thư mục Data)
-Bài toán vẽ 2D trên trình duyệt không có tập dữ liệu chuẩn (standard dataset, TUTORIAL 2.4), nên nhóm tự xây bộ kịch bản và ghi rõ tiêu chí xây dựng. Cách tăng số đối tượng theo thang log mượn từ Horak 2018.
+Mỗi bài 1 ảnh chụp kèm 2–3 câu nói rõ **tác vụ 2D nào** được minh họa, không mô tả nút bấm.
 
-| Thử nghiệm | Mục đích | Bộ dữ liệu / kịch bản (số mẫu) | Tiêu chí xây dựng, thách thức |
-|---|---|---|---|
-| (a) Hiệu năng vẽ | Cách vẽ nào chịu được nhiều đối tượng nhất, và vì sao | 3 cách vẽ × 5 mức (1k, 5k, 10k, 50k, 100k) × có/không có chữ = 30 lần đo, mỗi lần 3 s; cảnh sinh từ hạt giống cố định | Tăng theo thang log để thấy điểm gãy; chữ là trường hợp khó (Horak 2018) |
-| (b) Độ chính xác mô phỏng | Integrator nào sai ít nhất, năng lượng trôi bao nhiêu | Ném xiên, lò xo: 3 integrator × 4 bước thời gian (dt = 1/240, 1/60, 1/30, 1/15 s) | dt lớn là trường hợp khó; có nghiệm giải tích để so |
-| (c) CPU so với GPU | GPU nhanh hơn CPU bao nhiêu khi tính theo từng điểm ảnh | Giao thoa sóng ở 4 độ phân giải (480×270 đến 1920×1080), bản JavaScript + Canvas 2D và bản fragment shader | Số điểm ảnh tăng theo bình phương kích thước |
-| (d) Thuật toán | A* tiết kiệm bao nhiêu so với Dijkstra | Lưới 20×20, 50×50, 100×100 × mật độ tường 0 %, 20 %, 35 % | Tường dày, đường đi vòng là trường hợp khó cho A* |
-| (e) Instancing | Một lệnh vẽ so với N lệnh vẽ | Bài pipeline: 1, 10, 100, 1.000, 10.000 bản sao, bật/tắt instancing | Nhiều bản sao làm lộ chi phí của mỗi lệnh vẽ |
+### 4.3. Bộ thử nghiệm *(~1 trang – MANUAL_FAULT mục 7)*
+Không có tập dữ liệu chuẩn cho bài toán này (TUTORIAL 2.4), nên nhóm tự xây bộ kịch bản và ghi rõ tiêu chí. Cách tăng số đối tượng theo thang log mượn từ Horak 2018. Dữ liệu lưu ở thư mục Data.
 
-**4.4. Độ đo** (MANUAL_FAULT mục 6)
-| Loại | Độ đo |
-|---|---|
-| Hiệu năng | FPS, thời gian mỗi khung hình (trung bình, p95), thời gian CPU cho phần vẽ (ms), số lần gọi vẽ |
-| Độ chính xác | Sai số vị trí so với nghiệm giải tích; độ trôi năng lượng; khác biệt điểm ảnh giữa bản CPU và GPU của bài sóng |
-| Độ phức tạp | Độ phức tạp theo số đối tượng n hoặc số điểm ảnh; số ô/node phải duyệt (Dijkstra, A*) |
+| Thử nghiệm | Mục đích | Bộ kịch bản (số mẫu) | Tiêu chí, thách thức | Đáp án đúng / mốc so sánh |
+|---|---|---|---|---|
+| (a) Hiệu năng vẽ | Cách vẽ nào chịu được nhiều đối tượng nhất, vì sao | 3 cách vẽ × 5 mức (1k–100k) × có/không chữ = 30 lần đo × 3 s; cảnh sinh từ hạt giống cố định | Thang log để thấy điểm gãy; chữ là trường hợp khó | So 3 cách vẽ với nhau |
+| (b) Độ chính xác mô phỏng | Integrator nào sai ít nhất | Ném xiên, lò xo: 3 integrator × 4 dt (1/240, 1/60, 1/30, 1/15 s) | dt lớn là trường hợp khó | Nghiệm giải tích |
+| (c) CPU so với GPU | GPU nhanh hơn bao nhiêu | Sóng ở 4 độ phân giải (480×270 → 1920×1080) | Số điểm ảnh tăng theo bình phương | Bản CPU; hai bản phải ra cùng ảnh |
+| (d) Thuật toán | A* tiết kiệm bao nhiêu | Lưới 20², 50², 100² × tường 0/20/35 % = 9 bản đồ | Tường dày, đường vòng | Độ dài đường đi của Dijkstra |
+| (e) Instancing | 1 lệnh vẽ so với N lệnh | 1, 10, 100, 1.000, 10.000 bản sao | Nhiều bản sao lộ chi phí mỗi lệnh | Vòng lặp `drawElements` |
 
-Đồ án nhắm tới **độ phức tạp tính toán** (thời gian vẽ khi số đối tượng tăng) và kiểm chứng **độ chính xác** (mô phỏng so với nghiệm giải tích), theo MANUAL_FAULT mục 6 và 8.
+### 4.4. Kết quả *(~4 trang)*
+**Độ đo** (MANUAL_FAULT mục 6):
+- **Hiệu năng:** FPS, thời gian khung hình (trung bình, p95), thời gian CPU vẽ, số lệnh vẽ.
+- **Độ chính xác:** sai số vị trí, độ trôi năng lượng, khác biệt điểm ảnh.
+- **Độ phức tạp:** thời gian theo n, số ô/node phải duyệt.
 
-**4.5. Kết quả và bàn luận:** bảng + biểu đồ (thang log theo số đối tượng); giải thích vì sao kết quả như vậy dựa vào Ch.3. Số liệu lấy từ trang `benchmark/` (xuất CSV) và từ bài pipeline, đo trên máy thật có cửa sổ hiện, không đo trong tab ẩn.
+Mỗi thử nghiệm trình bày theo **cùng mẫu 3 phần**: bảng số → biểu đồ → 1 đoạn nhận xét.
 
-**Không áp dụng:** MANUAL_FAULT mục 4 (giai đoạn huấn luyện, loss function, đánh nhãn) dành cho đề tài học máy. Báo cáo ghi rõ một câu: đồ án không có giai đoạn huấn luyện; "groundtruth" tương ứng là nghiệm giải tích và ảnh tham chiếu.
+**Bảng 4.3 – Hiệu năng vẽ** (hàng mẫu lấy từ lần chạy thử trên Edge không giao diện, GPU Intel Iris Xe; **[thay bằng số đo trên máy thật]**):
+| Cách vẽ | Số hình | Chữ | FPS | Khung hình TB (ms) | CPU vẽ TB (ms) | Lệnh vẽ |
+|---|---|---|---|---|---|---|
+| Canvas 2D | 20.000 | không | 27 | 37,8 | 11,36 | – |
+| PixiJS | 20.000 | không | 60 | 16,7 | 1,24 | 1 |
+| WebGL thuần | 20.000 | không | 61 | 16,7 | 0,39 | 1 |
 
-## Chương 5. Kết luận và hướng phát triển *(A)*
-- Tóm tắt kết quả đo được.
-- Hạn chế: chưa đo hiệu quả học tập với người học thật; mới có 2 môn.
-- Hướng phát triển: đánh giá với người học (test trước/sau); thêm môn Toán; vẽ đường cong bằng shader (Loop & Blinn); chuyển sang WebGPU để dùng compute shader.
+**Hình 4.1:** biểu đồ đường, trục x = số hình (thang log), trục y = CPU vẽ (ms), 3 đường cho 3 cách vẽ.
+
+**Bảng 4.4 – Instancing** (số chạy thử, **[thay bằng số đo thật]**): 10.000 bản sao: instancing 1 lệnh vẽ, CPU 0,10 ms; vòng lặp 10.000 lệnh vẽ, CPU 1,83 ms.
+
+**Bảng 4.5 – Độ chính xác mô phỏng** (C điền): cột integrator, dt, sai số vị trí lớn nhất (m), độ trôi năng lượng (%).
+
+**Bảng 4.6 – CPU so với GPU** (C điền): cột độ phân giải, CPU (ms/khung), GPU (ms/khung), nhanh gấp.
+
+**Bảng 4.7 – Dijkstra so với A\*** (B điền): cột bản đồ, ô duyệt Dijkstra, ô duyệt A*, độ dài đường đi (phải bằng nhau).
+
+### 4.5. Bàn luận *(~1,5 trang)*
+**Viết gì:** giải thích **vì sao** kết quả như vậy, dựa vào Ch.3; so hướng với Horak 2018 (không so trực tiếp con số, vì khác phần cứng và cảnh).
+
+**Đoạn mẫu** (dựa trên số chạy thử, phải viết lại theo số thật):
+> Ở 20.000 hình, Canvas 2D cần khoảng 11 ms thời gian CPU mỗi khung hình, vì JavaScript phải gọi `fillRect` 20.000 lần. WebGL thuần chỉ cần 0,39 ms, vì toàn bộ vị trí được nạp vào một bộ đệm và vẽ bằng một lệnh `drawArraysInstanced` (Mục 3.3.4). Kết quả này phù hợp với nguyên lý ở Mục 3.2: điểm nghẽn nằm ở số lần CPU gửi lệnh vẽ, không phải ở GPU. Hướng kết quả cũng tương tự Horak và cộng sự (2018), nơi WebGL nhanh hơn Canvas và SVG, dù hai thử nghiệm khác phần cứng và loại cảnh.
+
+**Không áp dụng:** MANUAL_FAULT mục 4 (giai đoạn huấn luyện, loss function, đánh nhãn) dành cho đề tài học máy. Báo cáo ghi một câu: đồ án không có giai đoạn huấn luyện; "groundtruth" tương ứng là nghiệm giải tích, ảnh tham chiếu và đường đi của Dijkstra.
+
+---
+
+## Chương 5. Kết luận và hướng phát triển *(A, khoảng 1–2 trang)*
+**Viết gì:**
+1. **Kết quả đạt được:** nhắc lại từng đóng góp ở Bảng 1.2, mỗi cái kèm **một con số** chính từ Ch.4.
+2. **Hạn chế:**
+   - chưa đánh giá với người học thật;
+   - mới có 2 môn;
+   - WebGL thuần chưa vẽ chữ;
+   - đo trên ít loại máy.
+3. **Hướng phát triển:**
+   - thử nghiệm với người học (bài kiểm tra trước/sau);
+   - thêm môn Toán;
+   - vẽ đường cong bằng shader theo Loop & Blinn 2005;
+   - chuyển sang WebGPU để dùng compute shader.
+
+**Đoạn mẫu:**
+> Báo cáo đã khảo sát 16 giải pháp vẽ 2D trên web và ứng dụng trực quan hóa giáo dục, trình bày lại pipeline vẽ 2D trên WebGL và cài đặt nó trong ứng dụng EduViz2D. Kết quả đo cho thấy instancing giảm thời gian CPU vẽ 10.000 bản sao từ [x] ms xuống [y] ms. Hạn chế lớn nhất là chưa đánh giá hiệu quả học tập với người học thật; đây là hướng phát triển tiếp theo.
+
+---
 
 ## Đối chiếu nhanh với MANUAL_FAULT
 | Mục | Xử lý ở đâu |
 |---|---|
-| 1. Framework chung | 1.3, bảng công đoạn |
-| 2. Ẩn số | 1.3, cột "Ẩn số cần tìm" |
-| 3. Related works cùng tiêu chí | 2.4, một bảng chung |
-| 4. Giai đoạn huấn luyện | Không áp dụng, ghi rõ trong Ch.4 |
-| 5. Tiến trình hoạt động | Ch.3 mục 5 |
+| 1. Framework chung | 1.3, Bảng 1.1, Hình 1.1 |
+| 2. Ẩn số | Bảng 1.1, cột "Ẩn số cần tìm" |
+| 3. Related works cùng tiêu chí | 2.1–2.2 cùng dàn 5 ý; Bảng 2.2 |
+| 4. Giai đoạn huấn luyện | Không áp dụng, ghi rõ trong 4.5 |
+| 5. Tiến trình hoạt động | 3.6 |
 | 6. Độ đo | 4.4 |
 | 7. Tập dữ liệu | 4.3 |
-| 8. Khuyết điểm related works | 2.4 cột "Khuyết điểm", 2.5 |
+| 8. Khuyết điểm related works | Bảng 2.2 cột "Khuyết điểm", Bảng 2.3 |

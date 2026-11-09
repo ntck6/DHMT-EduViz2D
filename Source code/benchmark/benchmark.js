@@ -92,7 +92,7 @@ async function runOne(key, count, withLabels, warmMs, measureMs) {
     frameP95: frame.p95,
     cpuAvg: cpu.mean,
     drawCalls: drawCalls ?? '',
-    note: drawCalls === null ? 'Canvas 2D: CPU tự vẽ, không có lệnh vẽ GPU' : '',
+    note: drawCalls === null ? 'Canvas 2D: không đếm được lệnh vẽ GPU (trình duyệt tự xử lý)' : '',
   };
 }
 
