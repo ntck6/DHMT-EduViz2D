@@ -4,6 +4,24 @@ Theo `FORMAT_PRESENTATION.md` (5 chương) và các lỗi cần tránh trong `MA
 
 **Nguyên tắc chung:** báo cáo là sản phẩm chính; web app EduViz2D chỉ để minh họa Ch.3–4. Ch.1–3 viết về **kỹ thuật vẽ 2D trên web**, không viết về giáo dục. Lĩnh vực giáo dục chỉ xuất hiện ở phần động lực (1.2) và ở các demo của Ch.4.
 
+## Báo cáo này thuộc kiểu gì?
+Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một luận văn thu nhỏ, nhưng không cần phát minh gì mới (TUTORIAL: "đọc, hiểu, cài đặt lại; chưa đòi hỏi đề xuất giải pháp mới"). Mạch của cả báo cáo đi theo đúng các bước TUTORIAL 2.1–2.7:
+
+> Bài toán là gì → người ta đã giải thế nào (khảo sát) → chọn một cách tiên tiến, giải thích nó hoạt động ra sao → cài lại, đo đạc, nhận xét.
+
+Đây **không phải** báo cáo mô tả phần mềm (phân tích yêu cầu, use case, giới thiệu từng màn hình, hướng dẫn sử dụng).
+
+| | Báo cáo khảo sát và cài đặt lại (**thầy cần**) | Báo cáo mô tả phần mềm (**không phải**) |
+|---|---|---|
+| Câu hỏi chính | Vẽ 2D tĩnh và động bằng HTML5 + WebGL thế nào? Cách nào tốt hơn, vì sao? | App của nhóm có những chức năng gì? |
+| Nội dung chính | Bài toán, các giải pháp đã có, nguyên lý, giải thuật, số liệu đo | Yêu cầu, sơ đồ use case, giao diện, hướng dẫn dùng |
+| Tài liệu trích dẫn | Bài báo hội nghị/tạp chí, luận văn, tài liệu kỹ thuật | Hầu như không cần |
+| Vai trò của app | Bằng chứng cho Ch.3 và nguồn số liệu cho Ch.4 | Là toàn bộ nội dung báo cáo |
+| Ví dụ câu viết | "Fragment shader tính màu mỗi điểm ảnh theo biên độ tổng hợp của hai nguồn sóng, nên mọi điểm ảnh được xử lý song song trên GPU." | "Người dùng bấm nút Play để bắt đầu mô phỏng." |
+| Kết quả | Bảng và biểu đồ FPS, sai số, kèm giải thích nguyên nhân | Ảnh chụp các màn hình |
+
+Ảnh chụp app vẫn được dùng, nhưng chỉ để minh họa một kỹ thuật hay một kết quả đo, không để giới thiệu tính năng.
+
 ## Chương 1. Giới thiệu
 **1.1. Bối cảnh chung** – Đồ họa 2D trên web: Canvas 2D, SVG, WebGL. GPU có mặt trên hầu hết máy tính và điện thoại. *(A)*
 
