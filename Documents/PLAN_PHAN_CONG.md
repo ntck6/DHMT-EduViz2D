@@ -1,6 +1,6 @@
 # Kế hoạch đồ án – Ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục
 
-Cập nhật: phương pháp chính đổi sang **Loop & Blinn 2005**, kèm phân công theo tuần. Các bản cũ xem trong lịch sử Git.
+Cập nhật 13/11: phương pháp chính là **Loop & Blinn 2005** (đã đối chiếu toàn văn); dàn ý viết lại theo ngôn ngữ đồ họa, nội dung vật lý/thuật toán chuyển sang phụ lục. Các bản cũ xem trong lịch sử Git.
 
 ## 1. Đề tài và thầy cần gì
 - **Tên đề:** *Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục.* Yêu cầu: *trình bày cách sử dụng HTML5 + WebGL trong các tác vụ 2D (tĩnh và động).*
@@ -45,8 +45,8 @@ Cập nhật: phương pháp chính đổi sang **Loop & Blinn 2005**, kèm phâ
 | Thành viên | Code | Báo cáo (theo `DAN_Y_BAO_CAO.md`) | Khác |
 |---|---|---|---|
 | **A – Leader** | Đã xong: khung app, lớp WebGL thuần, **Loop & Blinn + thử nghiệm (f)**, bài Pipeline, benchmark, xuất PNG. Còn: BFS/DFS/Dijkstra, **đo (f), (a), (e) trên máy thật** | Ch.1; 2.2, 2.3, 2.5 + gộp Bảng 2.2; **3.1–3.3, 3.6**; 4.1, 4.3, Ch.4 phần (f), (a), (e); Ch.5; ghép Doc | Personal Information, Drive, nộp bài, chốt tên nhóm |
-| **B** | Sắp xếp (thuật toán + phát lại), A*; thử nghiệm (d) nếu kịp | 2.1 phần Tin học; Bảng 2.2a dòng VisuAlgo, algorithm-visualizer; 3.4; Ch.4 phần sắp xếp, (d) | **Slide**; tìm 1–2 luận văn |
-| **C** | Ném xiên (kéo v₀, bia), con lắc/lò xo + integrator, giao thoa sóng + bản CPU | 2.1 phần Vật lý; Bảng 2.2a dòng PhET, Falstad; 3.5; Ch.4 phần (b), (c) | **Video demo**; tải PDF vào Reference |
+| **B** | Sắp xếp (thuật toán + phát lại), A*; **công cụ đo thử nghiệm (g) chọn đối tượng** | 2.1 phần Tin học; Bảng 2.2a dòng VisuAlgo, algorithm-visualizer; **3.4 cập nhật động và tương tác**; Ch.4 phần (g); **Phụ lục B** (thuật toán) | **Slide**; tìm 1–2 luận văn |
+| **C** | Ném xiên (kéo v₀, bia), con lắc/lò xo + integrator, giao thoa sóng + bản CPU | 2.1 phần Vật lý; Bảng 2.2a dòng PhET, Falstad; **3.5 tính theo từng điểm ảnh trên GPU**; Ch.4 phần (c); **Phụ lục A** (công thức vật lý) | **Video demo**; tải PDF vào Reference |
 | Cả nhóm | Review chéo code | Góp ý báo cáo | BTLopNha |
 
 ## 4. Phân công theo tuần
@@ -55,7 +55,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 ### Tuần 7 (11–17/11) – Nắm phương pháp, chạy được các phần cốt lõi
 | Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
-| **A** | Đọc **toàn văn Loop & Blinn 2005**, đối chiếu với `js/webgl/loop-blinn.js`, ghi chỗ khác bài báo. Đo (f), (a), (e) trên máy thật, lưu CSV. Viết `cs/graph-algorithms.js` (BFS, DFS, Dijkstra bằng generator) + test. Chốt tên nhóm; hỏi đề bài BTLopNha | Ghi chú đọc bài; 3 file CSV; test đồ thị chạy |
+| **A** | ~~Đọc toàn văn Loop & Blinn 2005~~ **đã đối chiếu ngày 13/11** (bảng 3.3.5 trong dàn ý); đọc lại khi viết 3.3. Đo (f), (a), (e) trên máy thật, lưu CSV. Viết `cs/graph-algorithms.js` (BFS, DFS, Dijkstra bằng generator) + test. Chốt tên nhóm; hỏi đề bài BTLopNha | Ghi chú đọc bài; 3 file CSV; test đồ thị chạy |
 | **B** | `cs/sorting-algorithms.js`: Bubble, Quick, Merge, Heap bằng generator + test. Nối vào `sorting.js`: Play/Pause/Step, tô màu, đặt `locked` khi chạy. Đọc Hundhausen 2002, Shaffer 2010 | Bài Sắp xếp chạy thuật toán; 2 phiếu tóm tắt |
 | **C** | Ném xiên: kéo đầu mũi tên v₀, bia mục tiêu (không đổi phần vẽ quỹ đạo). `physics/integrators.js`: Euler, Verlet, RK4 + test với nghiệm lò xo. Đọc Wieman 2008, Banda 2021, Wang 2025 | Kéo v₀ chạy được; test integrator; 3 phiếu tóm tắt |
 | Cả nhóm | Điền các ô [cần kiểm chứng] của Bảng 2.2 thuộc phần mình | Bảng 2.2 bớt ô trống |
@@ -64,16 +64,16 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 | Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
 | **A** | Bài BFS/DFS/Dijkstra: kéo node, thêm node/cạnh, Dijkstra tính lại khi kéo, nhãn BitmapText. Viết nháp Ch.1, 2.2, 2.3, 2.5 và **3.3 Loop & Blinn** | Bài đồ thị chạy; nháp Ch.1–2, 3.3 |
-| **B** | `cs/pathfinding.js` (A*, Dijkstra trên lưới) + test; bài A*: vẽ tường, kéo điểm đầu/đích. Đo ngưỡng sắp xếp. **Tìm 1–2 luận văn Thạc sĩ/Tiến sĩ** (TUTORIAL 2.3). Nháp 2.1 phần Tin học, 3.4 | Bài A* chạy; phiếu luận văn; nháp 2.1, 3.4 |
-| **C** | Bài Con lắc/lò xo: 3 integrator chạy cạnh nhau, kéo quả nặng. Giao thoa sóng: công thức trong shader, kéo 2 nguồn. Nháp 2.1 phần Vật lý, 3.5 | 2 bài chạy; nháp 2.1, 3.5 |
+| **B** | `cs/pathfinding.js` (A*, Dijkstra trên lưới) + test; bài A*: vẽ tường, kéo điểm đầu/đích. Đo ngưỡng sắp xếp. **Tìm 1–2 luận văn Thạc sĩ/Tiến sĩ** (TUTORIAL 2.3). Nháp 2.1 phần Tin học, 3.4 (cập nhật động, tương tác), Phụ lục B | Bài A* chạy; phiếu luận văn; nháp 2.1, 3.4 |
+| **C** | Bài Con lắc/lò xo: 3 integrator chạy cạnh nhau, kéo quả nặng. Giao thoa sóng: công thức trong shader, kéo 2 nguồn. Nháp 2.1 phần Vật lý, 3.5 (tính theo điểm ảnh), Phụ lục A | 2 bài chạy; nháp 2.1, 3.5 |
 | Cả nhóm | **Demo nội bộ Chủ nhật 24/11**: chạy thử mọi bài bắt buộc | Danh sách lỗi cần sửa |
 
 ### Tuần 9 (25/11–1/12) – Dừng thêm tính năng, chạy đủ thử nghiệm, viết Ch.3–4
 | Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
 | **A** | Đo lại (f), (a), (e) trên **2 máy**; vẽ Hình 4.1, 4.2; viết 3.1, 3.2, 3.6, 4.1, 4.3, Ch.4 phần (f), (a), (e); chụp hình Ch.3 | CSV cuối; Ch.3 + phần Ch.4 của A |
-| **B** | Thử nghiệm (d) nếu kịp, không thì bỏ. Ch.4 phần sắp xếp. Dựng khung Slide theo 5 chương | Bảng 4.8 (nếu làm); khung Slide |
-| **C** | Thử nghiệm (b): bảng sai số integrator. Thử nghiệm (c): bản CPU của sóng, đo 4 độ phân giải. Ch.4 phần (b), (c). Quay video demo bản nháp | Bảng 4.6, 4.7; video nháp |
+| **B** | Viết trang đo thử nghiệm (g): hit-test và GPU picking với 100 / 1.000 / 10.000 đối tượng, 1.000 vị trí chuột; Ch.4 phần (g). Dựng khung Slide theo 5 chương | Bảng 4.7; khung Slide |
+| **C** | Thử nghiệm (c): bản CPU của sóng (Canvas 2D `ImageData`), đo 4 độ phân giải. Ch.4 phần (c). (So integrator nếu còn thời gian, đặt ở Phụ lục A.) Quay video demo bản nháp | Bảng 4.6; video nháp |
 | Cả nhóm | Sửa lỗi từ demo nội bộ; **không thêm tính năng mới** | Bản nháp đủ 5 chương |
 
 ### Tuần 10 (2–8/12) – Hoàn thiện sản phẩm nộp
@@ -102,7 +102,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 **Cách ghi tài liệu:** mỗi tài liệu một phiếu tóm tắt gồm tên, tác giả, năm, DOI/link, nội dung chính, dùng cho mục nào, điền được cột nào của Bảng 2.2. Bản PDF lưu vào thư mục `Reference`.
 
 ## 6. Rủi ro
-- **Trễ tiến độ:** cắt theo thứ tự (d) Dijkstra/A* → con lắc kéo thả → "đoán bước tiếp" → điện trường. **Không cắt** Loop & Blinn, thử nghiệm (f), ném xiên.
+- **Trễ tiến độ:** cắt theo thứ tự so sánh integrator / Dijkstra–A* (phụ lục) → con lắc kéo thả → "đoán bước tiếp" → điện trường. **Không cắt** Loop & Blinn, thử nghiệm (f), ném xiên.
 - **Bài báo Loop & Blinn khác với cách cài:** ghi rõ trong 3.3 phần nào làm giống, phần nào đơn giản hóa (chỉ bậc 2).
 - **Báo cáo dồn cuối:** mỗi tuần viết luôn phần báo cáo ứng với code vừa làm (đã ghi trong bảng tuần).
 - **Máy có 2 GPU:** trình duyệt có thể đổi GPU giữa các lần chạy; mọi CSV đã ghi tên GPU, khi đo phải kiểm tra cột này.

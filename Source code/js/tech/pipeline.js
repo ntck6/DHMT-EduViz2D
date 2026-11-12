@@ -21,7 +21,7 @@ import { triangulate } from '../webgl/triangulate.js';
 
 const STEPS = [
   { value: 'points', label: '1. Đỉnh (vertex buffer)', hint: 'Bước 1: tọa độ các đỉnh nằm trong vertex buffer, vẽ bằng gl.POINTS.' },
-  { value: 'triangles', label: '2. Chia tam giác', hint: 'Bước 2: GPU chỉ vẽ được tam giác. Ear clipping chia đa giác lõm thành n − 2 tam giác.' },
+  { value: 'triangles', label: '2. Chia tam giác', hint: 'Bước 2: GPU vẽ điểm, đoạn thẳng và tam giác; vùng tô phải chia thành tam giác. Ear clipping chia đa giác lõm thành n − 2 tam giác.' },
   { value: 'transform', label: '3. Biến đổi (ma trận)', hint: 'Bước 3: ma trận model (phóng to, xoay) được gửi lên GPU qua uniform; vertex shader nhân từng đỉnh.' },
   { value: 'fill', label: '4. Tô màu (fragment shader)', hint: 'Bước 4: fragment shader tính màu cho từng điểm ảnh bên trong các tam giác.' },
   { value: 'instancing', label: '5. Instancing', hint: 'Bước 5: vẽ nhiều bản sao. Bật instancing: 1 lệnh vẽ; tắt: mỗi bản sao 1 lệnh vẽ. Rê chuột lên một bản sao để chọn nó bằng GPU picking.' },

@@ -20,7 +20,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | 2.4 | Phát biểu bài toán: Input, Output, tác vụ | ✅ | Dàn ý mục 1.3 |
 | 2.4 | Tập dữ liệu thử nghiệm (standard dataset) | 🟡 | Bài toán này không có dataset chuẩn; dàn ý 4.3 đã giải thích và mô tả bộ kịch bản tự xây. Chưa có file dữ liệu trong thư mục Data |
 | 2.5 | Khảo sát trả lời "người ta đã làm gì / mình làm gì" | 🟡 | Khung và câu kết mẫu có ở dàn ý 2.5; Bảng 2.2 đã điền đủ 16 dòng, còn vài ô [cần kiểm chứng] |
-| 2.6 | Chọn phương pháp tiên tiến **đã công bố** để trình bày lại | ✅ | **Loop & Blinn 2005** (ACM TOG, SIGGRAPH 2005), cài lại phần Bézier bậc 2 trên WebGL (`js/webgl/loop-blinn.js`). Còn phải đọc toàn văn để đối chiếu cách cài |
+| 2.6 | Chọn phương pháp tiên tiến **đã công bố** để trình bày lại | ✅ | **Loop & Blinn 2005** (ACM TOG, SIGGRAPH 2005), cài lại phần Bézier bậc 2 trên WebGL (`js/webgl/loop-blinn.js`). **Đã đối chiếu toàn văn ngày 13/11** (dàn ý mục 3.3.5): giống ở cách gán (u, v), phương trình ẩn, khoảng cách, vẽ nét; khác ở hình bao và phần cắt đầu mút |
 | 2.6 | Trình tự Nguyên lý → Phương pháp → Giải thuật → Chương trình minh họa | ✅ | Dàn ý mục 3.3; chương trình minh họa: bài Ném xiên + `benchmark/curve.html` |
 | 2.7 | Môi trường phần cứng, phần mềm | ✅ | Trang benchmark tự ghi GPU, trình duyệt, devicePixelRatio, kích thước khung vẽ |
 | 2.7 | Bảng kết quả và đánh giá | ❌ | Trang benchmark đã chạy được nhưng **chưa đo trên máy thật**. Thử nghiệm (b), (c), (d) còn chờ bài của B, C |
@@ -47,7 +47,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 ## 3. MANUAL_FAULT.md – 8 lỗi thường gặp
 | Mục | Yêu cầu | Trạng thái | Ở đâu |
 |---|---|---|---|
-| 1 | Framework chỉ nêu công đoạn, không gắn phương pháp | ✅ | 1.3 |
+| 1 | Framework chỉ nêu công đoạn, không gắn phương pháp | ✅ | 1.3, Bảng 1.2. Ngày 13/11 đã sửa ví dụ công đoạn 2 (trước đây gắn sẵn "chia đoạn thẳng") và viết lại Input/Output bằng tham số HTML5/WebGL |
 | 2 | Ẩn số của từng công đoạn | ✅ | 1.3, cột "Ẩn số cần tìm" |
 | 3 | SOTA so sánh trên cùng cột tiêu chí, theo công đoạn | ✅ | Bảng 2.2a–c dùng chung một bộ cột theo công đoạn, đã điền |
 | 4 | Giai đoạn huấn luyện, groundtruth, loss | ✅ (không áp dụng) | Ghi rõ ở Ch.4; groundtruth = nghiệm giải tích, ảnh tham chiếu |
@@ -62,7 +62,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | Doc | Báo cáo **.doc + .pdf** | ❌ | Chưa viết. Đề ghi `.doc`, trong khi Word mặc định lưu `.docx`: nên hỏi thầy, hoặc lưu thêm bản Word 97–2003 (`.doc`) cho chắc |
 | BTLopNha | Bài tập lớp-nhà **.doc + .pdf** | ❌ | **Chưa có trong kế hoạch.** Cần xác định đề bài tập lớp-nhà là gì và ai làm |
 | Slide | **.ppt + .pdf**, kèm video và font chữ | ❌ | Chưa làm; nhớ chép kèm font nếu dùng font ngoài |
-| Reference | PDF các tài liệu đã dùng + đường link | 🟡 | Mới có danh sách và DOI; chưa tải bản PDF |
+| Reference | PDF các tài liệu đã dùng + đường link | 🟡 | Có danh sách và DOI; **đã có PDF Loop & Blinn** (`Documents/p1000-loop.pdf`); các bài khác chưa tải |
 | Data | Dữ liệu mẫu, ảnh kết quả | ❌ | Sẽ có CSV benchmark, ảnh chụp các bước pipeline, bộ kịch bản thử nghiệm |
 | Source code | Mã nguồn có chú thích, link, chương trình chạy được | ✅ | `Source code/` có comment tiếng Việt, README, test; chạy offline bằng Live Server |
 | Video clip | Video liên quan | ❌ | C làm video demo |

@@ -2,16 +2,19 @@
 // Loop & Blinn (2005), "Resolution independent curve rendering using programmable
 // graphics hardware", ACM TOG 24(3). DOI 10.1145/1073204.1073303.
 //
-// Ý tưởng (xem js/webgl/curve-math.js):
-//   - Không chia đường cong thành nhiều đoạn thẳng. Chỉ vẽ MỘT tứ giác (4 đỉnh) bao
-//     quanh đường cong; mỗi đỉnh mang tọa độ (u, v) của phép biến đổi Loop & Blinn.
-//   - GPU nội suy (u, v) cho từng điểm ảnh. Fragment shader tính f = u² − v:
-//     f = 0 đúng trên đường cong. Vì tính lại ở từng điểm ảnh nên phóng to bao nhiêu
-//     đường cong vẫn mịn ("độc lập độ phân giải").
-//   - Nét vẽ khử răng cưa: khoảng cách gần đúng tới đường cong d ≈ f / |∇f|, với ∇f
-//     lấy bằng dFdx/dFdy (đạo hàm theo điểm ảnh màn hình). Độ phủ của điểm ảnh
-//     = clamp(w/2 + 0.5 − |d|, 0, 1).
-//   - Chỉ giữ đoạn 0 ≤ u ≤ 1, vì phương trình u² − v = 0 mô tả cả parabol vô hạn.
+// Ý tưởng (xem js/webgl/curve-math.js); § là mục trong bài báo:
+//   - §3: gán (u, v) = (0, 0), (½, 0), (1, 1) cho P0, P1, P2. GPU nội suy (u, v) cho
+//     từng điểm ảnh; fragment shader tính f = u² − v (f = 0 đúng trên đường cong,
+//     f < 0 ở phía lồi). Vì tính lại ở từng điểm ảnh nên phóng to bao nhiêu đường
+//     cong vẫn mịn ("độc lập độ phân giải").
+//   - §5: khoảng cách gần đúng tới đường cong d ≈ f / |∇f|, ∇f theo tọa độ điểm ảnh
+//     lấy bằng quy tắc dây chuyền từ dFdx/dFdy. Độ phủ = clamp(w/2 + 0.5 − |d|, 0, 1),
+//     một "hàm trộn đơn giản" mà §5 cho phép.
+//   - §7: sửa shader để vẽ nét (biên) có độ dày thay vì tô vùng – đúng như ở đây.
+// Hai điểm KHÁC bài báo (ghi trong báo cáo, mục 3.3.5):
+//   - Hình bao là hộp chữ nhật quanh 3 điểm + lề, không phải tam giác P0 P1 P2, vì
+//     nét vẽ tràn ra ngoài tam giác ở phía lồi.
+//   - Cắt hai đầu mút bằng 0 ≤ u ≤ 1 (nhóm thêm), vì u² − v = 0 mô tả cả parabol vô hạn.
 //
 //   const curve = createCurveRenderer(gl);
 //   curve.draw([p0, p1, p2], { projection, width: 2.5, color: 0x2563eb });  // tọa độ điểm ảnh
