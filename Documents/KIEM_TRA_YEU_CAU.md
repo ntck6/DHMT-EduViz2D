@@ -36,7 +36,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | 1.4 | Đóng góp | ✅ dàn ý | 4 đóng góp, không tự nhận "tốt hơn" |
 | Ch.2 | Chọn lọc công trình liên quan | ✅ | 2.1, 2.2 |
 | Ch.2 | **Quá trình phát triển** của các giải pháp | ✅ dàn ý | Mục 2.3; mốc năm WebGL đã đối chiếu (1.0: 2011, 2.0: 2017) |
-| Ch.2 | Bảng so sánh theo tiêu chí | 🟡 | Theo **mẫu bảng của thầy**: Tên công trình, Nguyên lý, Pipeline (công đoạn 1–6), Hiệu suất (Data, Độ đo, Kết quả), Đóng góp, Giới hạn. Đã điền 16 công trình + dòng đồ án; còn GeoGebra và các ô Hiệu suất của Kilgard, Ganacim [cần kiểm chứng] |
+| Ch.2 | Bảng so sánh theo tiêu chí | ✅ | Bảng 2.2a–d theo mẫu của thầy: mọi ô công đoạn đều có nội dung, công đoạn có đóng góp in đậm, hiệu suất lấy từ bài gốc (Kilgard, Ganacim đã đọc phần thực nghiệm). Bỏ GeoGebra; Horak tách sang bảng nghiên cứu đánh giá. Còn: Li 2016 lấy theo tóm tắt |
 | Ch.2 | Trả lời 2 câu hỏi cốt lõi | ✅ dàn ý | 2.5 |
 | Ch.3 | Chọn một giải pháp tiên tiến | ✅ | Xem TUTORIAL 2.6 |
 | Ch.3 | Sơ đồ chung, nguyên lý, phương pháp, giải thuật, minh họa | ✅ dàn ý | Hình chụp lấy từ bài Pipeline WebGL; có bảng kiến thức ↔ file code |
