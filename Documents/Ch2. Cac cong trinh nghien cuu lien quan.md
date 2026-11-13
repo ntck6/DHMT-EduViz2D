@@ -1,19 +1,19 @@
 # Chương 2. Các công trình nghiên cứu liên quan
 
 > **File chính của Chương 2.** Dàn ý tổng (`DAN_Y_BAO_CAO.md`) chỉ tóm tắt và trỏ về đây. Nguồn của từng ô bảng: danh mục [1]–[21] ở cuối file; bảng làm việc cũ (6 công đoạn, ghi nguồn từng ô) vẫn xem được trong lịch sử Git (commit 96dd593).
-> Trích dẫn [n] theo danh mục ở cuối file; khi ghép báo cáo sẽ đánh số lại theo danh mục tài liệu chung.
+> Trích dẫn [1]–[21] theo danh mục ở cuối file, **trùng số với danh mục chung [1]–[27] trong dàn ý** (mục "Danh mục tài liệu tham khảo chung"), nên ghép báo cáo không phải đánh số lại. Khung C1–C5, ẩn số và nhãn thử nghiệm (a)–(g) dùng chung với dàn ý (Bảng 1.2, mục 4.3).
 
 ## 2.1. Mục đích và cách tiếp cận khảo sát
 
-Để các giải pháp so sánh được với nhau, mọi công trình đều được trình bày **theo cùng một dàn bài**, bám sát 5 công đoạn của framework chung đã nêu ở mục 1.3 (chưa gắn với phương pháp cụ thể):
+Để các giải pháp so sánh được với nhau, mọi công trình đều được trình bày **theo cùng một dàn bài**, bám sát 5 công đoạn của framework chung đã nêu ở mục 1.3, Bảng 1.2 (chưa gắn với phương pháp cụ thể). Bảng dưới chép lại tên và ẩn số của từng công đoạn:
 
 | Công đoạn | Tên | Ẩn số cần xác định ở công đoạn này |
 | :---- | :---- | :---- |
-| **C1** | Biểu diễn dữ liệu / tham số bài học (Input) | Dữ liệu được mô hình hóa thế nào (mảng, đồ thị, lưới, trạng thái vật lý, đường cong)? Những tham số nào người học được chỉnh? |
-| **C2** | Mô hình hóa và tính toán | Dùng thuật toán/công thức gì? Tính ở đâu (CPU hay GPU)? Sai số số học và độ phức tạp ra sao? |
-| **C3** | Ánh xạ sang hình học 2D | Mỗi đối tượng (cột, node, vật, đường cong, điểm sóng) được chuyển thành primitive nào (điểm, đoạn, tam giác, bản sao, texture)? |
-| **C4** | Render | Dùng API nào (DOM/SVG, Canvas 2D, WebGL, WebGPU)? Kỹ thuật nào (gộp lệnh vẽ, instancing, shader)? |
-| **C5** | Tương tác và điều khiển thời gian | Chế độ tĩnh/động; play/pause/step/tua; kéo-thả; chọn đối tượng; đồng bộ khung hình |
+| **C1** | Biểu diễn dữ liệu / tham số bài học | Dữ liệu mô hình hóa thế nào (mảng, đồ thị, lưới, trạng thái vật lý); người học chỉnh được tham số nào |
+| **C2** | Mô hình hóa và tính toán | Công thức, thuật toán nào; tính ở CPU hay GPU; sai số, độ phức tạp |
+| **C3** | Ánh xạ sang hình học 2D | Mỗi đối tượng (cột, node, vật, đường cong, điểm sóng) thành primitive nào (điểm, đoạn, tam giác, bản sao, texture); gửi bao nhiêu đỉnh; ma trận thế giới → clip space |
+| **C4** | Render | Dùng API vẽ nào (SVG, Canvas 2D, WebGL, WebGPU); điểm ảnh nào thuộc hình, màu và độ phủ; số lệnh vẽ; khung W × H, `devicePixelRatio`; trộn các lớp, xuất ảnh |
+| **C5** | Tương tác và điều khiển thời gian | Vẽ lại khi nào, Δt; phát lại bước (play/pause/tua); đối tượng nào bị chọn |
 
 Hai độ đo dùng xuyên suốt để nhận xét ưu/nhược của từng giải pháp (đúng yêu cầu môn học):
 - **Độ chính xác:** sai số số học của mô phỏng (so với nghiệm giải tích), sai số hình học của hình vẽ (điểm ảnh), độ đúng của chuỗi bước thuật toán được vẽ.
@@ -118,7 +118,7 @@ Nhóm này cải tiến trực tiếp C3 và C4: thay vì chia hình thành nhi�
 | Kilgard & Bolz 2012 [3] | Vẽ path trên GPU qua 2 bước "stencil, then cover" | Path chuẩn SVG, PostScript, Flash | Path lưu sẵn trên GPU | **Bước stencil: đánh dấu vùng trong path, không chia tam giác trên CPU** | **Bước cover: tô vùng đã đánh dấu; khử răng cưa bằng nhiều mẫu mỗi điểm ảnh** | Vẽ lại không cần CPU xử lý path; ghép được với cảnh 3D | Cảnh SVG đa dạng, cửa sổ 100² → 1100²; trang web, game Flash | Tỉ lệ tốc độ so với Cairo, Skia, Direct2D, Qt; thời gian vẽ (ms) | Nhiều lần nhanh hơn; cảnh cắt phức tạp 8,69 ms so với Cairo 909 ms (1000 × 1000) | Path rendering đầy đủ trên GPU | Cần phần mở rộng riêng của NVIDIA, không có trong WebGL |
 | Ganacim et al. 2014 [4] | Cấu trúc tăng tốc "shortcut tree", lấy mẫu song song toàn bộ ảnh | Nội dung SVG, PDF: path tô, nét, gradient, texture | **Xây shortcut tree song song trên GPU** | Không tạo tam giác; lấy mẫu trực tiếp trên cây | **Lấy mẫu song song, chia sẻ mẫu giữa các điểm ảnh (tới 512 mẫu mỗi điểm ảnh); mọi lớp trong 1 lượt** | Xây cây nhanh nên hợp nội dung động | 13 ảnh vector (Tiger, trang bài báo, bản đồ…), rộng 1024 px, GPU GTX Titan | Thời gian vẽ, tiền xử lý (ms), bộ nhớ, chất lượng khử răng cưa | Nhanh hơn Kilgard & Bolz khi nội dung đủ phức tạp | Vẽ vector song song chất lượng cao | Viết bằng CUDA, không chạy trong WebGL |
 | Li, Hou, Zhou 2016 [5] | Đưa phương pháp quét dòng (scanline) lên GPU | Path vector | Biến đổi path mỗi khung hình | **Chỉ điểm ảnh ở biên xử lý riêng; phần trong xử lý theo đoạn ngang** | **Giảm số lần tính winding number; khử răng cưa chất lượng cao** | Hợp dữ liệu động | Nội dung tĩnh và động, độ phân giải Ultra HD | Tốc độ vẽ so với các phương pháp tốt nhất lúc đó | Nhanh hơn ổn định 2,5 lần (tới hơn 30 lần ở trường hợp cực đoan); nhanh hơn 10 lần với nội dung động (theo tóm tắt bài) | Path rendering hiệu quả trên GPU | Cần tính toán đa dụng trên GPU, không có trong WebGL |
-| **Đồ án EduViz2D** | Pipeline WebGL 2 + instancing (nền); Loop & Blinn cho đường cong (cải tiến) | Cảnh giáo dục: mảng, đồ thị, lưới, trạng thái vật lý, quỹ đạo | Euler / Verlet / RK4; Dijkstra / A*; ghi bước để phát lại | **Mỗi cột/node là 1 bản sao; quỹ đạo là 1 tứ giác 4 đỉnh mang (u, v)** | **`drawArraysInstanced`; fragment shader Loop & Blinn; shader sóng tính từng điểm ảnh** | `requestAnimationFrame`; phát lại, tua; chọn đối tượng bằng hit-test, GPU picking | Bộ kịch bản mục 4.3 | Thời gian khung hình, số lệnh vẽ, sai số hình học, sai số tích phân | Trình bày ở Ch.4 | Cài lại và đo kiểm chứng trên cùng kịch bản giáo dục | Loop & Blinn mới làm bậc 2; chưa dùng WebGPU |
+| **Đồ án EduViz2D** | Pipeline WebGL 2 + instancing (nền); Loop & Blinn cho đường cong (cải tiến) | Cảnh giáo dục: mảng, đồ thị, lưới, trạng thái vật lý, quỹ đạo | Euler / Verlet / RK4; Dijkstra / A*; ghi bước để phát lại | **Mỗi cột/node là 1 bản sao; quỹ đạo là 1 tứ giác 4 đỉnh mang (u, v)** | **`drawArraysInstanced`; fragment shader Loop & Blinn; shader sóng tính từng điểm ảnh** | `requestAnimationFrame`; phát lại, tua; chọn đối tượng bằng hit-test, GPU picking | Bộ kịch bản mục 4.3 | Thời gian khung hình, số lệnh vẽ, sai số hình học, sai số tích phân, số ô duyệt | Trình bày ở Ch.4 (Bảng 4.3–4.9) | Cài lại và đo kiểm chứng trên cùng kịch bản giáo dục | Loop & Blinn mới làm bậc 2; chưa dùng WebGPU |
 
 *Nhận xét:* các kỹ thuật GPU đều đóng góp ở C3 và C4, nhưng Kilgard & Bolz, Ganacim, Li cần tính năng không có trong WebGL. Loop & Blinn chỉ cần fragment shader nên cài được trên WebGL; bài báo chỉ đánh giá bằng hình, không công bố số đo, nên đồ án bổ sung phép đo sai số hình học (thử nghiệm f).
 

@@ -72,7 +72,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 ### Tuần 9 (25/11–1/12) – Dừng thêm tính năng, chạy đủ thử nghiệm, viết Ch.3–4
 | Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
-| **A** | Đo lại (f), (a), (d) trên **2 máy**; vẽ Hình 4.1, 4.2; viết 3.1, 3.2, 3.7, 4.1, 4.3, Ch.4 phần (f), (a), (d); chụp hình Ch.3 | CSV cuối; Ch.3 + phần Ch.4 của A |
+| **A** | Đo lại (f), (a), (d) trên **2 máy**; vẽ Hình 4.8, 4.9; viết 3.1, 3.2, 3.7, 4.1, 4.3, Ch.4 phần (f), (a), (d); chụp hình Ch.3 | CSV cuối; Ch.3 + phần Ch.4 của A |
 | **B** | **Thử nghiệm (c)**: chạy A* và Dijkstra trên 90 bản đồ (mục 4.3), xuất CSV; Ch.4 phần (c). Nếu còn thời gian: trang đo (g). Dựng khung Slide theo 5 chương | Bảng 4.8; khung Slide |
 | **C** | **Thử nghiệm (e)**: bản CPU của sóng (Canvas 2D `ImageData`), đo 4 độ phân giải. **Thử nghiệm (b)**: 3 integrator × 3 bước Δt, xuất CSV sai số và năng lượng. Ch.4 phần (b), (e). Quay video demo bản nháp | Bảng 4.6, 4.7; video nháp |
 | Cả nhóm | Sửa lỗi từ demo nội bộ; **không thêm tính năng mới** | Bản nháp đủ 5 chương |
