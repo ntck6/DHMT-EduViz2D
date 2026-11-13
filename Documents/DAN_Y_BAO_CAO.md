@@ -67,11 +67,11 @@ Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một lu�
 **Bảng 1.1 – Input, Output, tiêu chí:**
 | | Nội dung | HTML5 / WebGL cung cấp gì |
 |---|---|---|
-| **Input** | (1) **Hình học 2D**: điểm, đoạn thẳng, đa giác, đường cong Bézier (tọa độ điểm điều khiển)<br>(2) **Thuộc tính vẽ**: màu, độ trong suốt, bề rộng nét<br>(3) **Khung nhìn**: phép biến đổi thế giới → màn hình (dời, xoay, phóng to)<br>(4) **Khung vẽ**: kích thước W × H, `devicePixelRatio`<br>(5) Với cảnh động: **thời gian** Δt mỗi khung hình và **sự kiện** người dùng | (1)–(3) nạp vào **vertex buffer, uniform** của WebGL<br>(4) thẻ `<canvas>`<br>(5) `requestAnimationFrame`; sự kiện chuột, cảm ứng, bàn phím của DOM |
+| **Input** | (1) **Dữ liệu và tham số bài học** (C1): mảng số, đồ thị, lưới, trạng thái vật lý; tham số người học chỉnh (v₀, θ, bước sóng…)<br>(2) **Thuộc tính vẽ**: màu, độ trong suốt, bề rộng nét<br>(3) **Khung nhìn**: phép biến đổi thế giới → màn hình (dời, xoay, phóng to)<br>(4) **Khung vẽ**: kích thước W × H, `devicePixelRatio`<br>(5) Với cảnh động: **thời gian** Δt mỗi khung hình và **sự kiện** người dùng | (1) mảng JavaScript, control HTML5 (`range`, `select`)<br>(2)–(3) nạp vào **vertex buffer, uniform** của WebGL<br>(4) thẻ `<canvas>`<br>(5) `requestAnimationFrame`; sự kiện chuột, cảm ứng, bàn phím của DOM |
 | **Output** | Cảnh tĩnh: **một ảnh** RGBA kích thước (W·dpr) × (H·dpr), xuất được ra PNG<br>Cảnh động: **chuỗi khung hình**, mỗi khung ≤ 16,7 ms (60 Hz)<br>Khi người dùng trỏ chuột: **đối tượng bị chọn** | Framebuffer của `<canvas>`; `toBlob` để xuất ảnh; `readPixels` để đọc lại điểm ảnh |
 | **Tiêu chí tốt** | Đúng hình: sai số hình học tính bằng điểm ảnh<br>Mịn: không lộ cạnh, không răng cưa, ở mọi mức phóng to<br>Nhanh: thời gian khung hình, số lệnh vẽ, số đỉnh gửi lên GPU | Là cơ sở cho các độ đo ở 4.4 |
 
-Nội dung giáo dục chỉ là **nơi sinh ra Input**:
+Dữ liệu bài học được C2–C3 đổi thành **hình học 2D** mà GPU vẽ được (đây là đối tượng của các công đoạn đồ họa):
 - quỹ đạo ném xiên → một đường cong Bézier bậc 2;
 - mảng cần sắp xếp → N hình chữ nhật;
 - đồ thị → các hình tròn và đoạn thẳng;
@@ -155,7 +155,7 @@ Lý do chọn Loop & Blinn (Bảng 2.4) và những điều **không được t�
 | Horak, Kister, Dachselt, *Comparing rendering performance of common web technologies for large graphs*, IEEE VIS 2018 poster | (poster, không có DOI) | FPS của SVG/Canvas/WebGL theo số node | 2.2, Ch.4 | A |
 | Meisters, *Polygons have ears*, American Mathematical Monthly 1975 | 10.1080/00029890.1975.11993898 | Mọi đa giác đơn đều có "tai", cơ sở của ear clipping | 3.2 | A |
 | Eder, Held, Palfrader, *Parallelized ear clipping for the triangulation and constrained Delaunay triangulation of polygons*, Computational Geometry 2018 | 10.1016/j.comgeo.2018.01.004 | Ear clipping song song | 3.2 | A |
-| Carucci, *Inside geometry instancing*, GPU Gems 2 (2005), chương 3 | (sách, không có DOI; **chưa đối chiếu**) | Instancing | 3.2 | B |
+| F. Carucci, *Inside geometry instancing*, GPU Gems 2 (M. Pharr chủ biên), Addison-Wesley 2005, chương 3, tr. 47–67 | (sách, không có DOI; đã đối chiếu: developer.nvidia.com/gpugems/GPUGems2/gpugems2_chapter03.html) | Vẽ nhiều bản sao cùng một hình; các cách instancing trên Direct3D 9 | 3.2 | B |
 | Wieman, Adams, Perkins, *PhET: Simulations that enhance learning*, Science 2008 | 10.1126/science.1161948 | Thiết kế mô phỏng PhET | 1.2, 2.1 | C |
 | Banda & Nzabahimana, *Effect of integrating PhET simulations on students' conceptual understanding in physics*, Phys. Rev. PER 2021 | 10.1103/PhysRevPhysEducRes.17.023108 | Tổng quan 31 nghiên cứu về PhET | 1.2 | C |
 | Wang, Zhang, Pang, *Virtual experiments in physics education: a systematic literature review*, Res. Sci. Technol. Educ. 2025 | 10.1080/02635143.2024.2327995 | Tổng quan thí nghiệm ảo trong dạy Vật lý | 1.2, 2.1 | C |
@@ -180,10 +180,11 @@ Các mục còn lại đi theo công đoạn: 3.4 tính toán (C2), 3.5 tính th
 ### 3.2. Giải pháp nền: pipeline WebGL 2 + instancing *(~3 trang; A)*
 Theo mục 2.6 file Ch2. Đây là **kỹ thuật nền dựa trên đặc tả** WebGL 2.0 (Khronos), không phải một bài báo; nguồn cho từng bước: Meisters 1975 (chia tam giác), Carucci 2005 (instancing). Phần "phương pháp tiên tiến đã công bố" của TUTORIAL 2.6 là mục 3.3. Trình bày cũng theo thứ tự nguyên lý → phương pháp → giải thuật → minh họa.
 
-**Viết gì:**
-- GPU vẽ được điểm, đoạn thẳng và tam giác; **mọi vùng tô phải chia thành tam giác**.
-- GPU xử lý song song hàng nghìn đỉnh và điểm ảnh; điểm nghẽn thường nằm ở **CPU gửi lệnh vẽ**.
-- Minh họa bằng bài *Pipeline WebGL từng bước*.
+**Viết gì** (đúng trình tự FORMAT_PRESENTATION):
+- **Nguyên lý:** GPU vẽ được điểm, đoạn thẳng và tam giác; **mọi vùng tô phải chia thành tam giác**. GPU xử lý song song hàng nghìn đỉnh và điểm ảnh; điểm nghẽn thường nằm ở **CPU gửi lệnh vẽ**, nên phải gửi ít lệnh, nhiều dữ liệu.
+- **Phương pháp:** đi qua pipeline WebGL 2: dữ liệu đỉnh (vertex buffer, VAO) → vertex shader nhân ma trận → raster hóa → fragment shader tô màu → framebuffer của `<canvas>`. Với N đối tượng giống nhau: một hình mẫu + một bộ đệm thuộc tính bản sao, vẽ bằng **một** lệnh `drawArraysInstanced`.
+- **Giải thuật:** 4 mục con trong bảng dưới (chia tam giác, ma trận, shader, instancing), mỗi mục có giả mã hoặc đoạn code trích và độ phức tạp.
+- **Minh họa:** bài *Pipeline WebGL từng bước* (Hình 3.2–3.5) và bài Sắp xếp (nhiều cột, 1 lệnh vẽ).
 
 **Đoạn mẫu:**
 > Mỗi lệnh vẽ mà JavaScript gửi tới GPU đều tốn chi phí cố định ở phía CPU: kiểm tra trạng thái, chuẩn bị dữ liệu, chuyển lệnh qua trình duyệt xuống trình điều khiển đồ họa. Khi vẽ 10.000 hình bằng 10.000 lệnh, chi phí này lặp lại 10.000 lần. Instancing cho phép gửi một lệnh duy nhất kèm một bộ đệm chứa vị trí của cả 10.000 bản sao; GPU tự lặp lại hình cho từng bản sao.
@@ -339,8 +340,20 @@ Kèm **Hình 3.2–3.5**: ảnh chụp các bước của bài *Pipeline WebGL t
 
 ## Chương 4. Cài đặt và thử nghiệm *(cả nhóm; A tổng hợp; khoảng 8–10 trang)*
 
-### 4.1. Môi trường *(~0,5 trang)*
-**Bảng 4.1:**
+### 4.1. Môi trường và cài đặt *(~1 trang)*
+**Viết gì:** FORMAT_PRESENTATION yêu cầu "tận dụng source code có sẵn và tự viết": phải nói rõ phần nào **có sẵn**, phần nào **nhóm tự viết**.
+
+**Bảng 4.1a – Mã nguồn có sẵn và tự viết:**
+| Phần | Có sẵn (dùng lại) | Nhóm tự viết | Dùng cho |
+|---|---|---|---|
+| Vẽ đối tượng, chữ, sự kiện | PixiJS 8.22.0 (đồ thị cảnh, gộp lệnh vẽ, BitmapText, hệ sự kiện) | Khung ứng dụng `js/core/` (điều khiển, phát lại, khung nhìn, xuất ảnh) | Các bài minh họa; đối chứng ở (a) |
+| Pipeline WebGL 2 | API WebGL 2 của trình duyệt | `js/webgl/`: context, shader, buffer, ma trận, chia tam giác, instancing, GPU picking | Giải pháp nền (3.2); (a), (d), (g) |
+| Loop & Blinn | Thuật toán từ bài báo (không có code mẫu) | `loop-blinn.js`, `curve-math.js`, mốc so sánh `polyline.js` | Phương pháp cải tiến (3.3); (f) |
+| Trang đo | Không có (nhóm tự viết toàn bộ) | `benchmark/` (Canvas 2D, PixiJS, WebGL thuần; đo sai số đường cong) | (a), (f) |
+| Mô phỏng, thuật toán | Công thức trong giáo trình (OpenStax), giả mã chuẩn | Integrator, Dijkstra/A*, sắp xếp bằng generator (B, C đang làm) | (b), (c) |
+| Kiểm tra | Node.js `node --test` | 35 test (công thức, ma trận, chia tam giác, đo đường cong) | Bảo đảm đúng trước khi đo |
+
+**Bảng 4.1b – Môi trường:**
 - Phần cứng: CPU, RAM, GPU (các trang thử nghiệm tự ghi tên GPU). Máy có 2 GPU (tích hợp + rời) thì trình duyệt có thể chọn GPU khác nhau giữa các lần chạy, nên phải ghi GPU của từng lần đo.
 - Hệ điều hành, trình duyệt + phiên bản, độ phân giải màn hình, devicePixelRatio.
 - Phần mềm: HTML5, JavaScript, WebGL 2, PixiJS 8.22.0.
@@ -416,7 +429,14 @@ Cột thời gian vẽ có trong CSV nhưng số chạy thử dao động mạnh
 **Bảng 4.9 – Thử nghiệm (g): chọn đối tượng** (B điền, tùy chọn): số đối tượng, cách chọn, thời gian trung bình mỗi lần chọn (ms), tỉ lệ chọn đúng (%).
 
 ### 4.5. Bàn luận *(~1,5 trang)*
-**Viết gì:** giải thích **vì sao** kết quả như vậy, dựa vào Ch.3. Thử nghiệm (f) bàn trước và kỹ nhất. Với (a), so hướng với Horak 2018, không so trực tiếp con số.
+**Viết gì:** giải thích **vì sao** kết quả như vậy, dựa vào Ch.3. Mỗi thử nghiệm một đoạn, theo thứ tự:
+- **(f)** trước và kỹ nhất: vì sao đường gấp khúc lộ cạnh còn Loop & Blinn không (3.3.1); có khớp khẳng định "độc lập độ phân giải" của bài báo không.
+- **(a)** so hướng với Horak 2018 (WebGL nhanh nhất, SVG ≈ Canvas), không so trực tiếp con số vì khác phần cứng và loại cảnh.
+- **(d)** chi phí mỗi lệnh vẽ ở phía CPU: thời gian tăng gần tuyến tính theo số lệnh, instancing giữ gần như không đổi.
+- **(e)** GPU nhanh hơn CPU bao nhiêu lần, có tăng theo số điểm ảnh không; hai bản có ra cùng ảnh không.
+- **(b), (c)** ngắn: Euler trôi năng lượng, Verlet không trôi, RK4 sai số nhỏ nhất (đúng bậc O(Δt), O(Δt²), O(Δt⁴) ở 3.4); A* duyệt ít ô hơn nhưng cùng độ dài đường. Nói rõ đây là kiểm tra **dữ liệu đầu vào** cho phần vẽ.
+- **(g)** nếu có: khi nào hit-test đủ, khi nào cần GPU picking.
+- Cuối mục: **hạn chế của phép đo** (ít máy, số lần đo, trình duyệt).
 
 **Đoạn mẫu cho (f)** (dựa trên số chạy thử, phải viết lại theo số thật):
 > Ở mức phóng to 1×, cả ba cách vẽ đều gần như không sai số, vì mỗi đoạn thẳng ngắn hơn một điểm ảnh. Khi phóng to 64× quanh đỉnh, đường gấp khúc 120 đoạn lệch tới 0,65 điểm ảnh và chỉ phủ 83 % đường cong thật; đường 30 đoạn lệch tới 11 điểm ảnh. Loop & Blinn vẫn giữ sai số dưới 0,01 điểm ảnh ở mọi mức phóng to mà chỉ dùng 4 đỉnh. Nguyên nhân: đường gấp khúc xấp xỉ đường cong trên CPU **trước** khi phóng to, còn Loop & Blinn tính lại phương trình u² − v tại **từng điểm ảnh** sau khi phóng to (Mục 3.3.1). Kết quả này khớp với tính chất "độc lập độ phân giải" mà Loop và Blinn (2005) khẳng định. Bài báo không công bố bảng số đo, nên báo cáo chỉ kiểm chứng tính chất đó, không so sánh con số với bài báo.
@@ -430,9 +450,10 @@ Cột thời gian vẽ có trong CSV nhưng số chạy thử dao động mạnh
 
 ## Chương 5. Kết luận và hướng phát triển *(A, khoảng 1–2 trang)*
 **Viết gì:**
-1. **Kết quả đạt được:** nhắc lại từng đóng góp ở Bảng 1.4, mỗi cái kèm **một con số** chính từ Ch.4. Nêu trước giải pháp nền (a), (d), (e) và phương pháp cải tiến Loop & Blinn (f); (b), (c) một câu mỗi cái.
+1. **Kết quả đạt được:** nhắc lại từng đóng góp ở Bảng 1.4, mỗi cái kèm **một con số** chính từ Ch.4. Nêu trước phương pháp cải tiến Loop & Blinn (f), rồi giải pháp nền (a), (d), (e); (b), (c) một câu mỗi cái. Trả lời lại hai câu hỏi của Ch.2: người ta đã làm gì, đồ án đã làm được gì.
 2. **Hạn chế:**
    - Loop & Blinn mới cài cho Bézier bậc 2, hình bao là hộp chữ nhật (thừa điểm ảnh);
+   - mô phỏng mới dùng các integrator cơ bản, lưới tìm đường cỡ vừa;
    - WebGL thuần chưa vẽ chữ;
    - đo trên ít loại máy;
    - chưa đánh giá với người học thật.
@@ -446,6 +467,23 @@ Cột thời gian vẽ có trong CSV nhưng số chạy thử dao động mạnh
 > Báo cáo đã khảo sát 15 công trình vẽ 2D trên web và ứng dụng trực quan hóa giáo dục, xây dựng ứng dụng trên pipeline WebGL 2 với instancing, và chọn trình bày, cài đặt lại phương pháp vẽ đường cong độc lập độ phân giải của Loop và Blinn (2005) trên WebGL, áp dụng vẽ quỹ đạo trong ứng dụng EduViz2D. Ở mức phóng to 64×, phương pháp giữ sai số dưới [x] điểm ảnh với 4 đỉnh, trong khi đường gấp khúc 120 đoạn lệch [y] điểm ảnh với 720 đỉnh. Hạn chế là mới cài đặt cho đường cong bậc 2; mở rộng sang bậc 3 và WebGPU là hướng phát triển tiếp theo.
 
 ---
+
+## Đối chiếu nhanh với FORMAT_PRESENTATION
+| Yêu cầu của thầy | Ở đâu trong báo cáo |
+|---|---|
+| 1.1 Bối cảnh chung | 1.1 |
+| 1.2 Động lực: ý nghĩa khoa học **và** thực tiễn | 1.2, hai ý tách riêng |
+| 1.3 Input, Output; framework các công đoạn chính, chưa gắn phương pháp | 1.3: Bảng 1.1 (Input/Output/tiêu chí), Bảng 1.2 (C1–C5 kèm ẩn số), Bảng 1.3 (bài toán con) |
+| 1.4 Đóng góp | 1.4, Bảng 1.4 (mỗi đóng góp có chỗ chứng minh) |
+| Ch.2 Chọn lọc công trình liên quan | File Ch2, mục 2.3: 15 công trình, 3 nhóm + nghiên cứu giáo dục |
+| Ch.2 Quá trình phát triển | File Ch2, mục 2.2: 5 giai đoạn + bảng tóm tắt |
+| Ch.2 Bảng so sánh theo tiêu chí tự chọn | File Ch2, Bảng 2.1–2.3 (mẫu của thầy, cột C1–C5) |
+| Ch.2 Trả lời "người ta đã làm gì, mình muốn làm gì" | File Ch2, mục 2.4–2.6 |
+| Ch.3 Chọn một giải pháp tiên tiến | 3.3 Loop & Blinn 2005, trên nền 3.2 |
+| Ch.3 Sơ đồ chung → nguyên lý → phương pháp → giải thuật → minh họa | 3.1 sơ đồ; 3.2 và 3.3 đều theo đúng 4 bước (3.3.1–3.3.4); 3.7 tiến trình |
+| Ch.4 Tận dụng code có sẵn + tự viết | 4.1, Bảng 4.1a |
+| Ch.4 Mục đích, kết quả, bàn luận thử nghiệm | 4.3 (mục đích, bộ kịch bản), 4.4 (kết quả), 4.5 (bàn luận từng thử nghiệm) |
+| Ch.5 Tóm tắt kết quả, hướng cải tiến | Ch.5: kết quả kèm số, hạn chế, hướng phát triển |
 
 ## Đối chiếu nhanh với MANUAL_FAULT
 | Mục | Xử lý ở đâu |

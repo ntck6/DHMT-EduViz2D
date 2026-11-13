@@ -36,11 +36,11 @@ Rà ngày 09/11, cập nhật 13/11 sau khi chọn file Chương 2 của nhóm l
 | 1.4 | Đóng góp | ✅ dàn ý | 6 đóng góp theo mục 2.6 file Ch2, không tự nhận "tốt hơn" |
 | Ch.2 | Chọn lọc công trình liên quan | ✅ | **File chính `Ch2. Cac cong trinh nghien cuu lien quan.md`**: 15 công trình, 3 nhóm (công nghệ render, ứng dụng giáo dục, kỹ thuật GPU) + nghiên cứu giáo dục |
 | Ch.2 | **Quá trình phát triển** của các giải pháp | ✅ | File Ch2 mục 2.2: 5 giai đoạn, bảng tóm tắt hai trục; mốc WebGL 1.0 (2011), 2.0 (2017), Safari 15 (2021), WebGPU (web.dev 25/11/2025) đã đối chiếu |
-| Ch.2 | Bảng so sánh theo tiêu chí | ✅ | File Ch2 Bảng 2.1–2.3 theo mẫu của thầy, cột Pipeline là C1–C5: mọi ô có nội dung, công đoạn có đóng góp in đậm, hiệu suất lấy từ bài gốc. Bỏ GeoGebra, Desmos (Toán, chưa kiểm chứng); Horak 2018 làm cột Hiệu suất nhóm A. Còn: Li 2016 lấy theo tóm tắt |
+| Ch.2 | Bảng so sánh theo tiêu chí | ✅ | File Ch2 Bảng 2.1–2.3 theo mẫu của thầy, cột Pipeline là C1–C5: mọi ô có nội dung, công đoạn có đóng góp in đậm, hiệu suất lấy từ bài gốc. Bỏ GeoGebra, Desmos (Toán, chưa kiểm chứng); Horak 2018 làm cột Hiệu suất nhóm A. Ngày 14/11 đã kiểm chứng lại: 10 DOI qua Crossref, poster Horak (toàn văn), Green 2007 (toàn văn), mã nguồn Falstad, tóm tắt Li 2016; không còn ô trống hay dấu (\*) |
 | Ch.2 | Trả lời 2 câu hỏi cốt lõi | ✅ | File Ch2 mục 2.5, 2.6 |
 | Ch.3 | Chọn một giải pháp tiên tiến | ✅ | Loop & Blinn 2005 (3.3), trên nền pipeline WebGL 2 + instancing (3.2) |
-| Ch.3 | Sơ đồ chung, nguyên lý, phương pháp, giải thuật, minh họa | ✅ dàn ý | Hình chụp lấy từ bài Pipeline WebGL; có bảng kiến thức ↔ file code |
-| Ch.4 | Tận dụng code có sẵn + tự viết | ✅ | PixiJS (có sẵn) + `js/webgl/` (tự viết) |
+| Ch.3 | Sơ đồ chung, nguyên lý, phương pháp, giải thuật, minh họa | ✅ dàn ý | 3.2 và 3.3 đều viết theo 4 bước; Hình chụp lấy từ bài Pipeline WebGL; có bảng kiến thức ↔ file code |
+| Ch.4 | Tận dụng code có sẵn + tự viết | ✅ | Dàn ý 4.1, Bảng 4.1a: PixiJS, API trình duyệt (có sẵn) và `js/webgl/`, Loop & Blinn, `benchmark/` (tự viết) |
 | Ch.4 | Mục đích, kết quả, bàn luận thử nghiệm | 🟡 | Đã ghi mục đích, bộ kịch bản, đáp án của 7 thử nghiệm (4.3); chưa có kết quả |
 | Ch.5 | Kết luận, hướng phát triển | ✅ dàn ý | Có ghi hạn chế |
 
