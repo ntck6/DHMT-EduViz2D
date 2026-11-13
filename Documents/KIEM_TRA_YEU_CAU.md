@@ -36,7 +36,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 | 1.4 | Đóng góp | ✅ dàn ý | 4 đóng góp, không tự nhận "tốt hơn" |
 | Ch.2 | Chọn lọc công trình liên quan | ✅ | 2.1, 2.2 |
 | Ch.2 | **Quá trình phát triển** của các giải pháp | ✅ dàn ý | Mục 2.3; mốc năm WebGL đã đối chiếu (1.0: 2011, 2.0: 2017) |
-| Ch.2 | Bảng so sánh theo tiêu chí | 🟡 | Đã điền 16 dòng (Bảng 2.2a–c), có ghi nguồn từng ô; còn GeoGebra và vài ô [cần kiểm chứng] |
+| Ch.2 | Bảng so sánh theo tiêu chí | 🟡 | Theo **mẫu bảng của thầy**: Tên công trình, Nguyên lý, Pipeline (công đoạn 1–6), Hiệu suất (Data, Độ đo, Kết quả), Đóng góp, Giới hạn. Đã điền 16 công trình + dòng đồ án; còn GeoGebra và các ô Hiệu suất của Kilgard, Ganacim [cần kiểm chứng] |
 | Ch.2 | Trả lời 2 câu hỏi cốt lõi | ✅ dàn ý | 2.5 |
 | Ch.3 | Chọn một giải pháp tiên tiến | ✅ | Xem TUTORIAL 2.6 |
 | Ch.3 | Sơ đồ chung, nguyên lý, phương pháp, giải thuật, minh họa | ✅ dàn ý | Hình chụp lấy từ bài Pipeline WebGL; có bảng kiến thức ↔ file code |
@@ -49,7 +49,7 @@ Rà ngày 09/11, sau khi làm xong phần WebGL thuần. Ký hiệu: ✅ đạt 
 |---|---|---|---|
 | 1 | Framework chỉ nêu công đoạn, không gắn phương pháp | ✅ | 1.3, Bảng 1.2. Ngày 13/11 đã sửa ví dụ công đoạn 2 (trước đây gắn sẵn "chia đoạn thẳng") và viết lại Input/Output bằng tham số HTML5/WebGL |
 | 2 | Ẩn số của từng công đoạn | ✅ | 1.3, cột "Ẩn số cần tìm" |
-| 3 | SOTA so sánh trên cùng cột tiêu chí, theo công đoạn | ✅ | Bảng 2.2a–c dùng chung một bộ cột theo công đoạn, đã điền |
+| 3 | SOTA so sánh trên cùng cột tiêu chí, theo công đoạn | ✅ | Bảng 2.2a–c theo mẫu của thầy, cột Pipeline là 6 công đoạn của Bảng 1.2 |
 | 4 | Giai đoạn huấn luyện, groundtruth, loss | ✅ (không áp dụng) | Ghi rõ ở Ch.4; groundtruth = nghiệm giải tích, ảnh tham chiếu |
 | 5 | Tiến trình hoạt động của hệ thống | ✅ | Ch.3 mục 5 + bài Pipeline WebGL từng bước |
 | 6 | Độ đo độ chính xác **và** độ phức tạp tính toán | ✅ dàn ý | 4.4; benchmark đo thời gian khung hình, thời gian CPU, số lệnh vẽ |
