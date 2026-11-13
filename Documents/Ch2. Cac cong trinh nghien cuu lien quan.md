@@ -1,7 +1,7 @@
 # Chương 2. Các công trình nghiên cứu liên quan
 
 > **File chính của Chương 2.** Dàn ý tổng (`DAN_Y_BAO_CAO.md`) chỉ tóm tắt và trỏ về đây. Nguồn của từng ô bảng: danh mục [1]–[21] ở cuối file; bảng làm việc cũ (6 công đoạn, ghi nguồn từng ô) vẫn xem được trong lịch sử Git (commit 96dd593).
-> Trích dẫn [1]–[21] theo danh mục ở cuối file, **trùng số với danh mục chung [1]–[27] trong dàn ý** (mục "Danh mục tài liệu tham khảo chung"), nên ghép báo cáo không phải đánh số lại. Khung C1–C5, ẩn số và nhãn thử nghiệm (a)–(g) dùng chung với dàn ý (Bảng 1.2, mục 4.3).
+> Trích dẫn [1]–[21] theo danh mục ở cuối file, **trùng số với danh mục chung [1]–[25]**; [22]–[25] (chỉ dùng ở Ch.1, Ch.3) ghi ở cuối Ch.2 trong dàn ý, nên ghép báo cáo không phải đánh số lại. Khung C1–C5, ẩn số và nhãn thử nghiệm (a)–(g) dùng chung với dàn ý (Bảng 1.2, mục 4.3).
 
 ## 2.1. Mục đích và cách tiếp cận khảo sát
 
@@ -199,6 +199,8 @@ WebGPU được xem là **hướng phát triển** (Ch.5) do mức hỗ trợ c�
 | 5 | Dijkstra vs A\* | (c) Số ô duyệt, thời gian chạy |
 | 7 | **Loop & Blinn (phương pháp cải tiến)** | **(f) Loop & Blinn so với chia đoạn thẳng: sai số hình học, độ phủ, số đỉnh** |
 | C5 (chọn đối tượng) | Hit-test, GPU picking | (g) Thời gian chọn, tỉ lệ chọn đúng *(tùy chọn)* |
+
+**Kết chương.** Tóm lại, các ứng dụng giáo dục như PhET [7] hay VisuAlgo [9] đã giải tốt bài toán trực quan hóa đúng và dễ hiểu, nhưng phần lớn vẽ bằng SVG hoặc phần tử trang và không công bố số liệu hiệu năng. Các kỹ thuật vẽ 2D tiên tiến trên GPU (Kilgard và Bolz, 2012 [3]; Ganacim và cộng sự, 2014 [4]; Li và cộng sự, 2016 [5]) cần những tính năng chưa có trong WebGL. Đồ án vì vậy chọn pipeline WebGL 2 kết hợp instancing làm giải pháp nền, và phương pháp của Loop và Blinn (2005) [1], chỉ cần fragment shader, làm phương pháp cải tiến cho bước vẽ đường cong; Chương 3 trình bày hai giải pháp này, Chương 4 kiểm chứng chúng bằng bảy thử nghiệm.
 
 ## Tài liệu tham khảo của Chương 2
 

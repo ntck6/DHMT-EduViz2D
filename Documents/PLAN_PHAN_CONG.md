@@ -94,7 +94,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 | Cả nhóm | Tổng duyệt thuyết trình ít nhất 1 lần |
 
 ## 5. Tài liệu
-**Trọng tâm (Ch.2–3):** danh mục [1]–[21] ở cuối file Ch2 và bảng tài liệu trong `DAN_Y_BAO_CAO.md`. **Loop & Blinn 2005 là bài phải đọc toàn văn đầu tiên** (A). Các bài khác: Green 2007, Kilgard & Bolz 2012, Ganacim 2014, Li 2016, Horak 2018, Meisters 1975, Eder 2018.
+**Trọng tâm (Ch.2–3):** danh mục [1]–[21] ở cuối file Ch2 và bảng tài liệu trong `DAN_Y_BAO_CAO.md`. **Loop & Blinn 2005 là bài phải đọc toàn văn đầu tiên** (A). Các bài khác: Green 2007, Kilgard & Bolz 2012, Ganacim 2014, Li 2016, Horak 2018, Meisters 1975, Carucci 2005.
 - Từ khóa tìm luận văn: `master thesis WebGL rendering performance`, `thesis GPU curve rendering`, `thesis interactive physics simulation web`.
 - Tài liệu học: MDN (Canvas, WebGL), webgl2fundamentals.org, The Book of Shaders, tài liệu PixiJS.
 

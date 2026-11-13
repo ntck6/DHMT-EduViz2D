@@ -14,7 +14,7 @@ Rà ngày 09/11, cập nhật 13/11 sau khi chọn file Chương 2 của nhóm l
 | 1 | Chỉ cần đọc, hiểu, cài đặt lại | ✅ | Hướng báo cáo khảo sát + cài lại (`DAN_Y_BAO_CAO.md`, mục "Báo cáo này thuộc kiểu gì?") |
 | 2.1 | Đọc kỹ tên đề tài | ✅ | `PROJECT_NAME.md` |
 | 2.2 | Xác định từ khóa | ✅ | `PLAN_PHAN_CONG.md` mục 4 |
-| 2.3 | Tài liệu từ hội nghị/tạp chí uy tín | ✅ | 12 bài có DOI đã đối chiếu: ACM TOG/SIGGRAPH, Science, Phys. Rev. PER, ACM TOCE, Computational Geometry… |
+| 2.3 | Tài liệu từ hội nghị/tạp chí uy tín | ✅ | Danh mục 25 tài liệu (21 ở file Ch2, 4 ở dàn ý), mọi DOI đã đối chiếu với Crossref ngày 14/11: ACM TOG/SIGGRAPH, Science, Phys. Rev. PER, ACM TOCE, JVLC… Đã bỏ Eder 2018 vì không dùng |
 | 2.3 | Tài liệu từ **luận văn Thạc sĩ / luận án Tiến sĩ** | ❌ | Chưa có luận văn nào. **Cần tìm ít nhất 1–2 luận văn** về vẽ đồ họa trên web / WebGL, hoặc mô phỏng giáo dục |
 | 2.3 | Ưu tiên tài liệu dạng Survey / Overview | 🟡 | Có survey phía giáo dục (Hundhausen, Shaffer, Banda, Wang). Phía kỹ thuật vẽ 2D trên GPU chưa có survey |
 | 2.4 | Phát biểu bài toán: Input, Output, tác vụ | ✅ | Dàn ý mục 1.3 |
