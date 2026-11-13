@@ -1,6 +1,6 @@
 // Danh sách bài học, menu bên trái được tạo từ đây.
 //   owner:   người phụ trách
-//   task:    tác vụ 2D mà bài minh họa (khớp bảng Ch.4 trong Documents/DAN_Y_BAO_CAO.md)
+//   task:    tác vụ 2D mà bài minh họa (khớp Bảng 4.3 trong Documents/Ch4. Cai dat va thu nghiem.md)
 //   status:  'todo' = mới có file khung, 'done' = đã chạy được
 //   devOnly: chỉ hiện khi mở trang với ?dev (dùng cho bài mẫu, không nộp)
 export const lessons = [

@@ -17,11 +17,11 @@ Rà ngày 09/11, cập nhật 13/11 sau khi chọn file Chương 2 của nhóm l
 | 2.3 | Tài liệu từ hội nghị/tạp chí uy tín | ✅ | Danh mục 25 tài liệu (21 ở file Ch2, 4 ở dàn ý), mọi DOI đã đối chiếu với Crossref ngày 14/11: ACM TOG/SIGGRAPH, Science, Phys. Rev. PER, ACM TOCE, JVLC… Đã bỏ Eder 2018 vì không dùng |
 | 2.3 | Tài liệu từ **luận văn Thạc sĩ / luận án Tiến sĩ** | ❌ | Chưa có luận văn nào. **Cần tìm ít nhất 1–2 luận văn** về vẽ đồ họa trên web / WebGL, hoặc mô phỏng giáo dục |
 | 2.3 | Ưu tiên tài liệu dạng Survey / Overview | 🟡 | Có survey phía giáo dục (Hundhausen, Shaffer, Banda, Wang). Phía kỹ thuật vẽ 2D trên GPU chưa có survey |
-| 2.4 | Phát biểu bài toán: Input, Output, tác vụ | ✅ | Dàn ý mục 1.3 |
-| 2.4 | Tập dữ liệu thử nghiệm (standard dataset) | 🟡 | Bài toán này không có dataset chuẩn; dàn ý 4.3 đã giải thích và mô tả bộ kịch bản tự xây. Chưa có file dữ liệu trong thư mục Data |
+| 2.4 | Phát biểu bài toán: Input, Output, tác vụ | ✅ | `Ch1. Gioi thieu.md`, mục 1.3 (Bảng 1.1–1.3) |
+| 2.4 | Tập dữ liệu thử nghiệm (standard dataset) | 🟡 | Bài toán này không có dataset chuẩn; `Ch4. Cai dat va thu nghiem.md` mục 4.3 (Bảng 4.4) đã giải thích và mô tả bộ kịch bản tự xây. Chưa có file dữ liệu trong thư mục Data |
 | 2.5 | Khảo sát trả lời "người ta đã làm gì / mình làm gì" | ✅ | File Ch2: mục 2.4 (đã có / còn thiếu theo C1–C5), 2.5 (7 khuyết điểm), 2.6 (mục tiêu, bảng khuyết điểm → thử nghiệm). Còn vài việc kiểm lại ghi ở cuối file Ch2 |
 | 2.6 | Chọn phương pháp tiên tiến **đã công bố** để trình bày lại | ✅ | Giải pháp nền là pipeline WebGL 2 + instancing (theo đặc tả, không phải bài báo). Phương pháp tiên tiến đã công bố là **Loop & Blinn 2005** (ACM TOG, SIGGRAPH 2005), đóng vai phương pháp cải tiến; cài lại phần Bézier bậc 2 trên WebGL (`js/webgl/loop-blinn.js`). **Đã đối chiếu toàn văn ngày 13/11** (dàn ý mục 3.3.5): giống ở cách gán (u, v), phương trình ẩn, khoảng cách, vẽ nét; khác ở hình bao và phần cắt đầu mút |
-| 2.6 | Trình tự Nguyên lý → Phương pháp → Giải thuật → Chương trình minh họa | ✅ | Dàn ý mục 3.2 (nền), 3.3 (cải tiến); chương trình minh họa: bài Ném xiên + `benchmark/curve.html` |
+| 2.6 | Trình tự Nguyên lý → Phương pháp → Giải thuật → Chương trình minh họa | ✅ | `Ch3. Phuong phap.md` mục 3.2 (nền), 3.3 (cải tiến); chương trình minh họa: bài Ném xiên + `benchmark/curve.html` |
 | 2.7 | Môi trường phần cứng, phần mềm | ✅ | Trang benchmark tự ghi GPU, trình duyệt, devicePixelRatio, kích thước khung vẽ |
 | 2.7 | Bảng kết quả và đánh giá | ❌ | Có công cụ cho (a), (d), (f) nhưng **chưa đo trên máy thật**. (b), (c), (e) chưa có code (bài con lắc, A*, sóng của B, C); (g) tùy chọn |
 | 2.8 | Viết báo cáo (Doc, Slide) | ❌ | Mới có dàn ý |
@@ -40,7 +40,7 @@ Rà ngày 09/11, cập nhật 13/11 sau khi chọn file Chương 2 của nhóm l
 | Ch.2 | Trả lời 2 câu hỏi cốt lõi | ✅ | File Ch2 mục 2.5, 2.6 |
 | Ch.3 | Chọn một giải pháp tiên tiến | ✅ | Loop & Blinn 2005 (3.3), trên nền pipeline WebGL 2 + instancing (3.2) |
 | Ch.3 | Sơ đồ chung, nguyên lý, phương pháp, giải thuật, minh họa | ✅ dàn ý | 3.2 và 3.3 đều viết theo 4 bước; Hình chụp lấy từ bài Pipeline WebGL; có bảng kiến thức ↔ file code |
-| Ch.4 | Tận dụng code có sẵn + tự viết | ✅ | Dàn ý 4.1, Bảng 4.1a: PixiJS, API trình duyệt (có sẵn) và `js/webgl/`, Loop & Blinn, `benchmark/` (tự viết) |
+| Ch.4 | Tận dụng code có sẵn + tự viết | ✅ | `Ch4. Cai dat va thu nghiem.md` 4.1.1, Bảng 4.1: PixiJS, API trình duyệt (có sẵn) và `js/webgl/`, Loop & Blinn, `benchmark/` (tự viết) |
 | Ch.4 | Mục đích, kết quả, bàn luận thử nghiệm | 🟡 | Đã ghi mục đích, bộ kịch bản, đáp án của 7 thử nghiệm (4.3); chưa có kết quả |
 | Ch.5 | Kết luận, hướng phát triển | ✅ dàn ý | Có ghi hạn chế |
 
@@ -51,7 +51,7 @@ Rà ngày 09/11, cập nhật 13/11 sau khi chọn file Chương 2 của nhóm l
 | 2 | Ẩn số của từng công đoạn | ✅ | 1.3, cột "Ẩn số cần tìm" |
 | 3 | SOTA so sánh trên cùng cột tiêu chí, theo công đoạn | ✅ | File Ch2 Bảng 2.1–2.3, cột Pipeline là C1–C5; có 5 bài báo kỹ thuật (Loop & Blinn, Green, Kilgard & Bolz, Ganacim, Li) |
 | 4 | Giai đoạn huấn luyện, groundtruth, loss | ✅ (không áp dụng) | Ghi rõ ở 4.5; groundtruth = phương trình đường cong (f), nghiệm giải tích (b), đường ngắn nhất của Dijkstra (c), ảnh CPU (e) |
-| 5 | Tiến trình hoạt động của hệ thống | ✅ | Dàn ý 3.7 (một khung hình qua C1–C5) + bài Pipeline WebGL từng bước |
+| 5 | Tiến trình hoạt động của hệ thống | ✅ | `Ch3. Phuong phap.md` 3.7 (một khung hình qua C1–C5) + bài Pipeline WebGL từng bước |
 | 6 | Độ đo độ chính xác **và** độ phức tạp tính toán | ✅ dàn ý | 4.4; benchmark đo thời gian khung hình, thời gian CPU, số lệnh vẽ |
 | 7 | Mô tả tập dữ liệu: số mẫu, độ đa dạng, tiêu chí, thách thức | ✅ dàn ý | 4.3 ghi số mẫu, tiêu chí, thách thức cho từng thử nghiệm |
 | 8 | Khuyết điểm của related works; cải tiến độ chính xác hay độ phức tạp | ✅ | Cột "Giới hạn" các bảng file Ch2; mục 2.5 ghi 7 khuyết điểm kèm công đoạn và loại vấn đề; mục 2.6 nối mỗi khuyết điểm với thử nghiệm |

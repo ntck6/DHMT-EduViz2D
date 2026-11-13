@@ -1,7 +1,7 @@
 # Chương 2. Các công trình nghiên cứu liên quan
 
-> **File chính của Chương 2.** Dàn ý tổng (`DAN_Y_BAO_CAO.md`) chỉ tóm tắt và trỏ về đây. Nguồn của từng ô bảng: danh mục [1]–[21] ở cuối file; bảng làm việc cũ (6 công đoạn, ghi nguồn từng ô) vẫn xem được trong lịch sử Git (commit 96dd593).
-> Trích dẫn [1]–[21] theo danh mục ở cuối file, **trùng số với danh mục chung [1]–[25]**; [22]–[25] (chỉ dùng ở Ch.1, Ch.3) ghi ở cuối Ch.2 trong dàn ý, nên ghép báo cáo không phải đánh số lại. Khung C1–C5, ẩn số và nhãn thử nghiệm (a)–(g) dùng chung với dàn ý (Bảng 1.2, mục 4.3).
+> Bản viết dạng văn của Chương 2. Nguồn của từng ô bảng: danh mục chung `Tai lieu tham khao.md`; bảng làm việc cũ (6 công đoạn, ghi nguồn từng ô) vẫn xem được trong lịch sử Git (commit 96dd593).
+> Khung C1–C5, ẩn số (Bảng 1.2) và nhãn thử nghiệm (a)–(g) dùng chung với Chương 1, 3, 4.
 
 ## 2.1. Mục đích và cách tiếp cận khảo sát
 
@@ -118,7 +118,7 @@ Nhóm này cải tiến trực tiếp C3 và C4: thay vì chia hình thành nhi�
 | Kilgard & Bolz 2012 [3] | Vẽ path trên GPU qua 2 bước "stencil, then cover" | Path chuẩn SVG, PostScript, Flash | Path lưu sẵn trên GPU | **Bước stencil: đánh dấu vùng trong path, không chia tam giác trên CPU** | **Bước cover: tô vùng đã đánh dấu; khử răng cưa bằng nhiều mẫu mỗi điểm ảnh** | Vẽ lại không cần CPU xử lý path; ghép được với cảnh 3D | Cảnh SVG đa dạng, cửa sổ 100² → 1100²; trang web, game Flash | Tỉ lệ tốc độ so với Cairo, Skia, Direct2D, Qt; thời gian vẽ (ms) | Nhiều lần nhanh hơn; cảnh cắt phức tạp 8,69 ms so với Cairo 909 ms (1000 × 1000) | Path rendering đầy đủ trên GPU | Cần phần mở rộng riêng của NVIDIA, không có trong WebGL |
 | Ganacim et al. 2014 [4] | Cấu trúc tăng tốc "shortcut tree", lấy mẫu song song toàn bộ ảnh | Nội dung SVG, PDF: path tô, nét, gradient, texture | **Xây shortcut tree song song trên GPU** | Không tạo tam giác; lấy mẫu trực tiếp trên cây | **Lấy mẫu song song, chia sẻ mẫu giữa các điểm ảnh (tới 512 mẫu mỗi điểm ảnh); mọi lớp trong 1 lượt** | Xây cây nhanh nên hợp nội dung động | 13 ảnh vector (Tiger, trang bài báo, bản đồ…), rộng 1024 px, GPU GTX Titan | Thời gian vẽ, tiền xử lý (ms), bộ nhớ, chất lượng khử răng cưa | Nhanh hơn Kilgard & Bolz khi nội dung đủ phức tạp | Vẽ vector song song chất lượng cao | Viết bằng CUDA, không chạy trong WebGL |
 | Li, Hou, Zhou 2016 [5] | Đưa phương pháp quét dòng (scanline) lên GPU | Path vector | Biến đổi path mỗi khung hình | **Chỉ điểm ảnh ở biên xử lý riêng; phần trong xử lý theo đoạn ngang** | **Giảm số lần tính winding number; khử răng cưa chất lượng cao** | Hợp dữ liệu động | Nội dung tĩnh và động, độ phân giải Ultra HD | Tốc độ vẽ so với các phương pháp tốt nhất lúc đó | Nhanh hơn ổn định 2,5 lần (tới hơn 30 lần ở trường hợp cực đoan); nhanh hơn 10 lần với nội dung động (theo tóm tắt bài) | Path rendering hiệu quả trên GPU | Cần tính toán đa dụng trên GPU, không có trong WebGL |
-| **Đồ án EduViz2D** | Pipeline WebGL 2 + instancing (nền); Loop & Blinn cho đường cong (cải tiến) | Cảnh giáo dục: mảng, đồ thị, lưới, trạng thái vật lý, quỹ đạo | Euler / Verlet / RK4; Dijkstra / A*; ghi bước để phát lại | **Mỗi cột/node là 1 bản sao; quỹ đạo là 1 tứ giác 4 đỉnh mang (u, v)** | **`drawArraysInstanced`; fragment shader Loop & Blinn; shader sóng tính từng điểm ảnh** | `requestAnimationFrame`; phát lại, tua; chọn đối tượng bằng hit-test, GPU picking | Bộ kịch bản mục 4.3 | Thời gian khung hình, số lệnh vẽ, sai số hình học, sai số tích phân, số ô duyệt | Trình bày ở Ch.4 (Bảng 4.3–4.9) | Cài lại và đo kiểm chứng trên cùng kịch bản giáo dục | Loop & Blinn mới làm bậc 2; chưa dùng WebGPU |
+| **Đồ án EduViz2D** | Pipeline WebGL 2 + instancing (nền); Loop & Blinn cho đường cong (cải tiến) | Cảnh giáo dục: mảng, đồ thị, lưới, trạng thái vật lý, quỹ đạo | Euler / Verlet / RK4; Dijkstra / A*; ghi bước để phát lại | **Mỗi cột/node là 1 bản sao; quỹ đạo là 1 tứ giác 4 đỉnh mang (u, v)** | **`drawArraysInstanced`; fragment shader Loop & Blinn; shader sóng tính từng điểm ảnh** | `requestAnimationFrame`; phát lại, tua; chọn đối tượng bằng hit-test, GPU picking | Bộ kịch bản mục 4.3 | Thời gian khung hình, số lệnh vẽ, sai số hình học, sai số tích phân, số ô duyệt | Trình bày ở Ch.4 (Bảng 4.5–4.11) | Cài lại và đo kiểm chứng trên cùng kịch bản giáo dục | Loop & Blinn mới làm bậc 2; chưa dùng WebGPU |
 
 *Nhận xét:* các kỹ thuật GPU đều đóng góp ở C3 và C4, nhưng Kilgard & Bolz, Ganacim, Li cần tính năng không có trong WebGL. Loop & Blinn chỉ cần fragment shader nên cài được trên WebGL; bài báo chỉ đánh giá bằng hình, không công bố số đo, nên đồ án bổ sung phép đo sai số hình học (thử nghiệm f).
 
@@ -202,29 +202,9 @@ WebGPU được xem là **hướng phát triển** (Ch.5) do mức hỗ trợ c�
 
 **Kết chương.** Tóm lại, các ứng dụng giáo dục như PhET [7] hay VisuAlgo [9] đã giải tốt bài toán trực quan hóa đúng và dễ hiểu, nhưng phần lớn vẽ bằng SVG hoặc phần tử trang và không công bố số liệu hiệu năng. Các kỹ thuật vẽ 2D tiên tiến trên GPU (Kilgard và Bolz, 2012 [3]; Ganacim và cộng sự, 2014 [4]; Li và cộng sự, 2016 [5]) cần những tính năng chưa có trong WebGL. Đồ án vì vậy chọn pipeline WebGL 2 kết hợp instancing làm giải pháp nền, và phương pháp của Loop và Blinn (2005) [1], chỉ cần fragment shader, làm phương pháp cải tiến cho bước vẽ đường cong; Chương 3 trình bày hai giải pháp này, Chương 4 kiểm chứng chúng bằng bảy thử nghiệm.
 
-## Tài liệu tham khảo của Chương 2
+## Tài liệu tham khảo
 
-[1] C. Loop, J. Blinn. *Resolution independent curve rendering using programmable graphics hardware*. ACM TOG 24(3): 1000–1009, 2005. DOI 10.1145/1073204.1073303.
-[2] C. Green. *Improved alpha-tested magnification for vector textures and special effects*. SIGGRAPH 2007 Courses, tr. 9–18. DOI 10.1145/1281500.1281665.
-[3] M. Kilgard, J. Bolz. *GPU-accelerated path rendering*. ACM TOG 31(6): 172:1–172:10, 2012. DOI 10.1145/2366145.2366191.
-[4] F. Ganacim, R. Lima, L. H. de Figueiredo, D. Nehab. *Massively-parallel vector graphics*. ACM TOG 33(6): 229:1–229:14, 2014. DOI 10.1145/2661229.2661274.
-[5] R. Li, Q. Hou, K. Zhou. *Efficient GPU path rendering using scanline rasterization*. ACM TOG 35(6), 2016. DOI 10.1145/2980179.2982434.
-[6] T. Horak, U. Kister, R. Dachselt. *Comparing rendering performance of common web technologies for large graphs*. IEEE VIS 2018 Poster. mt.inf.tu-dresden.de/cnt/uploads/Horak-2018-Graph-Performance-Poster.pdf.
-[7] C. Wieman, W. Adams, K. Perkins. *PhET: Simulations that enhance learning*. Science 322(5902): 682–683, 2008. DOI 10.1126/science.1161948.
-[8] P. Falstad. *Ripple Tank Simulation*. falstad.com/ripple; mã nguồn github.com/pfalstad/ripplegl-ts (file `ts/renderer.js`: mô phỏng và vẽ bằng WebGL, đọc ngày 14/11/2026).
-[9] S. Halim et al. *VisuAlgo*. visualgo.net (khởi đầu 2011, Đại học Quốc gia Singapore).
-[10] *algorithm-visualizer*. github.com/algorithm-visualizer.
-[11] WHATWG. *HTML Living Standard – The canvas element*. html.spec.whatwg.org.
-[12] W3C. *Scalable Vector Graphics (SVG) 2*.
-[13] Khronos Group. *WebGL 2.0 Specification*.
-[14] PixiJS. *PixiJS v8 documentation* và ghi chú phát hành v8.1.0 (renderer mặc định WebGL). pixijs.com.
-[15] W3C. *WebGPU*; F. Beaufort, *WebGPU is now supported in major browsers*, web.dev, 25/11/2025. https://web.dev/blog/webgpu-supported-major-browsers.
-[16] PhET Interactive Simulations. *Scenery*. github.com/phetsims/scenery.
-[17] C. Hundhausen, S. Douglas, J. Stasko. *A meta-study of algorithm visualization effectiveness*. JVLC 13(3): 259–290, 2002. DOI 10.1006/jvlc.2002.0237.
-[18] T. Naps et al. *Exploring the role of visualization and engagement in computer science education*. ITiCSE-WGR 2002, tr. 131–152. DOI 10.1145/960568.782998.
-[19] C. Shaffer et al. *Algorithm visualization: the state of the field*. ACM TOCE 10(3), 2010. DOI 10.1145/1821996.1821997.
-[20] H. Banda, J. Nzabahimana. *Effect of integrating physics education technology simulations on students' conceptual understanding in physics: A review of literature*. Phys. Rev. PER 17, 023108, 2021. DOI 10.1103/PhysRevPhysEducRes.17.023108.
-[21] Apple. *Safari 15 Release Notes* (2021) – WebGL 2 bật mặc định. developer.apple.com.
+Danh mục đầy đủ [1]–[25] của cả báo cáo ở `Tai lieu tham khao.md`.
 
 ---
 

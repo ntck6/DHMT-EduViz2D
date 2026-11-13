@@ -4,7 +4,7 @@
 
 | Thư mục | Nội dung |
 |---|---|
-| `Documents/` | Tài liệu làm việc: yêu cầu của thầy, kế hoạch (`PLAN_PHAN_CONG.md`), dàn ý báo cáo (`DAN_Y_BAO_CAO.md`), **Chương 2 viết đầy đủ** (`Ch2. Cac cong trinh nghien cuu lien quan.md`), bảng đối chiếu yêu cầu (`KIEM_TRA_YEU_CAU.md`) |
+| `Documents/` | Tài liệu làm việc: yêu cầu của thầy, kế hoạch (`PLAN_PHAN_CONG.md`), bản đồ báo cáo (`DAN_Y_BAO_CAO.md`), **bản viết của từng chương** (`Ch0`–`Ch5`, `Tai lieu tham khao.md`), bảng đối chiếu yêu cầu (`KIEM_TRA_YEU_CAU.md`) |
 | `Source code/` | Web app minh họa; hướng dẫn code ở `Source code/README.md` |
 
 **8 thư mục nộp bài** theo `Documents/REGULATION.md` (mỗi thư mục có `README.md` ghi cần đặt gì, ai làm): `Doc/`, `BTLopNha/`, `Slide/`, `Reference/`, `Data/`, `Source code/`, `Video clip/`, `Personal Information/`. Khi nộp, chép 8 thư mục này lên Google Drive; thư mục `Documents/` là tài liệu nội bộ, không nộp.

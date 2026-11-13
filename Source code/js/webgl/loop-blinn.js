@@ -1,4 +1,4 @@
-// Phương pháp chính của Ch.3: vẽ đường cong Bézier bậc 2 bằng GPU theo
+// Phương pháp cải tiến của Ch.3: vẽ đường cong Bézier bậc 2 bằng GPU theo
 // Loop & Blinn (2005), "Resolution independent curve rendering using programmable
 // graphics hardware", ACM TOG 24(3). DOI 10.1145/1073204.1073303.
 //

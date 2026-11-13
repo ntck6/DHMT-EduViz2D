@@ -5,7 +5,7 @@ Cập nhật 13/11: theo file Chương 2 của nhóm (`Ch2. Cac cong trinh nghie
 ## 1. Đề tài và thầy cần gì
 - **Tên đề:** *Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục.* Yêu cầu: *trình bày cách sử dụng HTML5 + WebGL trong các tác vụ 2D (tĩnh và động).*
 - **Lĩnh vực:** hỗ trợ giáo dục (Tin học, Vật lý), đã chốt thay cho hướng thiết kế logo của đề gốc (xem `PROJECT_NAME.md`).
-- **Sản phẩm chính là báo cáo nghiên cứu** theo dàn ý `DAN_Y_BAO_CAO.md` (Ch.2 viết ở file Ch2). Web app EduViz2D là chương trình minh họa cho Ch.3–4.
+- **Sản phẩm chính là báo cáo nghiên cứu** đã có bản viết từng chương (`Ch0`–`Ch5`, bản đồ ở `DAN_Y_BAO_CAO.md`); việc còn lại là điền số đo, hình và hoàn thiện code. Web app EduViz2D là chương trình minh họa cho Ch.3–4.
 - **Ch.3 gồm hai lớp:** giải pháp nền **pipeline WebGL 2 + instancing** (mọi cảnh vẽ bằng nó); **phương pháp cải tiến đã công bố: Loop & Blinn 2005**, thay bước chia đường cong thành đoạn thẳng, áp dụng vẽ quỹ đạo ném xiên, kiểm chứng bằng **thử nghiệm (f)**.
 - **7 thử nghiệm Ch.4** (nhãn dùng chung với file Ch2 mục 2.6): (a) hiệu năng render · (b) Euler/Verlet/RK4 · (c) Dijkstra/A* · (d) instancing · (e) tính theo điểm ảnh GPU/CPU · **(f) Loop & Blinn** · (g) chọn đối tượng (tùy chọn).
 - **Nộp bài:** 8 thư mục theo `REGULATION.md` (khung đã tạo ở gốc repo, mỗi thư mục có `README.md` ghi cần đặt gì), gửi link Drive đúng ngày thi lý thuyết (không trước, không sau).
@@ -56,7 +56,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 ### Tuần 7 (11–17/11) – Nắm phương pháp, chạy được các phần cốt lõi
 | Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
-| **A** | ~~Đọc toàn văn Loop & Blinn 2005~~ **đã đối chiếu ngày 13/11** (bảng 3.3.5 trong dàn ý); đọc lại khi viết 3.3. Đo (f), (a), (d) trên máy thật, lưu CSV. Viết `cs/graph-algorithms.js` (BFS, DFS, Dijkstra bằng generator) + test. Chốt tên nhóm; hỏi đề bài BTLopNha | Ghi chú đọc bài; 3 file CSV; test đồ thị chạy |
+| **A** | ~~Đọc toàn văn Loop & Blinn 2005~~ **đã đối chiếu ngày 13/11** (Bảng 3.3 trong `Ch3. Phuong phap.md`); đọc lại khi viết 3.3. Đo (f), (a), (d) trên máy thật, lưu CSV. Viết `cs/graph-algorithms.js` (BFS, DFS, Dijkstra bằng generator) + test. Chốt tên nhóm; hỏi đề bài BTLopNha | Ghi chú đọc bài; 3 file CSV; test đồ thị chạy |
 | **B** | `cs/sorting-algorithms.js`: Bubble, Quick, Merge, Heap bằng generator + test. Nối vào `sorting.js`: Play/Pause/Step, tô màu, đặt `locked` khi chạy. Đọc Hundhausen 2002, Shaffer 2010 | Bài Sắp xếp chạy thuật toán; 2 phiếu tóm tắt |
 | **C** | Ném xiên: kéo đầu mũi tên v₀, bia mục tiêu (không đổi phần vẽ quỹ đạo). `physics/integrators.js`: Euler, Verlet, RK4 + test với nghiệm lò xo. Đọc Wieman 2008, Banda 2021, Wang 2025 | Kéo v₀ chạy được; test integrator; 3 phiếu tóm tắt |
 | Cả nhóm | Đọc file Ch2, làm các mục "Việc còn lại trước khi nộp" ở cuối file thuộc phần mình | File Ch2 hết việc tồn |
@@ -73,7 +73,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 | Người | Việc | Kết quả nộp cuối tuần |
 |---|---|---|
 | **A** | Đo lại (f), (a), (d) trên **2 máy**; vẽ Hình 4.8, 4.9; viết 3.1, 3.2, 3.7, 4.1, 4.3, Ch.4 phần (f), (a), (d); chụp hình Ch.3 | CSV cuối; Ch.3 + phần Ch.4 của A |
-| **B** | **Thử nghiệm (c)**: chạy A* và Dijkstra trên 90 bản đồ (mục 4.3), xuất CSV; Ch.4 phần (c). Nếu còn thời gian: trang đo (g). Dựng khung Slide theo 5 chương | Bảng 4.8; khung Slide |
+| **B** | **Thử nghiệm (c)**: chạy A* và Dijkstra trên 90 bản đồ (Ch.4 mục 4.3, Bảng 4.4), xuất CSV; Ch.4 phần (c). Nếu còn thời gian: trang đo (g). Dựng khung Slide theo 5 chương | Bảng 4.8; khung Slide |
 | **C** | **Thử nghiệm (e)**: bản CPU của sóng (Canvas 2D `ImageData`), đo 4 độ phân giải. **Thử nghiệm (b)**: 3 integrator × 3 bước Δt, xuất CSV sai số và năng lượng. Ch.4 phần (b), (e). Quay video demo bản nháp | Bảng 4.6, 4.7; video nháp |
 | Cả nhóm | Sửa lỗi từ demo nội bộ; **không thêm tính năng mới** | Bản nháp đủ 5 chương |
 
@@ -94,7 +94,7 @@ Hạn của mỗi tuần: **Chủ nhật 20:00**, đẩy code lên nhánh riêng
 | Cả nhóm | Tổng duyệt thuyết trình ít nhất 1 lần |
 
 ## 5. Tài liệu
-**Trọng tâm (Ch.2–3):** danh mục [1]–[21] ở cuối file Ch2 và bảng tài liệu trong `DAN_Y_BAO_CAO.md`. **Loop & Blinn 2005 là bài phải đọc toàn văn đầu tiên** (A). Các bài khác: Green 2007, Kilgard & Bolz 2012, Ganacim 2014, Li 2016, Horak 2018, Meisters 1975, Carucci 2005.
+**Trọng tâm (Ch.2–3):** danh mục chung [1]–[25] ở `Tai lieu tham khao.md`. **Loop & Blinn 2005 là bài phải đọc toàn văn đầu tiên** (A). Các bài khác: Green 2007, Kilgard & Bolz 2012, Ganacim 2014, Li 2016, Horak 2018, Meisters 1975, Carucci 2005.
 - Từ khóa tìm luận văn: `master thesis WebGL rendering performance`, `thesis GPU curve rendering`, `thesis interactive physics simulation web`.
 - Tài liệu học: MDN (Canvas, WebGL), webgl2fundamentals.org, The Book of Shaders, tài liệu PixiJS.
 

@@ -1,6 +1,6 @@
 // Chia đa giác đơn (lồi hoặc lõm, không tự cắt) thành tam giác bằng phương pháp
-// cắt tai (ear clipping). GPU chỉ vẽ được tam giác, nên mọi hình 2D đều phải qua
-// bước này (công đoạn "xử lý hình học" trong framework Ch.1).
+// cắt tai (ear clipping). GPU chỉ vẽ được điểm, đoạn thẳng và tam giác, nên mọi vùng tô
+// phải qua bước này (công đoạn C3 "ánh xạ sang hình học 2D", Bảng 1.2).
 //
 // Ý tưởng: đỉnh i là "tai" nếu tam giác (i-1, i, i+1) quay cùng chiều với đa giác
 // và không chứa đỉnh nào khác. Cắt tai đó ra, lặp lại đến khi còn 3 đỉnh.

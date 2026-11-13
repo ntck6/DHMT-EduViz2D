@@ -8,7 +8,7 @@
 //                              x(t) = A·cos(ωt), so sai số và năng lượng sau N bước.
 //   physics/oscillator.js    File này: vẽ lò xo/con lắc, cho chạy 3 integrator cạnh nhau.
 //
-// Số liệu sai số và năng lượng là thử nghiệm (b) của Ch.4 (bộ kịch bản ở DAN_Y_BAO_CAO.md mục 4.3:
+// Số liệu sai số và năng lượng là thử nghiệm (b) của Ch.4 (bộ kịch bản ở Documents/Ch4. Cai dat va thu nghiem.md, Bảng 4.4:
 // lò xo không ma sát, 3 phương pháp × Δt = 1/30, 1/60, 1/120 s, 10 chu kỳ).
 // Mẫu tách mô hình khỏi phần vẽ: physics/projectile-model.js + tests/projectile-model.test.mjs.
 //
