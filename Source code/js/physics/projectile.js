@@ -1,7 +1,7 @@
 // Ném xiên – người phụ trách: C (mô hình, tương tác); A (vẽ quỹ đạo bằng Loop & Blinn).
 //
 // Quỹ đạo là một parabol, trùng khít một đường cong Bézier bậc 2, nên được vẽ bằng
-// phương pháp chính của Ch.3: Loop & Blinn 2005 (js/webgl/loop-blinn.js) trên lớp
+// phương pháp cải tiến của Ch.3: Loop & Blinn 2005 (js/webgl/loop-blinn.js) trên lớp
 // WebGL thuần. Có thể đổi sang cách thông thường (chia 120 đoạn thẳng) và phóng to
 // quanh đỉnh để so sánh: đường gấp khúc lộ cạnh, Loop & Blinn vẫn mịn.
 // Hệ trục, chữ, vật và vector vẫn do PixiJS vẽ đè lên trên.

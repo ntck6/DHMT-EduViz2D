@@ -6,7 +6,7 @@
 export const lessons = [
   {
     id: 'sorting', group: 'Tin học', title: 'Sắp xếp', owner: 'B', status: 'todo',
-    task: 'Vẽ rất nhiều đối tượng cùng lúc bằng WebGL thuần (instancing)',
+    task: 'Vẽ rất nhiều đối tượng cùng lúc bằng WebGL thuần (instancing, giải pháp nền)',
     load: () => import('./cs/sorting.js'),
   },
   {
@@ -16,17 +16,17 @@ export const lessons = [
   },
   {
     id: 'astar', group: 'Tin học', title: 'Tìm đường A*', owner: 'B', status: 'todo',
-    task: 'Lưới nhiều ô cập nhật theo từng bước',
+    task: 'Lưới nhiều ô cập nhật theo từng bước; so A* với Dijkstra (thử nghiệm c)',
     load: () => import('./cs/astar.js'),
   },
   {
     id: 'projectile', group: 'Vật lý', title: 'Ném xiên', owner: 'C', status: 'done',
-    task: 'Vẽ đường cong bằng GPU theo Loop & Blinn 2005 (phương pháp chính) và animation theo thời gian',
+    task: 'Vẽ đường cong bằng GPU theo Loop & Blinn 2005 (phương pháp cải tiến) và animation theo thời gian',
     load: () => import('./physics/projectile.js'),
   },
   {
     id: 'oscillator', group: 'Vật lý', title: 'Con lắc & lò xo', owner: 'C', status: 'todo',
-    task: 'Cập nhật trạng thái theo thời gian (tích phân số)',
+    task: 'Cập nhật trạng thái theo thời gian; so Euler, Verlet, RK4 (thử nghiệm b)',
     load: () => import('./physics/oscillator.js'),
   },
   {

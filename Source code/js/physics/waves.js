@@ -13,7 +13,7 @@
 //
 // Kéo nguồn sóng: dùng core/drag.js rồi cập nhật uniform tương ứng.
 //
-// Thử nghiệm Ch.4 (c): viết thêm bản tính cùng công thức bằng JavaScript, vẽ bằng
+// Thử nghiệm Ch.4 (e): viết thêm bản tính cùng công thức bằng JavaScript, vẽ bằng
 // Canvas 2D (ImageData), rồi đo thời gian mỗi khung hình của hai bản ở nhiều độ phân giải.
 import { Filter, GlProgram, Graphics, defaultFilterVert } from '../pixi.js';
 
