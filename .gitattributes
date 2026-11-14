@@ -1,0 +1,12 @@
+# Mọi file văn bản lưu bằng LF trên mọi máy (khớp .editorconfig); Git tự nhận file nhị phân.
+* text=auto eol=lf
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.docx binary
+*.pptx binary
+
+# Thư viện tải sẵn: không hiện trong diff, không tính vào thống kê ngôn ngữ.
+"Source code/lib/*.min.js" -diff linguist-vendored

@@ -1,0 +1,10 @@
+{
+  "name": "eduviz2d",
+  "private": true,
+  "description": "EduViz2D: minh họa các tác vụ 2D tĩnh và động bằng HTML5 + WebGL",
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 5173",
+    "test": "node --test"
+  }
+}

@@ -6,4 +6,4 @@ Nhóm đã chốt hướng giáo dục, thay cho hướng thiết kế logo củ
 
 - Khung bài toán: 5 công đoạn C1–C5 (dữ liệu → tính toán → ánh xạ hình học → render → tương tác).
 - Giải pháp nền: pipeline WebGL 2 + instancing. Phương pháp cải tiến đã công bố: Loop & Blinn 2005.
-- Bản đồ báo cáo: `DAN_Y_BAO_CAO.md`; nội dung từng chương: `Ch0`–`Ch5`; tài liệu tham khảo: `Tai lieu tham khao.md`.
+- Bản đồ báo cáo: `../ke-hoach/DAN_Y_BAO_CAO.md`; nội dung từng chương: `Ch0`–`Ch5` trong `../bao-cao/`; tài liệu tham khảo: `../bao-cao/Tai lieu tham khao.md`.

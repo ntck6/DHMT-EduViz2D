@@ -14,14 +14,17 @@ python -m http.server 5173
 
 Thêm `?dev` vào địa chỉ (ví dụ `http://localhost:5173/?dev#template`) để thấy **Bài mẫu** trong menu.
 
-Kiểm tra công thức (cần Node.js):
+Kiểm tra công thức (cần Node.js), chạy trong thư mục này:
 
 ```bash
-node --test
+npm test
 ```
+
+`package.json` chỉ khai báo ES modules và hai lệnh tắt (`npm start` chạy máy chủ Python ở trên, `npm test` chạy `node --test`); không có thư viện nào phải cài.
 
 ## Cấu trúc thư mục
 ```
+package.json            Khai báo ES modules, lệnh npm start / npm test
 index.html              Trang chính: menu, khung vẽ, bảng điều khiển
 css/style.css
 lib/pixi.min.js         PixiJS 8.22.0, tải sẵn để chạy offline
@@ -118,7 +121,7 @@ Phím tắt trong mọi bài có Play/Pause: **Space** = Play/Pause, **→** = S
 - **Thử nghiệm chính (f) – Loop & Blinn:** mở `benchmark/curve.html`, bấm **Chạy thử nghiệm**, xong bấm **Tải CSV**. Trang đo sai số hình học, độ phủ, số đỉnh và thời gian vẽ của Loop & Blinn so với 120 và 30 đoạn thẳng, ở 4 mức phóng to.
 - **Thử nghiệm (a) – hiệu năng render:** mở `benchmark/index.html` (hoặc bấm **Benchmark** trên thanh tiêu đề), chọn cách vẽ và số đối tượng, bấm **Bắt đầu đo**, xong bấm **Tải CSV**.
 - **Thử nghiệm (d) – instancing:** bài *Pipeline WebGL từng bước*, bước instancing, đọc thời gian CPU của 1 lệnh vẽ so với N lệnh.
-- **Chưa có công cụ:** (b) tích phân số – bài Con lắc (C); (c) Dijkstra / A* – bài A* (B); (e) GPU so với CPU – bài Giao thoa sóng (C); (g) chọn đối tượng – tùy chọn (B). Bộ kịch bản của từng thử nghiệm: `Documents/DAN_Y_BAO_CAO.md` mục 4.3.
+- **Chưa có công cụ:** (b) tích phân số – bài Con lắc (C); (c) Dijkstra / A* – bài A* (B); (e) GPU so với CPU – bài Giao thoa sóng (C); (g) chọn đối tượng – tùy chọn (B). Bộ kịch bản của từng thử nghiệm: `Documents/bao-cao/Ch4. Cai dat va thu nghiem.md`, Bảng 4.4.
 
 Khi đo phải để cửa sổ hiện trên màn hình và đóng các tab khác. Mỗi CSV có ghi tên GPU; máy có 2 GPU thì kiểm tra cột này.
 

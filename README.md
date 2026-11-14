@@ -4,10 +4,14 @@
 
 | Thư mục | Nội dung |
 |---|---|
-| `Documents/` | Tài liệu làm việc: yêu cầu của thầy, kế hoạch (`PLAN_PHAN_CONG.md`), bản đồ báo cáo (`DAN_Y_BAO_CAO.md`), **bản viết của từng chương** (`Ch0`–`Ch5`, `Tai lieu tham khao.md`), bảng đối chiếu yêu cầu (`KIEM_TRA_YEU_CAU.md`) |
+| `Documents/` | Tài liệu làm việc nội bộ, chia 4 thư mục con (mục lục ở `Documents/README.md`) |
+| `Documents/yeu-cau/` | Yêu cầu của thầy: quy định nộp, khung 5 chương, cách làm, lỗi thường gặp, tên đề tài |
+| `Documents/ke-hoach/` | Kế hoạch và phân công (`PLAN_PHAN_CONG.md`), bản đồ báo cáo (`DAN_Y_BAO_CAO.md`), bảng đối chiếu yêu cầu (`KIEM_TRA_YEU_CAU.md`) |
+| `Documents/bao-cao/` | **Bản viết của từng chương** (`Ch0`–`Ch5`, `Tai lieu tham khao.md`), nguồn để ghép file Word trong `Doc/` |
+| `Documents/ghi-chu-doc/` | Phiếu tóm tắt tài liệu đã đọc của các thành viên |
 | `Source code/` | Web app minh họa; hướng dẫn code ở `Source code/README.md` |
 
-**8 thư mục nộp bài** theo `Documents/REGULATION.md` (mỗi thư mục có `README.md` ghi cần đặt gì, ai làm): `Doc/`, `BTLopNha/`, `Slide/`, `Reference/`, `Data/`, `Source code/`, `Video clip/`, `Personal Information/`. Khi nộp, chép 8 thư mục này lên Google Drive; thư mục `Documents/` là tài liệu nội bộ, không nộp.
+**8 thư mục nộp bài** theo `Documents/yeu-cau/REGULATION.md` (mỗi thư mục có `README.md` ghi cần đặt gì, ai làm): `Doc/`, `BTLopNha/`, `Slide/`, `Reference/`, `Data/`, `Source code/`, `Video clip/`, `Personal Information/`. Khi nộp, chép 8 thư mục này lên Google Drive; thư mục `Documents/` là tài liệu nội bộ, không nộp.
 
 ## Bắt đầu (cho thành viên mới)
 1. Cài **Git**, **VS Code** + tiện ích **Live Server**. Cài thêm **Node.js** nếu muốn chạy test.
@@ -19,7 +23,7 @@ git clone https://github.com/ntck6/DHMT-EduViz2D.git
 
 3. Mở thư mục `Source code` bằng VS Code → nhấp phải `index.html` → *Open with Live Server*.
 4. Đọc `Source code/README.md`, rồi mở trang với `?dev#template` để xem bài mẫu.
-5. Tìm file bài của mình (ghi trong `Documents/PLAN_PHAN_CONG.md`, mục Phân công): phần đầu file có danh sách việc cần làm.
+5. Tìm file bài của mình (ghi trong `Documents/ke-hoach/PLAN_PHAN_CONG.md`, mục Phân công): phần đầu file có danh sách việc cần làm.
 
 ## Quy trình làm việc với Git
 Mỗi bài làm trên một nhánh riêng, không commit thẳng vào `main`.

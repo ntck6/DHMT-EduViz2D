@@ -1,6 +1,6 @@
 # Data – Dữ liệu thử nghiệm và ảnh kết quả
 
-Theo `Documents/REGULATION.md` mục 1.5. Bộ kịch bản của từng thử nghiệm: `Documents/Ch4. Cai dat va thu nghiem.md`, Bảng 4.4; kết quả điền vào Bảng 4.5–4.11 của file đó.
+Theo `Documents/yeu-cau/REGULATION.md` mục 1.5. Bộ kịch bản của từng thử nghiệm: `Documents/bao-cao/Ch4. Cai dat va thu nghiem.md`, Bảng 4.4; kết quả điền vào Bảng 4.5–4.11 của file đó.
 
 | Thư mục con (tạo khi có dữ liệu) | Nội dung | Công cụ | Người |
 |---|---|---|---|

@@ -1,6 +1,6 @@
 # Dàn ý và bản đồ báo cáo – Xây dựng ứng dụng 2D (tĩnh và động) dựa vào HTML5 + WebGL hỗ trợ giáo dục
 
-Theo `FORMAT_PRESENTATION.md` (5 chương) và các lỗi cần tránh trong `MANUAL_FAULT.md`. Bảng đối chiếu từng yêu cầu: `KIEM_TRA_YEU_CAU.md`.
+Theo `../yeu-cau/FORMAT_PRESENTATION.md` (5 chương) và các lỗi cần tránh trong `../yeu-cau/MANUAL_FAULT.md`. Bảng đối chiếu từng yêu cầu: `KIEM_TRA_YEU_CAU.md`.
 
 **Từ ngày 14/11/2026, mọi chương đã có bản viết dạng văn trong file riêng.** File này không chép lại nội dung, chỉ giữ: cách hiểu báo cáo, bản đồ các file, trạng thái và việc còn lại, và bảng đối chiếu với yêu cầu của thầy. Dàn ý chi tiết cũ (có các đoạn mẫu) vẫn xem được trong lịch sử Git (commit 2340c69).
 
@@ -19,7 +19,7 @@ Thầy cần **báo cáo khảo sát và cài đặt lại**: giống một lu�
 **Trọng tâm là đồ họa 2D trên web bằng HTML5 + WebGL;** giáo dục (Tin học, Vật lý) là nơi sinh ra các cảnh cần vẽ. Khung chung là 5 công đoạn C1–C5 (Bảng 1.2). C2 (công thức vật lý, thuật toán) chỉ viết ngắn ở mục 3.4 và thử nghiệm (b), (c); các phần về vẽ và thử nghiệm (a), (d), (e), (f) viết trước và kỹ hơn. Ảnh chụp app chỉ dùng để minh họa một kỹ thuật hay một kết quả đo.
 
 ## 2. Bản đồ các file của báo cáo
-Thứ tự ghép vào Word:
+Các file dưới đây nằm ở `Documents/bao-cao/`. Thứ tự ghép vào Word:
 
 | Thứ tự | File | Nội dung | Người viết |
 |---|---|---|---|
